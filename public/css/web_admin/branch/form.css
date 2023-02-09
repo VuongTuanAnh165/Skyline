@@ -1,0 +1,43 @@
+.btn-disabled-none {
+    display: none;
+}
+
+.product-image-background {
+    height: 527px;
+}
+
+.product-image {
+    height: 100%;
+    width: auto;
+}
+
+.col-auto {
+    max-width: 110px;
+    max-height: 80px;
+}
+
+.col-auto img {
+    width: 100%;
+    height: 100%;
+}
+
+.product-image-thumb {
+    height: 87px;
+}
+
+.product-image-thumb img {
+    height: 100%;
+}
+
+.lead {
+    font-size: 16px;
+}
+
+.branch-show-content {
+    padding: 15px !important;
+}
+
+.disabledbutton {
+    pointer-events: none !important;
+    opacity: 0.4 !important;
+}

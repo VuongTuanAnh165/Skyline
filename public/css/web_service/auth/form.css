@@ -1,0 +1,10 @@
+.section-hero-login {
+    background: url('../../../template_web_service/images/background/6.jpg') center top / 100% no-repeat;
+}
+.error {
+    color: red;
+    width: 100%;
+}
+footer {
+    display: none;
+}

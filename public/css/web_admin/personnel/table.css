@@ -1,0 +1,12 @@
+.avatar-personnal {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #959595;
+}
+
+table .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

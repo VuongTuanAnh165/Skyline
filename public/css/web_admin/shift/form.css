@@ -1,0 +1,39 @@
+.form-group-button {
+    margin: 35px 0px;
+    float: right;
+}
+
+.form-group-button .create{
+    color: #ffffff;
+    border-color: #007bff;
+    background-color: #007bff;
+}
+
+.form-group-button .create i, .form-group-button .delete i, .form-group-button .save i, .form-group-button .edit i{
+    color: #ffffff;
+}
+
+.form-group-button .delete{
+    border-color: red;
+    background-color: red;
+}
+
+
+.form-group-button .save{
+    border-color: #7ad03a;
+    background-color: #7ad03a;
+}
+
+.form-group-button .edit {
+    border-color: #7b3ad0;
+    background-color: #7b3ad0;
+}
+
+.display-none {
+    display: none;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}

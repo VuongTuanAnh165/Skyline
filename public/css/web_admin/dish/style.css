@@ -1,0 +1,151 @@
+/*** Table Styles **/
+.modal-category .modal-dialog {
+    max-width: 80%;
+}
+
+.modal-category .table-fill {
+    background: white;
+    border-radius: 3px;
+    border-collapse: collapse;
+    margin: auto;
+    padding: 5px;
+    width: 95%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+}
+
+.modal-category th {
+    color: #D5DDE5;
+    background: #1b1e24;
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-weight: 100;
+    padding: 15px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+.modal-category th:first-child {
+    border-top-left-radius: 3px;
+}
+
+.modal-category th:last-child {
+    border-top-right-radius: 3px;
+    border-right: none;
+}
+
+.modal-category tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color: #666B85;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+.modal-category tr:hover td {
+    background: #4E5066;
+    color: #FFFFFF;
+    border-top: 1px solid #22262e;
+}
+
+.modal-category tr:first-child {
+    border-top: none;
+}
+
+.modal-category tr:last-child {
+    border-bottom: none;
+}
+
+.modal-category tr:nth-child(odd) td {
+    background: #EBEBEB;
+}
+
+.modal-category tr:nth-child(odd):hover td {
+    background: #4E5066;
+}
+
+.modal-category tr:last-child td:first-child {
+    border-bottom-left-radius: 3px;
+}
+
+.modal-category tr:last-child td:last-child {
+    border-bottom-right-radius: 3px;
+}
+
+.modal-category td {
+    background: #FFFFFF;
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 300;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+}
+
+.modal-category td:last-child {
+    border-right: 0px;
+}
+
+.modal-category th.text-left {
+    text-align: left;
+}
+
+.modal-category th.text-center {
+    text-align: center;
+}
+
+.modal-category th.text-right {
+    text-align: right;
+}
+
+.modal-category td.text-left {
+    text-align: left;
+}
+
+.modal-category td.text-center {
+    text-align: center;
+}
+
+.modal-category td.text-right {
+    text-align: right;
+}
+
+.upload-logo {
+    position: relative;
+    overflow: hidden;
+    width: 116px;
+    height: 116px;
+    border: 2px solid #3399FF;
+    background-color: #fff;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.up-logo {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 100%;
+    width: 100%;
+}
+
+.upload-logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.form-group .select2-container .select2-selection--single {
+    height: 38.58px;
+    border-radius: 0px;
+    border: 1px solid #ced4da;
+}

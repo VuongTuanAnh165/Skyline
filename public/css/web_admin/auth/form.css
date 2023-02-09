@@ -1,0 +1,38 @@
+button:disabled {
+    opacity: 0.5;
+}
+
+.wrap-input100 {
+    margin: 10px 0 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.wrap-input100 .label-form {
+    width: 30px;
+    position: absolute;
+    left: 15px;
+    margin: 0;
+}
+
+.wrap-input100 .label-eye-form {
+    width: 30px;
+    position: absolute;
+    right: 15px;
+    margin: 0;
+}
+
+.wrap-input100 .label-form img, .wrap-input100 .label-eye-form img {
+    width: 100%;
+}
+
+.login100-form-title {
+    padding-bottom: 30px;
+}

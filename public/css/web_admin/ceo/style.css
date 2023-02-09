@@ -1,0 +1,46 @@
+.carousel-control-prev, .carousel-control-next {
+    border: 0;
+    background-color: unset;
+}
+
+#carouselExampleIndicators {
+    height: 300px;
+}
+
+.carousel-item img {
+    object-fit: cover;
+}
+
+.hire-service {
+    margin-top: 30px;
+}
+
+.service-group-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item-list {
+    font-size: 1rem;
+    margin-right: 40px;
+}
+
+.item-list img {
+    width: 30px;
+    height: 30px;
+}
+
+.item-list span {
+    padding-left: 10px;
+}
+
+.image-service {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.display-none {
+    display: none;
+}
