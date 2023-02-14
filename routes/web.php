@@ -206,6 +206,7 @@ Route::prefix('sell')->group(function () {
                     Route::post('/show-item', [SellRestaurantEatController::class, 'showItem'])->name('sell.restaurant.eat.showItem');
                     Route::post('/save-item', [SellRestaurantEatController::class, 'saveItem'])->name('sell.restaurant.eat.saveItem');
                     Route::post('/delete-order', [SellRestaurantEatController::class, 'deleteOrder'])->name('sell.restaurant.eat.deleteOrder');
+                    Route::get('/payment', [SellRestaurantEatController::class, 'payment'])->name('sell.restaurant.eat.payment');
                 });
             });
         });
