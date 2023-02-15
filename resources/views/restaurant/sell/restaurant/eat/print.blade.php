@@ -109,16 +109,16 @@
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 @php
-                                                if($data->update_by == -1) {
-                                                $update_by = App\Models\Ceo::find($restaurant->ceo_id);
-                                                $position = 'Quản lý';
-                                                } else {
-                                                $update_by = App\Models\Personnel::leftJoin('positions', 'positions.id', 'personnels.position_id')
-                                                ->select('personnels.*', 'positions.name as position_name')
-                                                ->where('id', $data->update_by)
-                                                ->first();
-                                                $position = $update_by->position_name;
-                                                }
+                                                    if($data->update_by == -1) {
+                                                        $update_by = App\Models\Ceo::find($restaurant->ceo_id);
+                                                        $position = 'Quản lý';
+                                                    } else {
+                                                        $update_by = App\Models\Personnel::leftJoin('positions', 'positions.id', 'personnels.position_id')
+                                                            ->select('personnels.*', 'positions.name as position_name')
+                                                            ->where('id', $data->update_by)
+                                                            ->first();
+                                                        $position = $update_by->position_name;
+                                                    }
                                                 @endphp
                                                 <p class="mb-1 text-danger">Thu ngân:</p>
                                                 <a href="javascript:void(0)" class="text-decoration-none d-flex border rounded p-2 bg-light align-items-center mb-2">
@@ -134,10 +134,10 @@
                                                     <p class="mb-1 text-danger">Bàn:</p>
                                                     <ul class="mb-0 font-weight-bold text-dark">
                                                         @foreach($data->table_id as $value)
-                                                        @php
-                                                        $tables = App\Models\Table::select('name')->where('id', $value)->first();
-                                                        @endphp
-                                                        <li>Bàn số: {{ $tables->name }}</li>
+                                                            @php
+                                                                $tables = App\Models\Table::select('name')->where('id', $value)->first();
+                                                            @endphp
+                                                            <li>Bàn số: {{ $tables->name }}</li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -145,47 +145,47 @@
                                             <div class="details-page border-top pt-3">
                                                 <h6 class="mb-3 text-danger">Chi tiết hóa đơn</h6>
                                                 @foreach($data->detail as $value)
-                                                @php
-                                                $dish = App\Models\Dish::find($value[0]);
-                                                @endphp
-                                                <div class="d-flex align-items-center">
-                                                    <p class="bg-light rounded px-2 mr-3">{{ $value[1] }}</p>
-                                                    <p class="text-dark">{{ $dish->name }} ({{ number_format($dish->price) }} VND)</p>
-                                                    <p class="ml-auto text-dark font-weight-bold">{{ number_format($value[1] * $dish->price) }} VND</p>
-                                                </div>
-                                                @if(count($value[2]) > 0)
-                                                <ul>
-                                                    @foreach($value[2] as $value_item)
-                                                    <li>
-                                                        @foreach($value_item as $item)
-                                                        @php
-                                                        $menu = App\Models\Menu::select('name')->where('id', $item[0])->first();
-                                                        @endphp
-                                                        <div>
-                                                            {{$menu->name}}:
-                                                            @foreach($item[1] as $value)
-                                                            @php
-                                                            $menu_item = App\Models\MenuItem::select('name', 'add_price')->where('id', $value)->first();
-                                                            @endphp
-                                                            @if($menu_item)
-                                                            <span>
-                                                                <ul>
-                                                                    <li>
-                                                                        {{ $menu_item->name }}
-                                                                        <span style="float:right;" class="font-weight-bold"> + {{ number_format($menu_item->add_price) }} VND</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </span>
-                                                            @else
-                                                            <span>Không có</span>
-                                                            @endif
+                                                    @php
+                                                        $dish = App\Models\Dish::find($value[0]);
+                                                    @endphp
+                                                    <div class="d-flex align-items-center">
+                                                        <p class="bg-light rounded px-2 mr-3">{{ $value[1] }}</p>
+                                                        <p class="text-dark">{{ $dish->name }} ({{ number_format($dish->price) }} VND)</p>
+                                                        <p class="ml-auto text-dark font-weight-bold">{{ number_format($value[1] * $dish->price) }} VND</p>
+                                                    </div>
+                                                    @if(count($value[2]) > 0)
+                                                        <ul>
+                                                            @foreach($value[2] as $value_item)
+                                                                <li>
+                                                                    @foreach($value_item as $item)
+                                                                        @php
+                                                                            $menu = App\Models\Menu::select('name')->where('id', $item[0])->first();
+                                                                        @endphp
+                                                                        <div>
+                                                                            {{$menu->name}}:
+                                                                            @foreach($item[1] as $value)
+                                                                                @php
+                                                                                    $menu_item = App\Models\MenuItem::select('name', 'add_price')->where('id', $value)->first();
+                                                                                @endphp
+                                                                                @if($menu_item)
+                                                                                    <span>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                {{ $menu_item->name }}
+                                                                                                <span style="float:right;" class="font-weight-bold"> + {{ number_format($menu_item->add_price) }} VND</span>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </span>
+                                                                                @else
+                                                                                    <span>Không có</span>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endforeach
+                                                                </li>
                                                             @endforeach
-                                                        </div>
-                                                        @endforeach
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                                @endif
+                                                        </ul>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                             <div>
