@@ -10,7 +10,7 @@
             placeholder: "{{ __('messages.admin.position.table.work_type') }}"
         });
 
-        $(document).on('click','.btn-modal-form','click', function() {
+        $(document).on('click', '.btn-modal-form', 'click', function() {
             $(".error.error-be").text('');
             let id = $(this).data('id');
             let url = $(this).data('url');
@@ -64,7 +64,9 @@
                 success: function(response) {
                     if (response.code == 200) {
                         $('#modalFormPosition').modal('hide');
-                        if(!alert('Cập nhật thành công! Ấn OK để tiếp tục')){window.location.reload();}
+                        if (!alert('Cập nhật thành công! Ấn OK để tiếp tục')) {
+                            window.location.reload();
+                        }
                     } else {
                         toastr.error('Thất bại', {
                             timeOut: 5000
@@ -72,20 +74,20 @@
                     }
                 },
                 error: function(xhr) {
-                    if(xhr.responseJSON.errors.name){
-                        $("input[name='name']").after(`<div class="error error-be">`+xhr.responseJSON.errors.name+`</div>`);
+                    if (xhr.responseJSON.errors.name) {
+                        $("input[name='name']").after(`<div class="error error-be">` + xhr.responseJSON.errors.name + `</div>`);
                         $('#btn-submit-position').addClass('disabledbutton')
                     }
-                    if(xhr.responseJSON.errors.wage){
-                        $("input[name='wage']").after(`<div class="error error-be">`+xhr.responseJSON.errors.wage+`</div>`);
+                    if (xhr.responseJSON.errors.wage) {
+                        $("input[name='wage']").after(`<div class="error error-be">` + xhr.responseJSON.errors.wage + `</div>`);
                         $('#btn-submit-position').addClass('disabledbutton')
                     }
-                    if(xhr.responseJSON.errors.work_type){
-                        $("select[name='work_type[]']").after(`<div class="error error-be">`+xhr.responseJSON.errors.work_type+`</div>`);
+                    if (xhr.responseJSON.errors.work_type) {
+                        $("select[name='work_type[]']").after(`<div class="error error-be">` + xhr.responseJSON.errors.work_type + `</div>`);
                         $('#btn-submit-position').addClass('disabledbutton')
                     }
-                    if(xhr.responseJSON.errors.amount_personnel){
-                        $("input[name='amount_personnel']").after(`<div class="error error-be">`+xhr.responseJSON.errors.amount_personnel+`</div>`);
+                    if (xhr.responseJSON.errors.amount_personnel) {
+                        $("input[name='amount_personnel']").after(`<div class="error error-be">` + xhr.responseJSON.errors.amount_personnel + `</div>`);
                         $('#btn-submit-position').addClass('disabledbutton')
                     }
                 }

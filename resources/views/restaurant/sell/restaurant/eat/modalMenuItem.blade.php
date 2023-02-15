@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" id="btn-item-save" data-detail_order_log_id="" data-url="{{ route('sell.restaurant.eat.saveItem') }}" class="btn btn-primary btn-block">Update preferences</button>
+                <button type="button" id="btn-item-save" data-detail_order_log_id="" data-url="{{ route('sell.restaurant.eat.saveItem') }}" class="btn btn-primary btn-block">Xác nhận</button>
             </div>
         </div>
     </div>

@@ -35,12 +35,8 @@
         function checkStatus() {
             if ($('.table-detail').find('tbody tr').length < 1 || $('#table_id option:selected').length < 1 || $('#status').is(":checked")) {
                 $('#status').prop('disabled', true);
-                // $("#btn-delete-order").prop('disabled', true);
-                // $("#btn-payment-order").prop('disabled', false);
             } else {
                 $('#status').prop('disabled', false);
-                // $("#btn-delete-order").prop('disabled', false);
-                // $("#btn-payment-order").prop('disabled', true);
             }
         }
         checkStatus();

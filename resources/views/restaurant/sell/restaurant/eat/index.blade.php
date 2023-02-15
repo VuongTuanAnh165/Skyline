@@ -1,14 +1,14 @@
 @extends('restaurant.sell.layouts.master')
-@section('title', __('messages.admin.home') )
+@section('title', 'Ăn tại quán' )
 @section('addcss')
     <link rel="stylesheet" href="{{ asset('css/web_sell/eat/style.css') }}">
 @stop
 @section('content')
 <div class="container-header row">
-    <a href="" class="col-md-6 alert alert-danger header-a">
+    <a href="{{ route('sell.restaurant.eat.index') }}" class="col-md-6 alert alert-danger header-a">
         Tạo hóa đơn
     </a>
-    <a href="" class="col-md-6 alert alert-secondary header-a">
+    <a href="{{ route('sell.restaurant.eat.order') }}" class="col-md-6 alert alert-secondary header-a">
         Hóa đơn
     </a>
 </div>
@@ -20,8 +20,10 @@
         @foreach($tables as $table)
             @php
                 $choose_disabled = 'disabled';
+                $url = "javascript:void(0)";
                 foreach ($order_user_log_all as $item) {
                     if (in_array($table->id, $item->table_id)) {
+                        $url = route('sell.restaurant.eat.payment', ['order_id' => $item->order_id]);
                         foreach($item->status as $value) {
                             if($value[0] == 7) {
                                 $choose_disabled = '';
@@ -41,7 +43,7 @@
                     <div class="menu-table">
                         <a href="javascript:void(0)" data-url="{{ route('sell.restaurant.eat.create', ['table_id' => $table->id]) }}" class="{{ $table->status == 1 ? 'display-none' : '' }} create-order"><button class="btn btn-success">Đặt món</button></a>
                         <a href="{{ route('sell.restaurant.eat.edit', ['table_id' => $table->id]) }}" class="{{ $table->status == 0 ? 'display-none' : '' }}"><button class="btn btn-info">Chi tiết</button></a>
-                        <a href=""><button class="btn btn-danger" {{$choose_disabled}}>Thanh toán</button></a>
+                        <a href="{{$url}}"><button class="btn btn-danger" {{$choose_disabled}}>Thanh toán</button></a>
                     </div>
                 </div>
             </div>

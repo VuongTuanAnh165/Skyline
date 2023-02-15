@@ -8,10 +8,10 @@
 @stop
 @section('content')
 <div class="container-header row">
-    <a href="" class="col-md-6 alert alert-danger header-a">
+    <a href="{{ route('sell.restaurant.eat.index') }}" class="col-md-6 alert alert-danger header-a">
         Tạo hóa đơn
     </a>
-    <a href="" class="col-md-6 alert alert-secondary header-a">
+    <a href="{{ route('sell.restaurant.eat.order') }}" class="col-md-6 alert alert-secondary header-a">
         Hóa đơn
     </a>
 </div>

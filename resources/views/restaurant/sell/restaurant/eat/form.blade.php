@@ -147,7 +147,7 @@
                             <button id="btn-delete-order" data-url="{{ route('sell.restaurant.eat.deleteOrder') }}" class="btn btn-warning btn-block">Hủy đơn</button>
                         </div>
                         <div class="col-9 pr-0">
-                            <button id="btn-payment-order" disabled class="btn btn-primary btn-block">Thanh toán</button>
+                            <a href="{{ route('sell.restaurant.eat.payment', ['order_id' => $order_user_log[0]->order_id]) }}"><button id="btn-payment-order" disabled class="btn btn-primary btn-block">Thanh toán</button></a>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sell;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\DetailItemLog;
 use App\Models\DetailMenuLog;
 use App\Models\DetailOrderLog;
@@ -10,6 +11,8 @@ use App\Models\Dish;
 use App\Models\Menu;
 use App\Models\OrderUser;
 use App\Models\OrderUserLog;
+use App\Models\Promotion;
+use App\Models\Restaurant;
 use App\Models\Table;
 use Carbon\Carbon;
 use Exception;
@@ -100,7 +103,7 @@ class SellRestaurantEatController extends Controller
             if (in_array($table_id, $item->table_id)) {
                 array_push($order_user_log, $item);
             } else {
-                foreach($item->table_id as $value) {
+                foreach ($item->table_id as $value) {
                     array_push($arr_table, $value);
                 }
             }
@@ -335,7 +338,7 @@ class SellRestaurantEatController extends Controller
             try {
                 $data = DetailOrderLog::find($request->id);
                 $count_detail_item_log = DetailItemLog::where('detail_order_log_id', $request->id)->count();
-                if($count_detail_item_log > $request->quantity) {
+                if ($count_detail_item_log > $request->quantity) {
                     DetailItemLog::where('detail_order_log_id', $request->id)->orderBy('id', 'desc')->limit($count_detail_item_log - $request->quantity)->delete();
                 }
                 $params = [
@@ -477,8 +480,166 @@ class SellRestaurantEatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function payment()
+    public function payment($order_id)
     {
-        return view($this->pathView . 'payment');
+        $order_user_log = OrderUserLog::where('order_id', $order_id)->first();
+        $detail_order_logs = DetailOrderLog::query()
+            ->leftJoin('dishes', 'dishes.id', 'detail_order_logs.dish_id')
+            ->select(
+                'detail_order_logs.*',
+                'dishes.name as dish_name',
+                'dishes.price as dish_price',
+            )
+            ->where('order_id', $order_id)->get();
+        $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
+        $promotions = Promotion::query()->where('type', 3)->where('restaurant_id', $restaurant_id)->get();
+        return view($this->pathView . 'payment', compact('order_user_log', 'detail_order_logs', 'promotions'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addPromotion(Request $request, $order_id)
+    {
+        if ($request->ajax()) {
+            try {
+                DB::beginTransaction();
+                $data = OrderUserLog::where('order_id', $order_id)->first();
+                $params = $request->only([
+                    'promotion_id',
+                ]);
+                if (Auth::guard('personnel')->user()) {
+                    $params['update_by'] = Auth::guard('personnel')->user()->id;
+                } else {
+                    $params['update_by'] = -1;
+                }
+                $data->update($params);
+                DB::commit();
+                return response()->json([
+                    'code' => 200,
+                    'data' => $data,
+                ]);
+            } catch (Exception $e) {
+                Log::error('[SellRestaurantEatController][addPromotion] error ' . $e->getMessage());
+                DB::rollBack();
+                return response()->json([
+                    'code' => 400,
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => 400,
+            ]);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pay(Request $request, $order_id)
+    {
+        if ($request->ajax()) {
+            try {
+                DB::beginTransaction();
+                $data = OrderUserLog::where('order_id', $order_id)->first();
+                //update table
+                Table::whereIn('id', $data->table_id)->update(['status' => 0]);
+                //update status
+                $status = $data->status;
+                $status_new = [
+                    10,
+                    Carbon::now()->toDateTimeString(),
+                ];
+                array_push($status, $status_new);
+                $detail_order = DetailOrderLog::where('order_id', $order_id)->get();
+                $detail = [];
+                foreach($detail_order as $value_order) {
+                    $detail_item = DetailItemLog::where('detail_order_log_id', $value_order->id)->get();
+                    $item = [];
+                    foreach($detail_item as $value_item) {
+                        array_push($item, $value_item->item);
+                    }
+                    $dish = [
+                        $value_order->dish_id,
+                        $value_order->quantity,
+                        $item
+                    ];
+                    array_push($detail, $dish);
+                }
+                $params = [
+                    'order_id' => $order_id,
+                    'table_id' => $data->table_id,
+                    'total_money' => $request->total_money,
+                    'payment' => $request->payment,
+                    'branch_id' => $data->branch_id,
+                    'create_by' => $data->create_by,
+                    'update_by' => $data->update_by,
+                    'status_payment' => 1,
+                    'status' => $status,
+                    'type' => $data->type,
+                    'promotion_id' => $request->promotion_id,
+                    'implementation_date' => Carbon::now()->toDateTimeString(),
+                    'detail' => $detail,
+                    'created_at' => $data->created_at,
+                ];
+                OrderUserLog::where('order_id', $order_id)->delete();
+                DetailMenuLog::query()
+                    ->leftJoin('detail_order_logs', 'detail_order_logs.id', 'detail_menu_logs.detail_order_log_id')
+                    ->where('detail_order_logs.order_id', $order_id)->delete();
+                DetailItemLog::query()
+                    ->leftJoin('detail_order_logs', 'detail_order_logs.id', 'detail_item_logs.detail_order_log_id')
+                    ->where('detail_order_logs.order_id', $order_id)->delete();
+                DetailOrderLog::where('order_id', $order_id)->delete();
+                $order_user = OrderUser::create($params);
+                $url = route('sell.restaurant.eat.print', ['id' => $order_user->id]);
+                DB::commit();
+                return response()->json([
+                    'code' => 200,
+                    'url' => $url,
+                ]);
+            } catch (Exception $e) {
+                Log::error('[SellRestaurantEatController][pay] error ' . $e->getMessage());
+                DB::rollBack();
+                return response()->json([
+                    'code' => 400,
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => 400,
+            ]);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function order()
+    {
+        $branch_id = session('branch_id');
+        $datas = OrderUser::where('branch_id', $branch_id)->orderBy('implementation_date', 'desc')->get();
+        return view($this->pathView . 'order', compact('datas'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id)
+    {
+        $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
+        $restaurant = Restaurant::find($restaurant_id);
+        $data = OrderUser::find($id);
+        $branch_id = session('branch_id');
+        $branch = Branch::find($branch_id);
+        return view($this->pathView . 'print', compact('restaurant', 'data', 'branch'));
     }
 }

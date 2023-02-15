@@ -206,7 +206,11 @@ Route::prefix('sell')->group(function () {
                     Route::post('/show-item', [SellRestaurantEatController::class, 'showItem'])->name('sell.restaurant.eat.showItem');
                     Route::post('/save-item', [SellRestaurantEatController::class, 'saveItem'])->name('sell.restaurant.eat.saveItem');
                     Route::post('/delete-order', [SellRestaurantEatController::class, 'deleteOrder'])->name('sell.restaurant.eat.deleteOrder');
-                    Route::get('/payment', [SellRestaurantEatController::class, 'payment'])->name('sell.restaurant.eat.payment');
+                    Route::get('/payment/{order_id}', [SellRestaurantEatController::class, 'payment'])->name('sell.restaurant.eat.payment');
+                    Route::post('/add-promotion/{order_id}', [SellRestaurantEatController::class, 'addPromotion'])->name('sell.restaurant.eat.addPromotion');
+                    Route::post('/pay/{order_id}', [SellRestaurantEatController::class, 'pay'])->name('sell.restaurant.eat.pay');
+                    Route::get('/order', [SellRestaurantEatController::class, 'order'])->name('sell.restaurant.eat.order');
+                    Route::get('/print/{id}', [SellRestaurantEatController::class, 'print'])->name('sell.restaurant.eat.print');
                 });
             });
         });
