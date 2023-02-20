@@ -190,15 +190,17 @@
                                             </div>
                                             <div>
                                                 <div class="div_promotion">
-                                                    @php
-                                                        $promotions = App\Models\Promotion::whereIn('id', $data->promotion_id)->get();
-                                                    @endphp
-                                                    @foreach($promotions as $promotion)
-                                                        <div class="d-flex align-items-center pt-2 border-top">
-                                                            <p class="text-dark font-weight-bold m-0">{{ $promotion->name }} - điều kiện: > {{number_format($promotion->condition)}} VND <span>( Trị giá: {{number_format($promotion->value)}} VND )</span></p>
-                                                            <p class="ml-auto text-danger m-0 font-weight-bold">- {{ number_format($promotion->value) }} VND</p>
-                                                        </div>
-                                                    @endforeach
+                                                    @if($data->promotion_id)
+                                                        @php
+                                                            $promotions = App\Models\Promotion::whereIn('id', $data->promotion_id)->get();
+                                                        @endphp
+                                                        @foreach($promotions as $promotion)
+                                                            <div class="d-flex align-items-center pt-2 border-top">
+                                                                <p class="text-dark font-weight-bold m-0">{{ $promotion->name }} - điều kiện: > {{number_format($promotion->condition)}} VND <span>( Trị giá: {{number_format($promotion->value)}} VND )</span></p>
+                                                                <p class="ml-auto text-danger m-0 font-weight-bold">- {{ number_format($promotion->value) }} VND</p>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
                                                 <div class="d-flex align-items-center py-2 border-top">
                                                     <p class="text-dark font-weight-bold m-0">Tổng tiền</p>
