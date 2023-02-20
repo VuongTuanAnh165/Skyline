@@ -14,7 +14,7 @@
                 <div class="mr-3 bg-light rounded p-2 osahan-icon"><i class="mdi mdi-email-outline"></i></div>
                 <div class="w-100">
                     <p class="mb-0 small font-weight-bold text-dark">Email</p>
-                    <input type="email" name="email" class="form-control form-control-sm p-0 border-input border-0 rounded-0" placeholder="Enter Your Email">
+                    <input type="email" name="email" class="form-control form-control-sm p-0 border-input border-0 rounded-0" value="{{ old('email') ? old('email') : '' }}" placeholder="Enter Your Email">
                 </div>
             </div>
             @if ($errors->first('email'))
@@ -24,7 +24,7 @@
                 <div class="mr-3 bg-light rounded p-2 osahan-icon"><i class="mdi mdi-form-textbox-password"></i></div>
                 <div class="w-100">
                     <p class="mb-0 small font-weight-bold text-dark">Password</p>
-                    <input type="password" name="password" class="form-control form-control-sm p-0 border-input border-0 rounded-0" placeholder="Enter Password">
+                    <input type="password" name="password" class="form-control form-control-sm p-0 border-input border-0 rounded-0" value="{{ old('password') ? old('password') : '' }}" placeholder="Enter Password">
                 </div>
             </div>
             @if ($errors->first('password'))
