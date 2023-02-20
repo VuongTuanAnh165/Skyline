@@ -558,7 +558,7 @@
                 success: function(response) {
                     if (response.code == 200) {
                         toastr.success('Cập nhật số lượng món thành công', {
-                            timeOut: 5000
+                            timeOut: 5000,
                         });
                     } else {
                         toastr.error('Cập nhật số lượng món thất bại', {

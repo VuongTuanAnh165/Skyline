@@ -4,9 +4,14 @@
     <style>
         .service-item {
             margin-top: 30px;
+            box-shadow: rgb(17 17 26 / 10%) 0px 4px 16px, rgb(17 17 26 / 10%) 0px 8px 24px, rgb(17 17 26 / 10%) 0px 16px 56px;
         }
         .service-item:nth-child(1), .service-item:nth-child(2), .service-item:nth-child(3) {
             margin-top: 0px;
+        }
+        .service-group {
+            display: flex;
+            justify-content: space-evenly;
         }
     </style>
 @stop
@@ -35,8 +40,7 @@
     <section id="section-hero" class="no-top mt-100" aria-label="section">
         <div class="container">
             <div class="spacer-10"></div>
-            <div class="g-custom-x" style="display: flex;
-                justify-content: center;">
+            <div class="g-custom-x service-group">
                 @foreach($service_types as $service_type)
                     <div class="service-item">
                         <div class="pricing-table pricing-s1">

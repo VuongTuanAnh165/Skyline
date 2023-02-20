@@ -115,7 +115,7 @@
                                                     } else {
                                                         $update_by = App\Models\Personnel::leftJoin('positions', 'positions.id', 'personnels.position_id')
                                                             ->select('personnels.*', 'positions.name as position_name')
-                                                            ->where('id', $data->update_by)
+                                                            ->where('personnels.id', $data->update_by)
                                                             ->first();
                                                         $position = $update_by->position_name;
                                                     }

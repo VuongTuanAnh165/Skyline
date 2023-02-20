@@ -1,24 +1,26 @@
 <script>
     $(document).ready(function() {
+        var eye_close =  "{{ asset('img/eye_close.svg') }}";
+        var eye_open =  `{{ asset('img/eye_open.svg') }}`;
         $('#eye').click(function() {
             let image = $(this).children();
             let input = $(this).prev().prev().prev();
             input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
-            image.attr('src', image.attr('src') === `{{ asset('img/eye_close.svg') }}` ? `{{ asset('img/eye_open.svg') }}` : `{{ asset('img/eye_close.svg') }}`);
+            image.attr('src', image.attr('src') === eye_close ? eye_open : eye_close);
         });
 
         $('#eye-old').click(function() {
             let image = $(this).children();
             let input = $(this).prev().prev().prev();
             input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
-            image.attr('src', image.attr('src') === `{{ asset('img/eye_close.svg') }}` ? `{{ asset('img/eye_open.svg') }}` : `{{ asset('img/eye_close.svg') }}`);
+            image.attr('src', image.attr('src') === eye_close ? eye_open : eye_close);
         });
 
         $('#eye-confirmation').click(function() {
             let image = $(this).children();
             let input = $(this).prev().prev().prev();
             input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
-            image.attr('src', image.attr('src') === `{{ asset('img/eye_close.svg') }}` ? `{{ asset('img/eye_open.svg') }}` : `{{ asset('img/eye_close.svg') }}`);
+            image.attr('src', image.attr('src') === eye_close ? eye_open : eye_close);
         });
 
         $(document).on("click", "#btn-change-password", function() {

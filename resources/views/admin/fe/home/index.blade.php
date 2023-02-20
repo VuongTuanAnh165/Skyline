@@ -1,5 +1,17 @@
 @extends('admin.fe.layouts.master')
 @section('title', __('messages.admin.home') )
+@section('addcss')
+    <style>
+        .item-service-type {
+            box-shadow: rgb(17 17 26 / 10%) 0px 4px 16px, rgb(17 17 26 / 10%) 0px 8px 24px, rgb(17 17 26 / 10%) 0px 16px 56px;
+        }
+        .list-service-type {
+            display: flex;
+            justify-content: space-evenly;
+            border: none;
+        }
+    </style>
+@stop
 @section('content')
 @php 
     $service_home = !empty($service_show_home) ? $service_show_home : $service_first;
@@ -119,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <div class="list-service-type de_pricing-tables shadow-soft g-0" style="display: flex; justify-content: center; border: none;">
+            <div class="list-service-type de_pricing-tables shadow-soft g-0">
                 @php
                     $service_types = \App\Models\ServiceType::where('service_id', $service_home->id)->get();
                 @endphp

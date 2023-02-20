@@ -178,7 +178,8 @@
                 success: function(response) {
                     if (response.code == 200) {
                         if (!alert('Thanh toán thành công! Ấn OK để tiếp tục')) {
-                            window.location = response.url;
+                            window.open(response.url, '_blank');
+                            window.location = `{{route('sell.restaurant.eat.order')}}`;
                         }
                     } else {
                         toastr.error('Thanh toán thất bại', {
@@ -214,7 +215,8 @@
                 success: function(response) {
                     if (response.code == 200) {
                         if (!alert('Thanh toán thành công! Ấn OK để tiếp tục')) {
-                            window.location = response.url;
+                            window.open(response.url, '_blank');
+                            window.location = `{{route('sell.restaurant.eat.order')}}`;
                         }
                     } else {
                         toastr.error('Thanh toán thất bại', {

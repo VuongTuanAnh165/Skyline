@@ -86,10 +86,10 @@
     <!-- User -->
     <div class="d-none d-md-block">
         <div class="user d-flex align-items-center p-3">
-            <div class="pr-3">
+            <div class="pr-3" style="width: 30%;">
                 <img style="width: 100%; border-radius: 50%;" src="{{ asset('storage/'.$account->avatar) }}">
             </div>
-            <div>
+            <div style="width: 70%">
                 <p class="mb-0 text-white">{{ $account->name }}</p>
                 <p class="mb-0 text-white-50 small">{{ $account->email }}</p>
             </div>
