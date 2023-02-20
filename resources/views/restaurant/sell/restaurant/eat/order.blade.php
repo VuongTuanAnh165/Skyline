@@ -83,7 +83,7 @@
                             <tr>
                                 <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                 <th>ID hóa đơn</th>
-                                <th class="text-center">Bàn</th>
+                                <th>Bàn</th>
                                 <th class="text-center">Thành tiền</th>
                                 <th class="text-center">Ngày thanh toán</th>
                                 <th class="text-center">{{ __('messages.admin.table.create_by') }}</th>
