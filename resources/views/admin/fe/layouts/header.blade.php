@@ -98,14 +98,14 @@
                                     $active = 'active';
                                 }
                             @endphp
-                            <li><a class="menu-item {{$active}}" href="#">Chính sách</a>
+                            <li><a class="menu-item {{$active}}" href="javascript:void(0)">Chính sách</a>
                                 <ul>
                                     @foreach($policys as $policy)
                                     <li><a class="menu-item" href="{{route('admin.fe.policy.index', ['id' => $policy->id, 'name_link' => $policy->name_link])}}">{{$policy->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
-                            <li><a class="menu-item" href="#">Chương trình khuyễn mãi</a>
+                            <li><a class="menu-item" href="javascript:void(0)">Chương trình khuyễn mãi</a>
                                 <ul>
                                     @foreach($promotions as $promotion)
                                     <li><a class="menu-item" href="contact.html">{{$promotion->name}}</a></li>

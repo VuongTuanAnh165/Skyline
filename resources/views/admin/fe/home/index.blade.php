@@ -1,21 +1,22 @@
 @extends('admin.fe.layouts.master')
 @section('title', __('messages.admin.home') )
 @section('addcss')
-    <style>
-        .item-service-type {
-            box-shadow: rgb(17 17 26 / 10%) 0px 4px 16px, rgb(17 17 26 / 10%) 0px 8px 24px, rgb(17 17 26 / 10%) 0px 16px 56px;
-        }
-        .list-service-type {
-            display: flex;
-            justify-content: space-evenly;
-            border: none;
-        }
-    </style>
+<style>
+    .item-service-type {
+        box-shadow: rgb(17 17 26 / 10%) 0px 4px 16px, rgb(17 17 26 / 10%) 0px 8px 24px, rgb(17 17 26 / 10%) 0px 16px 56px;
+    }
+
+    .list-service-type {
+        display: flex;
+        justify-content: space-evenly;
+        border: none;
+    }
+</style>
 @stop
 @section('content')
-@php 
-    $service_home = !empty($service_show_home) ? $service_show_home : $service_first;
-    $service_group = \App\Models\ServiceGroup::where('id', $service_home->service_group_id)->first();
+@php
+$service_home = !empty($service_show_home) ? $service_show_home : $service_first;
+$service_group = \App\Models\ServiceGroup::where('id', $service_home->service_group_id)->first();
 @endphp
 <div class="no-bottom no-top" id="content">
     <div id="top"></div>
@@ -28,7 +29,7 @@
                     <form action='' class="row" data-wow-delay="1.25s" id='form_sb' method="post" name="form_sb">
                         <div class="col">
                             <div class="spacer-10"></div>
-                            <input class="form-control" id='email_service' name='email_service' placeholder="Nhập email" type='email'> 
+                            <input class="form-control" id='email_service' name='email_service' placeholder="Nhập email" type='email'>
                             <a href="javascript:;" id="btn-submit" class="btn-check-email"><i class="arrow_right btn-check-email"></i></a href="jajavascript:;">
                             <div class="clearfix"></div>
                             <div class="spacer-10"></div>
@@ -133,42 +134,33 @@
             </div>
             <div class="list-service-type de_pricing-tables shadow-soft g-0">
                 @php
-                    $service_types = \App\Models\ServiceType::where('service_id', $service_home->id)->get();
+                $service_types = \App\Models\ServiceType::where('service_id', $service_home->id)->get();
                 @endphp
                 @foreach($service_types as $service_type)
-                    <div class="item-service-type">
-                        <div class="de_pricing-table type-2">
-                            <div class="d-head">
-                                <h3 class="service_charge-h3-home">{{$service_type->name}}</h3>
-                                <p class="service_charge-p-home">{{$service_type->description}}</p>
-                            </div>
-                            <div class="d-price" style="margin-bottom:20px">
-                                @php
-                                    $service_charges = \App\Models\ServiceCharge::where('service_type_id', $service_type->id)->orderBy('month')->get();
-                                @endphp
-                                <select class="form-control" style="background-color: #38b1ed;
-                                    border: 1px solid #38b1ed;
-                                    border-radius: 30px;
-                                    font-size: 25px;
-                                    color: #ffffff;
-                                    padding: 5px 30px;">
-                                    @foreach($service_charges as $service_charge)
-                                        <option value="{{$service_charge->id}}">{{number_format($service_charge->price) . ' VND / ' . $service_charge->month . ' tháng'}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="d-action">
-                                <a href="#" class="btn-main w-100">Đăng ký</a>
-                                <p>Thường xuyên tự động cập nhật tin tức</p>
-                            </div>
-                            <div class="d-group">
-                                <h4>Nội dung</h4>
-                                <div class="d-list">
-                                    {!! $service_home->content !!}
-                                </div>
+                <div class="item-service-type">
+                    <div class="de_pricing-table type-2">
+                        <div class="d-head">
+                            <h3>{{$service_type->name}}</h3>
+                            <p>{{$service_type->description}}</p>
+                        </div>
+                        <div class="d-price">
+                            @php
+                                $service_charge = \App\Models\ServiceCharge::where('service_type_id', $service_type->id)->orderBy('month')->first();
+                            @endphp
+                            <h4 class="opt-1">{{number_format($service_charge->price) . ' VND '}}<span> / {{$service_charge->month . ' tháng'}}</span></h4>
+                        </div>
+                        <div class="d-action">
+                            <a href="#" class="btn-main w-100">Đăng ký</a>
+                            <p>Sky Line, dịch vụ tốt nhất cho bạn</p>
+                        </div>
+                        <div class="d-group">
+                            <h4>Nội dung</h4>
+                            <div class="d-list">
+                                {!! $service_home->content !!}
                             </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>
@@ -270,8 +262,8 @@
 </div>
 @stop
 @section('addjs')
-    @if (session('success') || session('error'))
-        @include('admin.fe.partials.script.toastr')
-    @endif
-    @include('admin.fe.home.script')
+@if (session('success') || session('error'))
+@include('admin.fe.partials.script.toastr')
+@endif
+@include('admin.fe.home.script')
 @stop
