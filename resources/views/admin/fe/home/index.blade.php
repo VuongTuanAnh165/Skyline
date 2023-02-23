@@ -150,7 +150,7 @@ $service_group = \App\Models\ServiceGroup::where('id', $service_home->service_gr
                             <h4 class="opt-1">{{number_format($service_charge->price) . ' VND '}}<span> / {{$service_charge->month . ' tháng'}}</span></h4>
                         </div>
                         <div class="d-action">
-                            <a href="#" class="btn-main w-100">Đăng ký</a>
+                            <a href="{{ route('admin.fe.service.hire', ['id' => $service_type->id, 'name_link' => $service_home->name_link]) }}" class="btn-main w-100">Đăng ký</a>
                             <p>Sky Line, dịch vụ tốt nhất cho bạn</p>
                         </div>
                         <div class="d-group">

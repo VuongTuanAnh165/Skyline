@@ -31,7 +31,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title" style="border-bottom: 2px solid red; margin-bottom:10px; float:none">${service_types[x].name}</h5>
                                     <div class="service-content">${service_types[x].description}</div>
-                                    <select class="form-control service_charge_id" id="service_charge_id" class="service_charge_id" name="service_charge_id">`+
+                                    <select class="form-control service_charge_id" id="service_charge_id" name="service_charge_id">`+
                                         html_option
                                     +`</select>
                                     <div style="width:100%;" class="service-submit">

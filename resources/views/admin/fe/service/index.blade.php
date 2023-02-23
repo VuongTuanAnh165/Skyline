@@ -66,7 +66,7 @@
                             {!!$service->content!!}
                         </div>
                         <div class="action">
-                            <a href="" class="btn-main">Đăng ký</a>
+                            <a href="{{ route('admin.fe.service.hire', ['id' => $service_type->id, 'name_link' => $service->name_link]) }}" class="btn-main">Đăng ký</a>
                         </div>
                     </div>
                 </div>

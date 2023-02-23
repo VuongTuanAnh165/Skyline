@@ -226,6 +226,7 @@ Route::prefix('dich-vu')->group(function () {
     Route::get('/', [AdminFeHomeController::class, 'index'])->name('admin.fe.home.index');
     Route::prefix('/dich-vu-{id}-{name_link}')->group(function () {
         Route::get('/', [AdminFeServiceController::class, 'index'])->name('admin.fe.service.index');
+        Route::get('/dang-ky', [AdminFeServiceController::class, 'hire'])->name('admin.fe.service.hire');
     });
     Route::prefix('/chinh-sach-{id}-{name_link}')->group(function () {
         Route::get('/', [AdminFePolicyController::class, 'index'])->name('admin.fe.policy.index');

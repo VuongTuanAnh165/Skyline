@@ -36,7 +36,6 @@ class AdminFeAuthController extends Controller
         ]);
         if (Auth::guard('ceo')->attempt($credentials)) {
             $request->session()->regenerate();
-            // dd(url()->previous());
             return redirect()->route('admin.fe.home.index');
         }
         return redirect()->back()->with([
