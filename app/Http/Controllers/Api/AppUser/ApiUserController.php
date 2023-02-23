@@ -45,8 +45,6 @@ class ApiUserController extends AbstractApiController
             $data = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'gender' => $request->input('gender'),
-                'address' => $request->input('address'),
                 'password' => Hash::make($request->input('password')),
                 'status' => User::STATUS_INACTIVE,
             ];

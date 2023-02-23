@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->string('phone', 12)->nullable();
             $table->date('birthday')->nullable();
             $table->string('address')->nullable();
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('facebook_id',30)->nullable();
             $table->string('google_id',30)->nullable();
             $table->string('zalo_id',30)->nullable();
-            $table->tinyInteger('gender')->comment('1:male, 2:female');
+            $table->tinyInteger('gender')->nullable()->comment('1:male, 2:female');
             $table->string('password');
             $table->tinyInteger('status')->default(1)->comment('1:active, 2:inactive');
             $table->timestamps();
