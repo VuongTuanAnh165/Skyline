@@ -36,7 +36,10 @@ class AdminFeAuthController extends Controller
         ]);
         if (Auth::guard('ceo')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('admin.fe.home.index');
+            if($request->route) {
+                return redirect($request->route)->with(['success' => trans('messages.common.success_login')]);
+            }
+            return redirect()->route('admin.fe.home.index')->with(['success' => trans('messages.common.success_login')]);
         }
         return redirect()->back()->with([
             'error' => __('messages.admin.login.fail'),
@@ -71,6 +74,9 @@ class AdminFeAuthController extends Controller
             ];
             $ceo = Ceo::create($data);
             DB::commit();
+            if($request->route) {
+                return redirect($request->route)->with(['success' => trans('messages.common.success_register')]);
+            }
             return redirect()->route('admin.fe.login')->with(['success' => trans('messages.common.success_register')]);
         } catch (Exception $e) {
             Log::error('[AdminFeAuthController][store] error ' . $e->getMessage());

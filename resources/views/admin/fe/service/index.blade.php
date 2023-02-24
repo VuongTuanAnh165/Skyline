@@ -85,5 +85,4 @@
 @if (session('success') || session('error'))
 @include('admin.fe.partials.script.toastr')
 @endif
-@include('admin.fe.home.script')
 @stop

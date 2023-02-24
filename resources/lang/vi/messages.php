@@ -4,6 +4,8 @@ return [
         'success' => 'Cập nhật thành công',
         'error' => 'Cập nhật thất bại',
         'areYouSure' => 'Bạn chắc chắn không?',
+        'success_login' => 'Đăng nhập thành công',
+        'error_login' => 'Đăng nhập thất bại',
         'success_register' => 'Đăng ký thành công',
         'error_register' => 'Đăng ký thất bại',
     ],

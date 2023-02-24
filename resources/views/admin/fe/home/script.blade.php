@@ -44,18 +44,5 @@
             $('.response-check-email').text('Đăng ký email acount của bạn ngay hôm nay trước khi ai đó lấy nó.');
             $('.btn-check-email').prop('disabled', false);
         });
-
-        // function serviceChangeText() {
-        //     $('.service_charge-h3-home').eq(0).text('Ngắn hạn');
-        //     $('.service_charge-h3-home').eq(1).text('Trung bình');
-        //     $('.service_charge-h3-home').eq(2).text('Trung bình');
-        //     $('.service_charge-h3-home').eq(3).text('Dài hạn');
-
-        //     $('.service_charge-p-home').eq(0).text('Thời gian sử dụng ngắn');
-        //     $('.service_charge-p-home').eq(1).text('Thời gian sử dụng trung bình');
-        //     $('.service_charge-p-home').eq(2).text('Thời gian sử dụng trung bình');
-        //     $('.service_charge-p-home').eq(3).text('Thời gian sử dụng lâu');
-        // }
-        // serviceChangeText();
     })
 </script>
