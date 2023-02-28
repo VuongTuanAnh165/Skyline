@@ -374,7 +374,7 @@ a:focus {
 
 a:hover {
   text-decoration: none;
-  color: var(--theme-color);
+  color: var(--secondary-color2);
 }
 
 button,
