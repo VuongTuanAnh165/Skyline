@@ -41,6 +41,8 @@ use App\Http\Controllers\Restaurant\RestaurantTableController;
 use App\Http\Controllers\Sell\SellAuthController;
 use App\Http\Controllers\Sell\SellHomeController;
 use App\Http\Controllers\Sell\SellRestaurantEatController;
+use App\Http\Controllers\User\Food\UserFoodHomeController;
+use App\Http\Controllers\User\Shop\UserShopHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -362,3 +364,9 @@ Route::prefix('admin')->group(function () {
         });
     });
 });
+
+Route::prefix('food')->group(function () {
+    Route::get('/', [UserFoodHomeController::class, 'index'])->name('user.food.home.index');
+});
+
+Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index');

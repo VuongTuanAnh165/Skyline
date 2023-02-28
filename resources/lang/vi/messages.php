@@ -312,7 +312,7 @@ return [
                 'title' => 'Bảng danh sách hình ảnh',
                 'type' => 'Loại hình ảnh',
             ],
-            'type' => ['Web Admin', 'Web Customer', 'Web Restaurant', 'Web Sell', 'Web Service', 'Web User', 'App User Sell', 'App Sell'],
+            'type' => ['Web Admin', 'Web Customer', 'Web Restaurant', 'Web Sell', 'Web Service', 'Web User Shop', 'Web User Food', 'App User Sell', 'App Sell'],
             'create' => [
                 'title' => 'Thêm mới hình ảnh',
             ],

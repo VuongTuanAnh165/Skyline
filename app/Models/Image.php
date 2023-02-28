@@ -24,7 +24,8 @@ class Image extends Model
     const WEBRESTAURANT = 2;
     const WEBSELL = 3;
     const WEBSERVICE = 4;
-    const WEBUSER = 5;
-    const APPUSERSELL = 6;
-    const APPSELL = 7;
+    const WEBUSERSHOP = 5;
+    const WEBUSERFOOD = 6;
+    const APPUSERSELL = 7;
+    const APPSELL = 8;
 }

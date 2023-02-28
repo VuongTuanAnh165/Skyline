@@ -62,24 +62,32 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="icheck-primary d-inline radio-type">
-                                            <input type="radio" id="web_user" name="type" value="5" {{ ($choose_type == 5) ? 'checked' : '' }}>
-                                            <label for="web_user">{{ __('messages.admin.image.type')[5] }}</label>
+                                            <input type="radio" id="web_user_shop" name="type" value="5" {{ ($choose_type == 5) ? 'checked' : '' }}>
+                                            <label for="web_user_shop">{{ __('messages.admin.image.type')[5] }}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="icheck-primary d-inline radio-type">
-                                            <input type="radio" id="app_user_sell" name="type" value="6" {{ ($choose_type == 6) ? 'checked' : '' }}>
-                                            <label for="app_user_sell">{{ __('messages.admin.image.type')[6] }}</label>
+                                            <input type="radio" id="web_user_food" name="type" value="6" {{ ($choose_type == 6) ? 'checked' : '' }}>
+                                            <label for="web_user_food">{{ __('messages.admin.image.type')[6] }}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="icheck-primary d-inline radio-type">
-                                            <input type="radio" id="app_sell" name="type" value="7" {{ ($choose_type == 7) ? 'checked' : '' }}>
-                                            <label for="app_sell">{{ __('messages.admin.image.type')[7] }}</label>
+                                            <input type="radio" id="app_user_sell" name="type" value="7" {{ ($choose_type == 7) ? 'checked' : '' }}>
+                                            <label for="app_user_sell">{{ __('messages.admin.image.type')[7] }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="icheck-primary d-inline radio-type">
+                                            <input type="radio" id="app_sell" name="type" value="8" {{ ($choose_type == 8) ? 'checked' : '' }}>
+                                            <label for="app_sell">{{ __('messages.admin.image.type')[8] }}</label>
                                         </div>
                                     </div>
                                 </div>

@@ -41,12 +41,15 @@
                             $("#web_service").prop('checked', true);
                         }
                         if (response.data.type == 5) {
-                            $("#web_user").prop('checked', true);
+                            $("#web_user_shop").prop('checked', true);
                         }
                         if (response.data.type == 6) {
-                            $("#app_user_sell").prop('checked', true);
+                            $("#web_user_web").prop('checked', true);
                         }
                         if (response.data.type == 7) {
+                            $("#app_user_sell").prop('checked', true);
+                        }
+                        if (response.data.type == 8) {
                             $("#app_sell").prop('checked', true);
                         }
                         if (response.image !== '') {
