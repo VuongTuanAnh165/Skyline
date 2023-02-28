@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Fe\AdminFeAuthController;
 use App\Http\Controllers\Admin\Fe\AdminFeHomeController;
 use App\Http\Controllers\Admin\Fe\AdminFePolicyController;
 use App\Http\Controllers\Admin\Fe\AdminFeServiceController;
+use App\Http\Controllers\Admin\Fe\AdminFeThankYouController;
 use App\Http\Controllers\Ceo\CeoHelpController;
 use App\Http\Controllers\Ceo\CeoHireController;
 use App\Http\Controllers\Ceo\CeoHomeController;
@@ -224,15 +225,16 @@ Route::prefix('dich-vu')->group(function () {
     Route::post('/registerstore', [AdminFeAuthController::class, 'store'])->name('admin.fe.post.register');
     Route::post('/logout', [AdminFeAuthController::class, 'logout'])->name('admin.fe.post.logout');
     Route::get('/', [AdminFeHomeController::class, 'index'])->name('admin.fe.home.index');
+    Route::prefix('/chinh-sach-{id}-{name_link}')->group(function () {
+        Route::get('/', [AdminFePolicyController::class, 'index'])->name('admin.fe.policy.index');
+    });
     Route::prefix('/{id}-{name_link}')->group(function () {
         Route::get('/', [AdminFeServiceController::class, 'index'])->name('admin.fe.service.index');
         Route::get('/dang-ky', [AdminFeServiceController::class, 'hire'])->name('admin.fe.service.hire');
         Route::middleware(['ceo'])->group(function () {
             Route::get('/dang-ky/{service_charge_id}', [AdminFeServiceController::class, 'create'])->name('admin.fe.service.create');
+            Route::get('/cam-on', [AdminFeThankYouController::class, 'index'])->name('admin.fe.service.thankyou');
         });
-    });
-    Route::prefix('/chinh-sach-{id}-{name_link}')->group(function () {
-        Route::get('/', [AdminFePolicyController::class, 'index'])->name('admin.fe.policy.index');
     });
 });
 

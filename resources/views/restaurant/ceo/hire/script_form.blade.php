@@ -3,6 +3,9 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{$skyline->client_id}}&currency=USD"></script>
 <script>
     $(document).ready(function() {
+        $('.promotion_id').select2({
+            placeholder: "Chọn chương trình khuyến mãi"
+        });
         const config = {
             style: 'currency',
             currency: 'VND',
@@ -129,10 +132,6 @@
             $('.content-order').addClass('display-none');
             $('.content-profile').removeClass('display-none');
         })
-
-        $('.promotion_id').select2({
-            placeholder: "Chọn chương trình khuyến mãi"
-        });
 
         $(document).on('change', '.promotion_id', function() {
             let promotion_id = $('.promotion_id').val();

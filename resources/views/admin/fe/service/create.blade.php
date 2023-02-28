@@ -90,10 +90,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>{{$service_type->service_name}}</h1>
+                        <h1>{{$service->name}}</h1>
                     </div>
                     <div class="col-md-6 offset-md-3">
-                        <p class="lead">{{$service_type->service_group_description}}</p>
+                        <p class="lead">{{$service->service_group_description}}</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -196,11 +196,18 @@
     @php
     $nowDate = Carbon\Carbon::now();
     @endphp
-    <section id="form-hire" class="pt60 content-order">
+    <section id="form-hire" class="mt-100 no-top content-order display-none">
         <div class="container">
-            <div class="bd-callout bd-callout-danger shadow">
-                <h4 class="text-danger">Lưu ý</h4>
-                <b class="text-danger">Hãy điền đúng địa chỉ email của bạn. Bởi vì chúng tôi sẽ cung cấp password gửi đến email của bạn.</b>
+            <div class="bd-callout bd-callout-danger shadow" style="display: flex;
+                justify-content: space-between;
+                align-items: center;">
+                <div>
+                    <h4 class="text-danger">Lưu ý</h4>
+                    <b class="text-danger">Hãy điền đúng địa chỉ email của bạn. Bởi vì chúng tôi sẽ cung cấp password gửi đến email của bạn.</b>
+                </div>
+                <div>
+                    <button class="btn btn-danger btn-block back">Trở lại</button>
+                </div>
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3" style="background-color: rgba(0,0,0,.03);">
@@ -287,8 +294,9 @@
                                         <b>Tổng phụ: <span class="text-primary">{{number_format($service_charge->price)}} VND</span></b>
                                     </div>
                                     <div class="modal-header" style="display: block;">
+                                        <b>Chọn chương trình khuyến mãi:</b>
                                         <select class="form-control select2 promotion_id" multiple id="promotion_id" name="promotion_id">
-                                            <option value=""></option>
+                                            <option value="">Chọn chương trình khuyến mãi</option>
                                             @if($promotions && count($promotions) > 0)
                                             @foreach($promotions as $promotion)
                                             <option value="{{$promotion->id}}">{{$promotion->name}} (Giảm {{$promotion->value}} %)</option>
@@ -301,6 +309,10 @@
                                     </div>
                                     <input type="hidden" id="subtotal" name="subtotal" value="{{$service_charge->price}}">
                                     <input type="hidden" id="total" name="total" value="{{$service_charge->price}}">
+                                    <input type="hidden" id="service_charge_id" value="{{$service_charge->id}}">
+                                    <input type="hidden" id="implementation_date" name="implementation_date" value="{{$nowDate->toDateString()}}">
+                                    <input type="hidden" id="email" name="email" value="{{ $ceo->email }}">
+                                    <input type="hidden" id="url-thanks" value="{{ route('admin.fe.service.thankyou', ['id' => $service_type->id, 'name_link' => $service->name_link]) }}">
                                 </div>
                             </div>
                         </div>

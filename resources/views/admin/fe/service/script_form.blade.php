@@ -122,7 +122,6 @@
                         'total': $("#total").val(),
                     })
                 }).then(function(res) {
-                    //res.json();
                     return res.json();
                 }).then(function(orderData) {
                     return orderData.id;
@@ -140,7 +139,7 @@
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-                    window.location.href = `{{route('thankyou.index')}}`;
+                    window.location.href = $("#url-thanks").val();
                 });
             }
 

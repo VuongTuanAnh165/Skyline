@@ -30,7 +30,7 @@ class AdminFeServiceController extends Controller
         $service_types = ServiceType::where('service_id', $id)->get();
         $service_group = ServiceGroup::find($service->service_group_id);
         $helps = Help::where('service_id', $id)->limit(6)->get();
-        return view($this->pathView.'index', compact('service', 'service_types', 'service_group', 'helps'));
+        return view($this->pathView . 'index', compact('service', 'service_types', 'service_group', 'helps'));
     }
 
     /**
@@ -57,7 +57,7 @@ class AdminFeServiceController extends Controller
         $service_charges = ServiceCharge::where('service_type_id', $id)->get();
         $helps = Help::where('service_id', $id)->limit(6)->get();
         $ceo = Auth::guard('ceo')->user();
-        return view($this->pathView.'hire', compact('service_type', 'helps', 'service_charges', 'ceo'));
+        return view($this->pathView . 'hire', compact('service_type', 'helps', 'service_charges', 'ceo'));
     }
 
     /**
@@ -71,7 +71,13 @@ class AdminFeServiceController extends Controller
         $skyline = Skyline::first();
         $service_charge = ServiceCharge::find($service_charge_id);
         $service_type = ServiceType::find($service_charge->service_type_id);
-        $service = Service::find($service_type->service_id);
+        $service = Service::query()
+            ->leftJoin('service_groups', 'service_groups.id', 'services.service_group_id')
+            ->select(
+                'services.*',
+                'service_groups.description as service_group_description',
+            )->where('services.id', $service_type->service_id)
+            ->first();
         $ceo = Auth::guard('ceo')->user();
         $promotions = Promotion::query()
             ->where('type', 1)

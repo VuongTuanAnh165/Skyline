@@ -6,7 +6,10 @@
         <div class="container">
             <div class="topbar-left xs-hide">
                 <span class="topbar-widget">
-                    <a href="#">Sky line!</a>
+                    <a href="{{ route('restaurant.home.index') }}"><b>Trang quản lý dịch vụ</b></a>
+                </span>
+                <span class="topbar-widget">
+                    <a href="{{ route('sell.home.index') }}"><b>Trang bán hàng</b></a>
                 </span>
             </div>
 
@@ -48,6 +51,9 @@
                             @php
                                 $arg_home = array(
                                     'admin.fe.service.index',
+                                    'admin.fe.service.hire',
+                                    'admin.fe.service.create',
+                                    'admin.fe.service.thankyou',
                                 );
                                 $active = '';
                                 if ( in_array($name_route,$arg_home) ) {
