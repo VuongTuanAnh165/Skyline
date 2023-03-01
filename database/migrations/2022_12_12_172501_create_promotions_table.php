@@ -22,6 +22,7 @@ class CreatePromotionsTable extends Migration
             $table->integer('restaurant_id')->nullable();
             $table->date('started_at')->nullable();
             $table->date('ended_at')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

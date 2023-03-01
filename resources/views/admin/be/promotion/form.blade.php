@@ -77,6 +77,18 @@
                             @endif
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group form-logo">
+                            <label for="logo" class="control-label">Image</label>
+                            <div class="upload-logo">
+                                <input class="up-logo check" value="" accept="image/*" type="file" id="imgInp" name="image" data-msg-accept="{{ __('validation.form.image') }}" />
+                                <img id="blah" src="{{ isset($data) ? asset('storage/'.$data->image) : '' }}" class="image-restaurant check" onerror="this.onerror=null;this.src=`{{ asset('img/background_default.jpg') }}`;">
+                            </div>
+                            @if ($errors->first('logo'))
+                            <div class="error error-commit">{{ $errors->first('logo') }}</div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.card-body -->

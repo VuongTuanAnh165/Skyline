@@ -1,7 +1,19 @@
 @extends('user.layouts.master')
 @section('title', __('messages.admin.home') )
 @section('addcss')
-
+    <style>
+        .banner__items--thumbnail {
+            height: 100%;
+            font-weight: bold;
+        }
+        .banner__items--thumbnail:hover {
+            color: #000000;
+        }
+        .banner__items--thumbnail__img {
+            width: 100%;
+            opacity: 0.5;
+        }
+    </style>
 @stop
 @section('content')
 <!-- Start slider section -->
@@ -33,75 +45,6 @@
                     </div>
                 </div>
             @endforeach
-            <!-- <div class="swiper-slide ">
-                <div class="hero__slider--items slider__2--bg">
-                    <div class="container">
-                        <div class="hero__slider--items__inner two">
-                            <div class="row  align-items-center">
-                                <div class="col-xl-5 col-lg-6 col-md-6">
-                                    <div class="slider__content2">
-                                        <span class="slider__content2--subtitle">100% genuine Products</span>
-                                        <h2 class="slider__content2--maintitle h1">Tasty & Healthy <br>
-                                            Organic Food</h2>
-                                        <a class="btn slider__btn" href="shop.html">Shop Now</a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-7 col-lg-6 col-md-6">
-                                    <div class="hero__slider--layer text-right">
-                                        <img class="slider__layer--img" src="assets/img/slider/home2-slider1-layer.png" alt="slider-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide ">
-                <div class="hero__slider--items slider__2--bg">
-                    <div class="container">
-                        <div class="hero__slider--items__inner two">
-                            <div class="row  align-items-center">
-                                <div class="col-xl-5 col-lg-6 col-md-6">
-                                    <div class="slider__content2">
-                                        <span class="slider__content2--subtitle">100% genuine Products</span>
-                                        <h2 class="slider__content2--maintitle h1">Tasty & Healthy <br>
-                                            Organic Food</h2>
-                                        <a class="btn slider__btn" href="shop.html">Shop Now</a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-7 col-lg-6 col-md-6">
-                                    <div class="hero__slider--layer text-right">
-                                        <img class="slider__layer--img home2__slider--layer__img2" src="assets/img/slider/home2-slider2-layer.png" alt="slider-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide ">
-                <div class="hero__slider--items slider__2--bg">
-                    <div class="container">
-                        <div class="hero__slider--items__inner two">
-                            <div class="row  align-items-center">
-                                <div class="col-xl-5 col-lg-6 col-md-6">
-                                    <div class="slider__content2">
-                                        <span class="slider__content2--subtitle">100% genuine Products</span>
-                                        <h2 class="slider__content2--maintitle h1">Tasty & Healthy <br>
-                                            Organic Food</h2>
-                                        <a class="btn slider__btn" href="shop.html">Shop Now</a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-7 col-lg-6 col-md-6">
-                                    <div class="hero__slider--layer text-right">
-                                        <img class="slider__layer--img" src="assets/img/slider/home2-slider3-layer.png" alt="slider-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="slider__pagination swiper-pagination"></div>
     </div>
@@ -112,22 +55,24 @@
 <section class="banner__section section--padding">
     <div class="container">
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 mb--n30">
-            <div class="col mb-30">
-                <div class="banner__items position__relative">
-                    <a class="banner__items--thumbnail display-block" href="shop.html"><img class="banner__items--thumbnail__img display-block" src="assets/img/banner/banner3.png" alt="banner-img">
-                        <div class="banner__two--content">
-                            <p class="banner__two--content__desc text-white">35 % Discount Offer</p>
-                            <h2 class="banner__two--content__title text-white">Fresh healthy food</h2>
-                            <span class="banner__two--content__btn text-white">Shop Now
-                                <svg class="banner__two--content__btn--arrow__icon" xmlns="http://www.w3.org/2000/svg" width="10.383" height="7.546" viewBox="0 0 10.383 7.546">
-                                    <path data-name="Path 77287" d="M10.241,45.329l-3.09-3.263a.465.465,0,0,0-.683,0,.53.53,0,0,0,0,.721l2.266,2.393H.483a.511.511,0,0,0,0,1.02H8.734L6.469,48.592a.53.53,0,0,0,0,.721.465.465,0,0,0,.683,0l3.09-3.263A.53.53,0,0,0,10.241,45.329Z" transform="translate(0 -41.916)" fill="currentColor" />
-                                </svg>
-                            </span>
-                        </div>
-                    </a>
+            @foreach($promotions as $promotion)
+                <div class="col mb-30">
+                    <div class="banner__items position__relative">
+                        <a class="banner__items--thumbnail display-block" href=""><img class="banner__items--thumbnail__img display-block" src="{{ asset('storage/'.$promotion->image) }}" alt="banner-img">
+                            <div class="banner__two--content">
+                                <p class="banner__two--content__desc">Giảm tới {{ number_format($promotion->value) }} VND</p>
+                                <h2 class="banner__two--content__title">{{ $promotion->name }}</h2>
+                                <span class="banner__two--content__btn">Shop Now
+                                    <svg class="banner__two--content__btn--arrow__icon" xmlns="http://www.w3.org/2000/svg" width="10.383" height="7.546" viewBox="0 0 10.383 7.546">
+                                        <path data-name="Path 77287" d="M10.241,45.329l-3.09-3.263a.465.465,0,0,0-.683,0,.53.53,0,0,0,0,.721l2.266,2.393H.483a.511.511,0,0,0,0,1.02H8.734L6.469,48.592a.53.53,0,0,0,0,.721.465.465,0,0,0,.683,0l3.09-3.263A.53.53,0,0,0,10.241,45.329Z" transform="translate(0 -41.916)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col mb-30">
+            @endforeach
+            <!-- <div class="col mb-30">
                 <div class="banner__items position__relative">
                     <a class="banner__items--thumbnail display-block" href="shop.html"><img class="banner__items--thumbnail__img display-block" src="assets/img/banner/banner4.png" alt="banner-img">
                         <div class="banner__two--content">
@@ -156,7 +101,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -166,11 +111,11 @@
 <section class="product__section product__categories--section section--padding pt-0">
     <div class="container">
         <div class="section__heading mb-40">
-            <h2 class="section__heading--maintitle">Featured Categories</h2>
+            <h2 class="section__heading--maintitle">Danh mục</h2>
         </div>
         <div class="product__section--inner categories2__swiper--activation swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                <!-- <div class="swiper-slide">
                     <div class="categories2__product--items text-center">
                         <div class="categories2__product--thumbnail">
                             <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories5.png" alt="categories-img"></a>
@@ -180,19 +125,21 @@
                             <span class="product__categories--content__subtitle">7 products</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                @foreach($categoryHomes as $categoryHome)
                 <div class="swiper-slide">
                     <div class="product__items text-center">
                         <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories6.png" alt="categories-img"></a>
+                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="{{ asset('storage/'.$categoryHome->image) }}" alt="categories-img"></a>
                         </div>
                         <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Fresh Fruits</a></h3>
-                            <span class="product__categories--content__subtitle">6 products</span>
+                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">{{ $categoryHome->name }}</a></h3>
+                            <!-- <span class="product__categories--content__subtitle">6 products</span> -->
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
+                @endforeach
+                <!-- <div class="swiper-slide">
                     <div class="product__items text-center">
                         <div class="categories2__product--thumbnail">
                             <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories7.png" alt="categories-img"></a>
@@ -235,7 +182,7 @@
                             <span class="product__categories--content__subtitle">13 products</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="swiper__nav--btn swiper-button-next"></div>
             <div class="swiper__nav--btn swiper-button-prev"></div>
@@ -4798,6 +4745,7 @@
 @stop
 @section('addjs')
 @if (session('success') || session('error'))
-@include('user.partials.script.toastr')
+    @include('user.partials.script.toastr')
 @endif
+@include('user.home.script')
 @stop

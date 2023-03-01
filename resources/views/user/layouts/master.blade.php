@@ -98,7 +98,10 @@
     <script src="{{asset('template_web_user/assets/js/vendor/bootstrap.min.js')}}" defer="defer"></script>
     <script src="{{asset('template_web_user/assets/js/plugins/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('template_web_user/assets/js/plugins/glightbox.min.js')}}"></script>
-
+    <script src="{{ asset('template_web_admin/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jquery-validation -->
+    <script src="{{ asset('template_web_admin/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('template_web_admin/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- Customscript js -->
     <script src="{{asset('template_web_user/assets/js/script.js')}}"></script>
     @yield('addjs')

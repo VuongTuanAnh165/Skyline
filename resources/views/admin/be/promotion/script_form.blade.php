@@ -4,6 +4,14 @@
             ignore: ":hidden, [contenteditable='true']:not([name])"
         });
 
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+            check = 1;
+        };
+
         jQuery.validator.addMethod("regex", function(value, element) {
             var regex = /^[0-9]+$/;
             return regex.test(value);

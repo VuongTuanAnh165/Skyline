@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Be;
 
 use App\Helpers\ConvertNameHelper;
+use App\Helpers\UploadsHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PromotionRequest;
 use App\Models\Promotion;
@@ -10,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AdminBePromotionController extends Controller
 {
@@ -53,6 +55,9 @@ class AdminBePromotionController extends Controller
                 'started_at',
                 'ended_at',
             ]);
+            if ($request->hasFile('image')) {
+                $params['image'] = UploadsHelper::handleUploadFile('img/promotion/', 'image', $request);
+            }
             $data = Promotion::create($params);
             DB::commit();
             return redirect()->route('admin.promotion.index')->with(['success' => trans('messages.common.success')]);
@@ -101,6 +106,10 @@ class AdminBePromotionController extends Controller
                 'started_at',
                 'ended_at',
             ]);
+            if ($request->hasFile('image')) {
+                Storage::delete($data->image);
+                $params['image'] = UploadsHelper::handleUploadFile('img/promotion/', 'image', $request);
+            }
             $data->update($params);
             DB::commit();
             return redirect()->route('admin.promotion.index')->with(['success' => trans('messages.common.success')]);

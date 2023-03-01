@@ -8,6 +8,7 @@
     <!-- CodeMirror -->
     <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/codemirror/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/codemirror/theme/monokai.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/web_admin/dish/style.css') }}">
     <style>
         .radio-type {
             margin-right: 5%;
