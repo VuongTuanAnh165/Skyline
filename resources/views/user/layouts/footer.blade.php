@@ -1,3 +1,57 @@
+@php
+    $name = Route::currentRouteName();
+    $arr_route_food = array(  
+        'user.food.home.index',
+    );
+    $src_logo = asset('img/logo_shop.png');
+    if ( in_array($name,$arr_route_food) ) {
+        $src_logo = asset('img/logo.png');
+    }
+@endphp
+<!-- Start shipping section -->
+<section class="shipping__section2 shipping__style3">
+    <div class="container">
+        <div class="shipping__section2--inner shipping__style3--inner d-flex justify-content-between">
+            <div class="shipping__items2 d-flex align-items-center">
+                <div class="shipping__items2--icon">
+                    <img class="display-block" src="{{ asset('template_web_user/assets/img/other/shipping1.png') }}" alt="shipping img">
+                </div>
+                <div class="shipping__items2--content">
+                    <h2 class="shipping__items2--content__title h3">Giao hàng</h2>
+                    <p class="shipping__items2--content__desc">Nhanh chóng, cẩn thận</p>
+                </div>
+            </div>
+            <div class="shipping__items2 d-flex align-items-center">
+                <div class="shipping__items2--icon">
+                    <img class="display-block" src="{{ asset('template_web_user/assets/img/other/shipping2.png') }}" alt="shipping img">
+                </div>
+                <div class="shipping__items2--content">
+                    <h2 class="shipping__items2--content__title h3">Thanh toán</h2>
+                    <p class="shipping__items2--content__desc">Dễ dàng, tiện lợi</p>
+                </div>
+            </div>
+            <div class="shipping__items2 d-flex align-items-center">
+                <div class="shipping__items2--icon">
+                    <img class="display-block" src="{{ asset('template_web_user/assets/img/other/shipping3.png') }}" alt="shipping img">
+                </div>
+                <div class="shipping__items2--content">
+                    <h2 class="shipping__items2--content__title h3">Hoàn trả</h2>
+                    <p class="shipping__items2--content__desc">Trong 30 ngày</p>
+                </div>
+            </div>
+            <div class="shipping__items2 d-flex align-items-center">
+                <div class="shipping__items2--icon">
+                    <img class="display-block" src="{{ asset('template_web_user/assets/img/other/shipping4.png') }}" alt="shipping img">
+                </div>
+                <div class="shipping__items2--content">
+                    <h2 class="shipping__items2--content__title h3">Hỗ trợ</h2>
+                    <p class="shipping__items2--content__desc">Mọi lúc</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End shipping section -->
 <!-- Start footer section -->
 <footer class="footer__section footer__section3 footer__bg">
     <div class="container">
@@ -13,8 +67,12 @@
                             </button>
                         </h3>
                         <div class="footer__widget--inner">
-                            <a class="footer__widget--logo" href="index.html"><img src="assets/img/logo/nav-log.png" alt="footer-logo"></a>
-                            <p class="footer__widget--desc m-0">The variety of products available at our store at the moment is vast, but we still continue to widen our assortment.</p>
+                            <a class="footer__widget--logo" href="index.html"><img src="{{$src_logo}}" alt="footer-logo"></a>
+                            <p class="footer__widget--desc m-0">
+                                Email: <a href="mailto:{{$skyline->email}}"><b>{{$skyline->email}}</b></a><br>
+                                SDT: <a href="tel:{{$skyline->phone}}"><b>{{$skyline->phone}}</b></a><br>
+                                Địa chỉ: <b>{{$skyline->address}}</b>
+                            </p>
                             <ul class="footer__widget--social d-flex">
                                 <li class="footer__widget--social__list">
                                     <a class="footer__widget--social__icon" target="_blank" href="https://www.facebook.com">
@@ -137,23 +195,23 @@
         <div class="footer__bottom">
             <div class="row justify-content-between align-items-center">
                 <div class="col-12 col-md-auto">
-                    <p class="copyright__content">Copyright © 2022 <a class="copyright__content--link text__primary" href="index.html">Grocee</a> . All Rights Reserved.Design By Grocee</p>
+                    <p class="copyright__content">Copyright © 2023 <a class="copyright__content--link text__primary" href="index.html">Sky Line</a> . All Rights Reserved.Design By <b>Vương Tuấn Anh ~ Marvelous</b></p>
                 </div>
                 <div class="col-12 col-md-auto">
                     <div class="footer__payment">
                         <ul class="footer__payment--inner d-flex">
-                            <li class="footer__payment--list"><img src="assets/img/other/payment1.png" alt="payment-img"></li>
-                            <li class="footer__payment--list"><img src="assets/img/other/payment2.png" alt="payment-img"></li>
-                            <li class="footer__payment--list"><img src="assets/img/other/payment3.png" alt="payment-img"></li>
-                            <li class="footer__payment--list"><img src="assets/img/other/payment4.png" alt="payment-img"></li>
-                            <li class="footer__payment--list"><img src="assets/img/other/payment5.png" alt="payment-img"></li>
+                            <li class="footer__payment--list"><img src="{{ asset('template_web_user/assets/img/other/payment1.png') }}" alt="payment-img"></li>
+                            <li class="footer__payment--list"><img src="{{ asset('template_web_user/assets/img/other/payment2.png') }}" alt="payment-img"></li>
+                            <li class="footer__payment--list"><img src="{{ asset('template_web_user/assets/img/other/payment3.png') }}" alt="payment-img"></li>
+                            <li class="footer__payment--list"><img src="{{ asset('template_web_user/assets/img/other/payment4.png') }}" alt="payment-img"></li>
+                            <li class="footer__payment--list"><img src="{{ asset('template_web_user/assets/img/other/payment5.png') }}" alt="payment-img"></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <img class="footer__position--shape__one" src="assets/img/other/footer-shape1.png" alt="footer-shape">
-    <img class="footer__position--shape__two" src="assets/img/other/footer-shape2.png" alt="footer-shape">
+    <img class="footer__position--shape__one" src="{{ asset('template_web_user/assets/img/other/footer-shape1.png') }}" alt="footer-shape">
+    <img class="footer__position--shape__two" src="{{ asset('template_web_user/assets/img/other/footer-shape2.png') }}" alt="footer-shape">
 </footer>
 <!-- End footer section -->

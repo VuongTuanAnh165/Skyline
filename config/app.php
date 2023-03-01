@@ -183,6 +183,8 @@ return [
         App\Providers\Service\ComposerServiceProvider::class,
         App\Providers\Sell\ServiceSellProvider::class,
         App\Providers\Sell\ComposerSellProvider::class,
+        App\Providers\User\ServiceUserProvider::class,
+        App\Providers\User\ComposerUserProvider::class,
     ],
 
     /*
