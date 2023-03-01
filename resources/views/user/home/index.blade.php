@@ -2,10 +2,6 @@
 @section('title', __('messages.admin.home') )
 @section('addcss')
     <style>
-        .banner__items--thumbnail {
-            height: 100%;
-            font-weight: bold;
-        }
         .banner__items--thumbnail:hover {
             color: #000000;
         }
