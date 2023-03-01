@@ -16,6 +16,7 @@
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>{{ __('messages.admin.category.table.name') }}</th>
+                                    <th>Dịch vụ</th>
                                     <th class="text-center">{{ __('messages.admin.dish.table.image') }}</th>
                                     <th class="text-right">{{ __('messages.admin.table.action') }}</th>
                                 </tr>
@@ -29,6 +30,7 @@
                                 <tr>
                                     <td class="text-center">{{$stt}}</td>
                                     <td>{{ $data->name }}</td>
+                                    <td>{{ $data->service_name }}</td>
                                     <td class="text-center"><img style="width: 100px;" src="{{ !empty($data->image) ? asset('storage/'.$data->image) : '' }}"></td>
                                     <td class="project-actions text-right">
                                         <div data-id="{{$data->id}}" data-toggle="modal" data-target="#modalFormCategory" data-url="{{ route('admin.category.update', ['id' => $data->id]) }}" class="btn btn-info btn-sm dish-update btn-modal-form">
@@ -51,6 +53,7 @@
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>{{ __('messages.admin.category.table.name') }}</th>
+                                    <th>Dịch vụ</th>
                                     <th class="text-center">{{ __('messages.admin.dish.table.image') }}</th>
                                     <th class="text-right">{{ __('messages.admin.table.action') }}</th>
                                 </tr>

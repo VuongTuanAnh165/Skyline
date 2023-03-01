@@ -24,7 +24,12 @@ class AdminBeCategoryHomeController extends Controller
      */
     public function index()
     {
-        $datas = CategoryHome::get();
+        $datas = CategoryHome::query()
+            ->leftJoin('services', 'services.id', 'category_homes.service_id')
+            ->select(
+                'category_homes.*',
+                'services.name as service_name'
+            )->get();
         $services = Service::all();
         return view($this->pathView . 'index', compact('datas', 'services'));
     }
