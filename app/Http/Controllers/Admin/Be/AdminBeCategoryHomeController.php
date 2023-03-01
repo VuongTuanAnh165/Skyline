@@ -29,7 +29,7 @@ class AdminBeCategoryHomeController extends Controller
             ->select(
                 'category_homes.*',
                 'services.name as service_name'
-            )->get();
+            )->orderByDesc('category_homes.updated_at')->get();
         $services = Service::all();
         return view($this->pathView . 'index', compact('datas', 'services'));
     }

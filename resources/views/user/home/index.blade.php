@@ -126,9 +126,9 @@
                         </div>
                     </div>
                 </div> -->
-                @foreach($categoryHomes as $categoryHome)
+                @foreach($categoryHomes as $key => $categoryHome)
                 <div class="swiper-slide">
-                    <div class="product__items text-center">
+                    <div class="{{ $key == 0 ? 'categories2__product--items' : 'product__items' }} text-center">
                         <div class="categories2__product--thumbnail">
                             <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="{{ asset('storage/'.$categoryHome->image) }}" alt="categories-img"></a>
                         </div>
