@@ -1,13 +1,3 @@
-@php
-    $name = Route::currentRouteName();
-    $arr_route_food = array(  
-        'user.food.home.index',
-    );
-    $src_logo = asset('img/logo_shop.png');
-    if ( in_array($name,$arr_route_food) ) {
-        $src_logo = asset('img/logo.png');
-    }
-@endphp
 <!-- Start shipping section -->
 <section class="shipping__section2 shipping__style3">
     <div class="container">
@@ -67,7 +57,7 @@
                             </button>
                         </h3>
                         <div class="footer__widget--inner">
-                            <a class="footer__widget--logo" href="index.html"><img src="{{$src_logo}}" alt="footer-logo"></a>
+                            <a class="footer__widget--logo" href="index.html"><img src="{{$url['logo']}}" alt="footer-logo"></a>
                             <p class="footer__widget--desc m-0">
                                 Email: <a href="mailto:{{$skyline->email}}"><b>{{$skyline->email}}</b></a><br>
                                 SDT: <a href="tel:{{$skyline->phone}}"><b>{{$skyline->phone}}</b></a><br>

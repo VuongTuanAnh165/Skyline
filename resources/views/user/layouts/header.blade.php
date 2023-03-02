@@ -1,13 +1,3 @@
-@php
-    $name = Route::currentRouteName();
-    $arr_route_food = array(  
-        'user.food.home.index',
-    );
-    $src_logo = asset('img/logo_shop.png');
-    if ( in_array($name,$arr_route_food) ) {
-        $src_logo = asset('img/logo.png');
-    }
-@endphp
 <!-- Start header area -->
 <header class="header__section header__transparent">
     <div class="header__topbar bg__primary2">
@@ -80,72 +70,47 @@
                     </a>
                 </div>
                 <div class="main__logo">
-                    <h1 class="main__logo--title"><a class="main__logo--link" href="index.html"><img class="main__logo--img" src="{{$src_logo}}" alt="logo-img"></a></h1>
+                    <h1 class="main__logo--title"><a class="main__logo--link" href="index.html"><img class="main__logo--img" src="{{ $url['logo'] }}" alt="logo-img"></a></h1>
                 </div>
                 <div class="header__menu d-none d-lg-block">
                     <nav class="header__menu--navigation">
                         <ul class="d-flex">
-                            <li class="header__menu--items">
-                                <a class="header__menu--link" href="index.html">Home
-                                    <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
-                                        <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                    </svg>
-                                </a>
-                                <ul class="header__sub--menu">
-                                    <li class="header__sub--menu__items"><a href="index.html" class="header__sub--menu__link">Home One</a></li>
-                                    <li class="header__sub--menu__items"><a href="index-2.html" class="header__sub--menu__link">Home Two</a></li>
-                                    <li class="header__sub--menu__items"><a href="index-3.html" class="header__sub--menu__link">Home Three</a></li>
-                                    <li class="header__sub--menu__items"><a href="index-4.html" class="header__sub--menu__link">Home Four</a></li>
-                                </ul>
+                            @php
+                                $arg_home = array(
+                                    'user.food.home.index',
+                                    'user.home.index',
+                                );
+                                $active = '';
+                                if ( in_array($name,$arg_home) ) {
+                                    $active = 'active';
+                                }
+                            @endphp
+                            <li class="header__menu--items {{ $active }}">
+                                <a class="header__menu--link" href="{{ $url['home'] }}">Trang chủ</a>
                             </li>
-                            <li class="header__menu--items mega__menu--items">
-                                <a class="header__menu--link" href="shop.html">Shop
+                            @php
+                                $arg_all_product = array(
+                                    'user.food.allProduct.index',
+                                    'user.allProduct.index',
+                                );
+                                $active = '';
+                                if ( in_array($name,$arg_all_product) ) {
+                                    $active = 'active';
+                                }
+                            @endphp
+                            <li class="header__menu--items {{ $active }} mega__menu--items">
+                                <a class="header__menu--link" href="{{ $url['allProduct'] }}">{{ $url['name'] }}
                                     <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
                                         <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
                                     </svg>
                                 </a>
-                                <ul class="header__mega--menu d-flex">
-                                    <li class="header__mega--menu__li">
-                                        <span class="header__mega--subtitle">Column One</span>
-                                        <ul class="header__mega--sub__menu">
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="shop.html">Shop Left Sidebar</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="shop-grid.html">Shop Grid</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="shop-grid-list.html">Shop Grid List</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="shop-list.html">Shop List</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="header__mega--menu__li">
-                                        <span class="header__mega--subtitle">Column Two</span>
-                                        <ul class="header__mega--sub__menu">
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="product-details.html">Product Details</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="product-video.html">Video Product</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="product-details.html">Variable Product</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="product-left-sidebar.html">Product Left Sidebar</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="product-gallery.html">Product Gallery</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="header__mega--menu__li">
-                                        <span class="header__mega--subtitle">Column Three</span>
-                                        <ul class="header__mega--sub__menu">
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="my-account.html">My Account</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="my-account-2.html">My Account 2</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="404.html">404 Page</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="login.html">Login Page</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="faq.html">Faq Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="header__mega--menu__li">
-                                        <span class="header__mega--subtitle">Column Four</span>
-                                        <ul class="header__mega--sub__menu">
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="compare.html">Compare Pages</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="checkout.html">Checkout page</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="checkout-2.html">Checkout Style 2</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="checkout-3.html">Checkout Style 3</a></li>
-                                            <li class="header__mega--sub__menu_li"><a class="header__mega--sub__menu--title" href="checkout-4.html">Checkout Style 4</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <div class="header__mega--menu row">
+                                    @foreach($url['categoryHome'] as $item)
+                                    <div class="col-3">
+                                        <a class="header__mega--subtitle">{{ $item->name }}</a>
+                                    </div>
+                                    @endforeach
+                                </div>
                             </li>
                             <li class="header__menu--items">
                                 <a class="header__menu--link" href="blog.html">Blog
@@ -235,65 +200,24 @@
     <div class="offcanvas__header">
         <div class="offcanvas__inner">
             <div class="offcanvas__logo">
-                <a class="offcanvas__logo_link" href="index.html">
-                    <img src="assets/img/logo/nav-log.png" alt="Grocee Logo" width="158" height="36">
+                <a class="offcanvas__logo_link main__logo--link" href="{{ $url['home'] }}">
+                    <img src="{{ $url['logo'] }}" alt="Grocee Logo">
                 </a>
                 <button class="offcanvas__close--btn" data-offcanvas>close</button>
             </div>
             <nav class="offcanvas__menu">
                 <ul class="offcanvas__menu_ul">
                     <li class="offcanvas__menu_li">
-                        <a class="offcanvas__menu_item" href="index.html">Home</a>
-                        <ul class="offcanvas__sub_menu">
-                            <li class="offcanvas__sub_menu_li"><a href="index.html" class="offcanvas__sub_menu_item">Home One</a></li>
-                            <li class="offcanvas__sub_menu_li"><a href="index-2.html" class="offcanvas__sub_menu_item">Home Two</a></li>
-                            <li class="offcanvas__sub_menu_li"><a href="index-3.html" class="offcanvas__sub_menu_item">Home Three</a></li>
-                            <li class="offcanvas__sub_menu_li"><a href="index-4.html" class="offcanvas__sub_menu_item">Home Four</a></li>
-                        </ul>
+                        <a class="offcanvas__menu_item" href="{{ $url['home'] }}">Trang chủ</a>
                     </li>
                     <li class="offcanvas__menu_li">
-                        <a class="offcanvas__menu_item" href="shop.html">Shop</a>
+                        <a class="offcanvas__menu_item" href="{{ $url['allProduct'] }}">{{ $url['name'] }}</a>
                         <ul class="offcanvas__sub_menu">
-                            <li class="offcanvas__sub_menu_li">
-                                <a href="#" class="offcanvas__sub_menu_item">Column One</a>
-                                <ul class="offcanvas__sub_menu">
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="shop.html">Shop Left Sidebar</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="shop-grid.html">Shop Grid</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="shop-grid-list.html">Shop Grid List</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="shop-list.html">Shop List</a></li>
-                                </ul>
-                            </li>
-                            <li class="offcanvas__sub_menu_li">
-                                <a href="#" class="offcanvas__sub_menu_item">Column Two</a>
-                                <ul class="offcanvas__sub_menu">
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="product-details.html">Product Details</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="product-video.html">Video Product</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="product-details.html">Variable Product</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="product-left-sidebar.html">Product Left Sidebar</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="product-gallery.html">Product Gallery</a></li>
-                                </ul>
-                            </li>
-                            <li class="offcanvas__sub_menu_li">
-                                <a href="#" class="offcanvas__sub_menu_item">Column Three</a>
-                                <ul class="offcanvas__sub_menu">
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="my-account.html">My Account</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="my-account-2.html">My Account 2</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="404.html">404 Page</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="login.html">Login Page</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="faq.html">Faq Page</a></li>
-                                </ul>
-                            </li>
-                            <li class="offcanvas__sub_menu_li">
-                                <a href="#" class="offcanvas__sub_menu_item">Column Three</a>
-                                <ul class="offcanvas__sub_menu">
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="compare.html">Compare Pages</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="checkout.html">Checkout page</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="checkout-2.html">Checkout Style 2</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="checkout-3.html">Checkout Style 3</a></li>
-                                    <li class="offcanvas__sub_menu_li"><a class="offcanvas__sub_menu_item" href="checkout-4.html">Checkout Style 4</a></li>
-                                </ul>
-                            </li>
+                            @foreach($url['categoryHome'] as $item)
+                                <li class="offcanvas__sub_menu_li">
+                                    <a href="#" class="offcanvas__sub_menu_item">{{ $item->name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
                     <li class="offcanvas__menu_li">
