@@ -11,7 +11,7 @@
     <a href="{{ route('restaurant.restaurant.edit') }}" class="nav-link {{ $active }}">
         <i class="nav-icon fas fa-home"></i>
         <p>
-            {{ __('messages.admin.restaurant.title') }}
+            {{ $messages }}
         </p>
     </a>
 </li>

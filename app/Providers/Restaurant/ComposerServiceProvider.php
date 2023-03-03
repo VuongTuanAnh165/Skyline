@@ -78,5 +78,22 @@ class ComposerServiceProvider extends ServiceProvider
                 'messages' => $messages,
             ]);
         });
+        View::composer('restaurant.admin.restaurant.aside', function ($view) {
+            $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
+            $service_type = ServiceType::query()
+                ->leftJoin('service_charges', 'service_charges.service_type_id', 'service_types.id')
+                ->leftJoin('order_ceos', 'order_ceos.service_charge_id', 'service_charges.id')
+                ->select('service_types.service_id')
+                ->where('order_ceos.restaurant_id', $restaurant_id)
+                ->first();
+            if($service_type->service_id == 1) {
+                $messages = 'Nhà hàng';
+            } else {
+                $messages = 'Cửa hàng';
+            }
+            return $view->with([
+                'messages' => $messages,
+            ]);
+        });
     }
 }
