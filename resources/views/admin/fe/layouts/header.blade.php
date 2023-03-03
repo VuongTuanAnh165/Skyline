@@ -118,7 +118,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li><a class="menu-item" href="#">Website</a>
+                            <li><a class="menu-item" href="{{ route('user.home.index') }}">Website</a>
                         </ul>
                     </div>
                     <div class="de-flex-col">
