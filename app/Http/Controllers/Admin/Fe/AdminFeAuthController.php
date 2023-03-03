@@ -74,10 +74,17 @@ class AdminFeAuthController extends Controller
             ];
             $ceo = Ceo::create($data);
             DB::commit();
-            if($request->route) {
-                return redirect($request->route)->with(['success' => trans('messages.common.success_register')]);
+            $credentials = $request->only([
+                'email',
+                'password'
+            ]);
+            if (Auth::guard('ceo')->attempt($credentials)) {
+                $request->session()->regenerate();
+                if($request->route) {
+                    return redirect($request->route)->with(['success' => trans('messages.common.success_login')]);
+                }
+                return redirect()->route('admin.fe.home.index')->with(['success' => trans('messages.common.success_login')]);
             }
-            return redirect()->route('admin.fe.login')->with(['success' => trans('messages.common.success_register')]);
         } catch (Exception $e) {
             Log::error('[AdminFeAuthController][store] error ' . $e->getMessage());
             DB::rollBack();
