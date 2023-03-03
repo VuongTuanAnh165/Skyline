@@ -92,6 +92,8 @@
                                 $arg_all_product = array(
                                     'user.food.allProduct.index',
                                     'user.allProduct.index',
+                                    'user.food.product.index',
+                                    'user.product.index',
                                 );
                                 $active = '';
                                 if ( in_array($name,$arg_all_product) ) {
@@ -107,7 +109,10 @@
                                 <div class="header__mega--menu row">
                                     @foreach($url['categoryHome'] as $item)
                                     <div class="col-3">
-                                        <a class="header__mega--subtitle">{{ $item->name }}</a>
+                                        <a class="header__mega--subtitle" href="#" onclick="event.preventDefault(); document.getElementById('product-redirect-{{$item->id}}').submit();">{{ $item->name }}</a>
+                                        <form id="product-redirect-{{$item->id}}" action="{{ $url['product'] }}" method="GET" style="display: none;">
+                                            <input type="hidden" name="categoryHome" value="{{$item->id}}">
+                                        </form>
                                     </div>
                                     @endforeach
                                 </div>

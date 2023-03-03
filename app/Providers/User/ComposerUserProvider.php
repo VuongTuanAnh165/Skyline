@@ -70,6 +70,7 @@ class ComposerUserProvider extends ServiceProvider
                 'name' => 'Sản phẩm',
                 'categoryHome' => CategoryHome::where('service_id', 2)->get(),
                 'allProduct' => route('user.allProduct.index'),
+                'product' => route('user.product.index'),
             ];
             if ( in_array($name,$arr_route_food) ) {
                 $url = [
@@ -78,6 +79,7 @@ class ComposerUserProvider extends ServiceProvider
                     'name' => 'Món ăn',
                     'categoryHome' => CategoryHome::where('service_id', 1)->get(),
                     'allProduct' => route('user.food.allProduct.index'),
+                    'product' => route('user.food.product.index'),
                 ];
             }
             return $view->with([

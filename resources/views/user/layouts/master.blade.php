@@ -1,12 +1,12 @@
 @php
-    $name = Route::currentRouteName();
-    $arr_route_food = array(  
-        'user.food.home.index',
-    );
-    $src_logo = asset('img/logo_shop.png');
-    if ( in_array($name,$arr_route_food) ) {
-        $src_logo = asset('img/logo.png');
-    }
+$name = Route::currentRouteName();
+$arr_route_food = array(
+'user.food.home.index',
+);
+$src_logo = asset('img/logo_shop.png');
+if ( in_array($name,$arr_route_food) ) {
+$src_logo = asset('img/logo.png');
+}
 @endphp
 <!doctype html>
 <html lang="en">
@@ -77,7 +77,7 @@
     <!-- End preloader -->
 
     <!-- Start header area -->
-    @include('user.layouts.header')   
+    @include('user.layouts.header')
     <!-- End header area -->
 
     <main class="main__content_wrapper">
@@ -85,7 +85,7 @@
     </main>
 
     <!-- Start footer section -->
-    @include('user.layouts.footer')   
+    @include('user.layouts.footer')
     <!-- End footer section -->
 
     <!-- Scroll top bar -->
@@ -105,6 +105,29 @@
     <!-- Customscript js -->
     <script src="{{asset('template_web_user/assets/js/script.js')}}"></script>
     @yield('addjs')
+    <script>
+        $(document).ready(function() {
+            function setheight(img) {
+                return img.css('height', (img.width() * 132) / 185 + 'px');
+            }
+
+            function setheight2(img) {
+                return img.css('height', img.width() + 'px');
+            }
+
+            function setheight3(img) {
+                return img.css('height', (img.width() * 270) / 281 + 'px');
+            }
+            setheight($('.banner__items--thumbnail__img'));
+            setheight2($('.categories2__product--img'));
+            setheight3($('.product__items--img'));
+            $(window).on('resize', function() {
+                setheight($('.banner__items--thumbnail__img'));
+                setheight2($('.categories2__product--img'));
+                setheight3($('.product__items--img'));
+            });
+        })
+    </script>
 </body>
 
 </html>

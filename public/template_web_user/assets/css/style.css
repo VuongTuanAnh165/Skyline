@@ -9758,6 +9758,7 @@ input.quickview__value--number {
 .product__view--search__form {
   width: 200px;
   position: relative;
+  box-shadow: var(--f7-elevation-3) !important;
 }
 
 @media only screen and (min-width: 992px) {
@@ -10047,10 +10048,12 @@ input.quickview__value--number {
   position: relative;
   -webkit-transition: var(--transition);
   transition: var(--transition);
+  box-shadow: var(--f7-elevation-3) !important;
 }
 
-.widget__categories--menu__label:hover {
+.widget__categories--menu__label:hover, .widget__categories--menu__label.active {
   color: var(--secondary-color);
+  border: 1px solid;
 }
 
 .widget__categories--menu__label>* {
@@ -10198,6 +10201,8 @@ input.quickview__value--number {
 .price__filter--input {
   border: 1px solid var(--border-color2);
   padding: 0.7rem 1rem;
+  background-color: #ffffff;
+  box-shadow: var(--f7-elevation-3) !important;
 }
 
 .price__filter--currency {

@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="product__items--content product__items2--content text-center">
                                                 <a class="add__to--cart__btn" href="cart.html">+ Thêm giỏ hàng</a>
-                                                <h3 class="product__items--content__title h4"><a href="product-details.html">{{ $dish->name }}</a></h3>
+                                                <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                                                 <div class="product__items--price">
                                                     <span class="current__price">{{ number_format($dish->price) }} VND</span>
                                                 </div>

@@ -43,8 +43,10 @@ use App\Http\Controllers\Sell\SellHomeController;
 use App\Http\Controllers\Sell\SellRestaurantEatController;
 use App\Http\Controllers\User\Food\UserFoodAllProductController;
 use App\Http\Controllers\User\Food\UserFoodHomeController;
+use App\Http\Controllers\User\Food\UserFoodProductController;
 use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
+use App\Http\Controllers\User\Shop\UserShopProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -370,7 +372,9 @@ Route::prefix('admin')->group(function () {
 Route::prefix('food')->group(function () {
     Route::get('/', [UserFoodHomeController::class, 'index'])->name('user.food.home.index');
     Route::get('/tat-ca-mon-an', [UserFoodAllProductController::class, 'index'])->name('user.food.allProduct.index');
+    Route::get('/mon-an', [UserFoodProductController::class, 'index'])->name('user.food.product.index');
 });
 
 Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index');
 Route::get('/tat-ca-san-pham', [UserShopAllProductController::class, 'index'])->name('user.allProduct.index');
+Route::get('/san-pham', [UserShopProductController::class, 'index'])->name('user.product.index');

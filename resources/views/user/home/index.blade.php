@@ -111,17 +111,6 @@
         </div>
         <div class="product__section--inner categories2__swiper--activation swiper">
             <div class="swiper-wrapper">
-                <!-- <div class="swiper-slide">
-                    <div class="categories2__product--items text-center">
-                        <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories5.png" alt="categories-img"></a>
-                        </div>
-                        <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Vegan Broccoli</a></h3>
-                            <span class="product__categories--content__subtitle">7 products</span>
-                        </div>
-                    </div>
-                </div> -->
                 @foreach($categoryHomes as $key => $categoryHome)
                 <div class="swiper-slide">
                     <div class="{{ $key == 0 ? 'categories2__product--items' : 'product__items' }} text-center">
@@ -135,50 +124,6 @@
                     </div>
                 </div>
                 @endforeach
-                <!-- <div class="swiper-slide">
-                    <div class="product__items text-center">
-                        <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories7.png" alt="categories-img"></a>
-                        </div>
-                        <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Apple Juice </a></h3>
-                            <span class="product__categories--content__subtitle">10 products</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items text-center">
-                        <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories8.png" alt="categories-img"></a>
-                        </div>
-                        <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Fresh Berries</a></h3>
-                            <span class="product__categories--content__subtitle">12 products</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items text-center">
-                        <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories9.png" alt="categories-img"></a>
-                        </div>
-                        <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Orange Juice</a></h3>
-                            <span class="product__categories--content__subtitle">8 products</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items text-center">
-                        <div class="categories2__product--thumbnail">
-                            <a class="categories2__product--link display-block" href="shop.html"><img class="categories2__product--img display-block" src="assets/img/product/categories10.png" alt="categories-img"></a>
-                        </div>
-                        <div class="product__categories--content2">
-                            <h3 class="product__categories--content2__maintitle"><a href="shop.html">Vegan Broccoli</a></h3>
-                            <span class="product__categories--content__subtitle">13 products</span>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="swiper__nav--btn swiper-button-next"></div>
             <div class="swiper__nav--btn swiper-button-prev"></div>
@@ -261,7 +206,7 @@
                                     </div>
                                     <div class="product__items--content product__items2--content text-center">
                                         <a class="add__to--cart__btn" href="">+ Thêm giỏ hàng</a>
-                                        <h3 class="product__items--content__title h4"><a href="product-details.html">{{ $dish->name }}</a></h3>
+                                        <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                                         <div class="product__items--price">
                                             <span class="current__price">{{ number_format($dish->price) }} VND</span>
                                         </div>
@@ -1497,5 +1442,4 @@
 @if (session('success') || session('error'))
     @include('user.partials.script.toastr')
 @endif
-@include('user.home.script')
 @stop

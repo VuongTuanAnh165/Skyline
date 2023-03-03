@@ -1,5 +1,5 @@
 <!-- Select2 -->
-<script>
+<!-- <script>
     $(document).ready(function() {
         function setheight(img) {
             return img.css('height', (img.width() * 132) / 185 + 'px');
@@ -19,4 +19,4 @@
             setheight3($('.product__items--img'));
         });
     })
-</script>
+</script> -->

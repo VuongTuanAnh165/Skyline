@@ -32,4 +32,17 @@ class ConvertNameHelper
         $str = strtolower($str);
         return $str;
     }
+
+    /**
+     * Escape string in query like
+     *
+     * @param String $string
+     * @return string
+     */
+    public static function escapeLike($string): string
+    {
+        $arySearch = array('\\', '%', '_');
+        $aryReplace = array('\\\\', '\%', '\_');
+        return str_replace($arySearch, $aryReplace, $string);
+    }
 }
