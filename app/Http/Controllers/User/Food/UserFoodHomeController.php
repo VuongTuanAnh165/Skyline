@@ -33,6 +33,7 @@ class UserFoodHomeController extends Controller
             ->inRandomOrder()->limit(32)
             ->get();
         $url_allProduct = route('user.food.allProduct.index');
-        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct'));
+        $url_show = 'user.food.product.show';
+        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show'));
     }
 }

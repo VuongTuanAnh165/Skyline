@@ -28,6 +28,7 @@ class UserFoodAllProductController extends Controller
             ->paginate(16);
         $title = "Tất cả món ăn";
         $url_home = route('user.food.home.index');
-        return view($this->pathView.'index', compact('dishes', 'title', 'url_home'));
+        $url_show = 'user.food.product.show';
+        return view($this->pathView.'index', compact('dishes', 'title', 'url_home', 'url_show'));
     }
 }

@@ -174,7 +174,7 @@ $name_route = Route::currentRouteName();
                                     <div class="col mb-30">
                                         <div class="product__items product__items2">
                                             <div class="product__items--thumbnail">
-                                                <a class="product__items--link" href="product-details.html">
+                                                <a class="product__items--link" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
                                                     <img class="product__items--img product__primary--img" src="{{asset('storage/'.$dish->image)}}" alt="product-img">
                                                     @php
                                                     $item = \App\Models\MenuItem::query()
@@ -283,7 +283,7 @@ $name_route = Route::currentRouteName();
                                     <div class="col mb-30">
                                         <div class="product__items product__items2">
                                             <div class="product__items--thumbnail">
-                                                <a class="product__items--link" href="product-details.html">
+                                                <a class="product__items--link" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
                                                     <img class="product__items--img product__primary--img" src="{{asset('storage/'.$dish->image)}}" alt="product-img">
                                                     @php
                                                     $item = \App\Models\MenuItem::query()
@@ -340,7 +340,7 @@ $name_route = Route::currentRouteName();
                                             </div>
                                             <div class="product__items--content product__items2--content text-center">
                                                 <a class="add__to--cart__btn" href="cart.html">+ Thêm giỏ hàng</a>
-                                                <h3 class="product__items--content__title h4"><a href="product-details.html">{{ $dish->name }}</a></h3>
+                                                <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                                                 <div class="product__items--price">
                                                     <span class="current__price">{{ number_format($dish->price) }} VND</span>
                                                 </div>

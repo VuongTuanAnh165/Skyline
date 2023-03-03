@@ -36,7 +36,7 @@
                                     <div class="col mb-30">
                                         <div class="product__items product__items2">
                                             <div class="product__items--thumbnail">
-                                                <a class="product__items--link" href="product-details.html">
+                                                <a class="product__items--link" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
                                                     <img class="product__items--img product__primary--img" src="{{asset('storage/'.$dish->image)}}" alt="product-img">
                                                     @php
                                                         $item = \App\Models\MenuItem::query()

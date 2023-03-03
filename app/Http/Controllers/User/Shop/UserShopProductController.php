@@ -51,8 +51,19 @@ class UserShopProductController extends Controller
         }
         $dishes = $dishes->paginate(25);
         $title = "Sản phẩm";
-        $url_home = route('user.food.home.index');
+        $url_home = route('user.home.index');
         $categoryHomes = CategoryHome::where('service_id', 2)->get();
-        return view($this->pathView . 'index', compact('dishes', 'title', 'url_home', 'categoryHomes'));
+        $url_show = 'user.product.show';
+        return view($this->pathView . 'index', compact('dishes', 'title', 'url_home', 'categoryHomes', 'url_show'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id, $name_link)
+    {
+        return view($this->pathView . 'show');
     }
 }

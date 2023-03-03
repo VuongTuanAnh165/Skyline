@@ -12,7 +12,7 @@ class UserFoodProductController extends Controller
 {
     protected $pathView = 'user.product.';
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,13 +37,13 @@ class UserFoodProductController extends Controller
             $dishes->where('dishes.price', '<=', $request->priceMax);
         }
         if (isset($request->sort)) {
-            if($request->sort == 1) {
+            if ($request->sort == 1) {
                 $dishes = $dishes->orderBy('dishes.updated_at', 'DESC');
             }
-            if($request->sort == 2) {
+            if ($request->sort == 2) {
                 $dishes = $dishes->orderBy('dishes.price', 'ASC');
             }
-            if($request->sort == 3) {
+            if ($request->sort == 3) {
                 $dishes = $dishes->orderBy('dishes.price', 'DESC');
             }
         } else {
@@ -53,6 +53,17 @@ class UserFoodProductController extends Controller
         $title = "Món ăn";
         $url_home = route('user.food.home.index');
         $categoryHomes = CategoryHome::where('service_id', 1)->get();
-        return view($this->pathView.'index', compact('dishes', 'title', 'url_home', 'categoryHomes'));
+        $url_show = 'user.food.product.show';
+        return view($this->pathView . 'index', compact('dishes', 'title', 'url_home', 'categoryHomes', 'url_show'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id, $name_link)
+    {
+        return view($this->pathView . 'show');
     }
 }

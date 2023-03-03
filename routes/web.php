@@ -372,9 +372,15 @@ Route::prefix('admin')->group(function () {
 Route::prefix('food')->group(function () {
     Route::get('/', [UserFoodHomeController::class, 'index'])->name('user.food.home.index');
     Route::get('/tat-ca-mon-an', [UserFoodAllProductController::class, 'index'])->name('user.food.allProduct.index');
-    Route::get('/mon-an', [UserFoodProductController::class, 'index'])->name('user.food.product.index');
+    Route::prefix('/mon-an')->group(function () {
+        Route::get('/', [UserFoodProductController::class, 'index'])->name('user.food.product.index');
+        Route::get('/{id}-{name_link}', [UserFoodProductController::class, 'show'])->name('user.food.product.show');
+    });
 });
 
 Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index');
 Route::get('/tat-ca-san-pham', [UserShopAllProductController::class, 'index'])->name('user.allProduct.index');
-Route::get('/san-pham', [UserShopProductController::class, 'index'])->name('user.product.index');
+Route::prefix('/san-pham')->group(function () {
+    Route::get('/', [UserShopProductController::class, 'index'])->name('user.product.index');
+    Route::get('/{id}-{name_link}', [UserShopProductController::class, 'show'])->name('user.product.show');
+});

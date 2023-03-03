@@ -32,7 +32,8 @@ class UserShopHomeController extends Controller
             ->where('service_types.service_id', 2)
             ->inRandomOrder()->limit(32)
             ->get();
-            $url_allProduct = route('user.allProduct.index');
-            return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct'));
+        $url_allProduct = route('user.allProduct.index');
+        $url_show = 'user.product.show';
+        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show'));
     }
 }
