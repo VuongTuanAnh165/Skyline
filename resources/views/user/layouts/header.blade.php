@@ -94,6 +94,8 @@
                                     'user.allProduct.index',
                                     'user.food.product.index',
                                     'user.product.index',
+                                    'user.food.product.show',
+                                    'user.product.show',
                                 );
                                 $active = '';
                                 if ( in_array($name,$arg_all_product) ) {

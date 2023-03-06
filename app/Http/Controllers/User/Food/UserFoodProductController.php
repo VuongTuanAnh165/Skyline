@@ -6,6 +6,9 @@ use App\Helpers\ConvertNameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryHome;
 use App\Models\Dish;
+use App\Models\Menu;
+use App\Models\MenuItem;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class UserFoodProductController extends Controller
@@ -64,6 +67,26 @@ class UserFoodProductController extends Controller
      */
     public function show($id, $name_link)
     {
-        return view($this->pathView . 'show');
+        $dish = Dish::query()
+            ->leftJoin('categories', 'categories.id', 'dishes.category_id')
+            ->select(
+                'dishes.*',
+                'categories.name as category_name',
+            )
+            ->where('dishes.id', $id)
+            ->first();
+        $url_home = route('user.food.home.index');
+        $menu_items = MenuItem::query()
+            ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
+            ->where('menus.dish_id', $id)
+            ->select('menu_items.*')
+            ->get();
+        $menus = Menu::where('dish_id', $id)->get();
+        $restaurant = Restaurant::find($dish->restaurant_id);
+        $text_restaurant = 'Xem nhà hàng';
+        $dishes = Dish::where('restaurant_id', $restaurant->id)->get();
+        $text_dish = 'Các món ăn khác của nhà hàng';
+        $url_show = 'user.food.product.show';
+        return view($this->pathView . 'show', compact('dish', 'url_home', 'menu_items', 'menus', 'restaurant' , 'text_restaurant', 'dishes', 'text_dish', 'url_show'));
     }
 }

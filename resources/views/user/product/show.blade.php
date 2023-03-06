@@ -1,5 +1,5 @@
 @extends('user.layouts.master')
-@section('title', $title )
+@section('title', $dish->name )
 @section('addcss')
 
 @stop
@@ -10,10 +10,10 @@
         <div class="row row-cols-1">
             <div class="col">
                 <div class="breadcrumb__content text-center">
-                    <h1 class="breadcrumb__content--title text-white mb-25">Product Details</h1>
+                    <h1 class="breadcrumb__content--title mb-25">{{ $dish->name }}</h1>
                     <ul class="breadcrumb__content--menu d-flex justify-content-center">
-                        <li class="breadcrumb__content--menu__items"><a class="text-white" href="index.html">Home</a></li>
-                        <li class="breadcrumb__content--menu__items"><span class="text-white">Product Details</span></li>
+                        <li class="breadcrumb__content--menu__items"><a href="{{ $url_home }}">Trang chủ</a></li>
+                        <li class="breadcrumb__content--menu__items"><span>{{ $dish->name }}</span></li>
                     </ul>
                 </div>
             </div>
@@ -32,9 +32,9 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product1.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product1.jpg" alt="product-media-img"></a>
+                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('storage/'.$dish->image)}}"><img class="product__media--preview__items--img" src="{{asset('storage/'.$dish->image)}}" alt="product-media-img"></a>
                                     <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product1.jpg" data-gallery="product-media-preview">
+                                        <a class="product__media--view__icon--link glightbox" href="{{asset('storage/'.$dish->image)}}" data-gallery="product-media-preview">
                                             <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
                                                 <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
                                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
@@ -44,11 +44,14 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(count($menu_items) > 0)
+                            @foreach($menu_items as $menu_item)
+                            @if(!empty($menu_item->image))
                             <div class="swiper-slide">
                                 <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product2.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product2.jpg" alt="product-media-img"></a>
+                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('storage/'.$menu_item->image)}}"><img class="product__media--preview__items--img" src="{{asset('storage/'.$menu_item->image)}}" alt="product-media-img"></a>
                                     <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product2.jpg" data-gallery="product-media-preview">
+                                        <a class="product__media--view__icon--link glightbox" href="{{asset('storage/'.$menu_item->image)}}" data-gallery="product-media-preview">
                                             <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
                                                 <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
                                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
@@ -58,96 +61,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product3.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product3.jpg" alt="product-media-img"></a>
-                                    <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product3.jpg" data-gallery="product-media-preview">
-                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                            </svg>
-                                            <span class="visually-hidden">product view</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product4.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product4.jpg" alt="product-media-img"></a>
-                                    <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product4.jpg" data-gallery="product-media-preview">
-                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                            </svg>
-                                            <span class="visually-hidden">product view</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product5.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product5.jpg" alt="product-media-img"></a>
-                                    <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product5.jpg" data-gallery="product-media-preview">
-                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                            </svg>
-                                            <span class="visually-hidden">product view</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--preview__items">
-                                    <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="assets/img/product/big-product6.jpg"><img class="product__media--preview__items--img" src="assets/img/product/big-product6.jpg" alt="product-media-img"></a>
-                                    <div class="product__media--view__icon">
-                                        <a class="product__media--view__icon--link glightbox" href="assets/img/product/big-product6.jpg" data-gallery="product-media-preview">
-                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512">
-                                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
-                                            </svg>
-                                            <span class="visually-hidden">product view</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
+                            @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="product__media--nav swiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product6.png" alt="product-nav-img">
+                                    <img class="product__media--nav__items--img" src="{{asset('storage/'.$dish->image)}}" alt="product-nav-img">
                                 </div>
                             </div>
+                            @if(count($menu_items) > 0)
+                            @foreach($menu_items as $menu_item)
+                            @if(!empty($menu_item->image))
                             <div class="swiper-slide">
                                 <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product1.png" alt="product-nav-img">
+                                    <img class="product__media--nav__items--img" src="{{asset('storage/'.$menu_item->image)}}" alt="product-nav-img">
                                 </div>
                             </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product2.png" alt="product-nav-img">
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product4.png" alt="product-nav-img">
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product5.png" alt="product-nav-img">
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product__media--nav__items">
-                                    <img class="product__media--nav__items--img" src="assets/img/product/small-product3.png" alt="product-nav-img">
-                                </div>
-                            </div>
+                            @endif
+                            @endforeach
+                            @endif
                         </div>
                         <div class="swiper__nav--btn swiper-button-next"></div>
                         <div class="swiper__nav--btn swiper-button-prev"></div>
@@ -157,10 +93,9 @@
             <div class="col">
                 <div class="product__details--info">
                     <form action="#">
-                        <h2 class="product__details--info__title mb-15">Red-tomato-isolated</h2>
+                        <h2 class="product__details--info__title mb-15">{{ $dish->name }}</h2>
                         <div class="product__details--info__price mb-15">
-                            <span class="current__price">$58.00</span>
-                            <span class="old__price">$68.00</span>
+                            <span class="current__price">{{ number_format($dish->price) }} VND</span>
                         </div>
                         <div class="product__items--rating d-flex align-items-center mb-15">
                             <ul class="d-flex">
@@ -202,80 +137,59 @@
                             </ul>
                             <span class="product__items--rating__count--number">(24)</span>
                         </div>
-                        <p class="product__details--info__desc mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut numquam ullam is recusandae laborum explicabo id sequi quisquam, ab sunt deleniti quidem ea animi facilis quod nostrum odit! Repellendus voluptas suscipit cum harum dolor sciunt.</p>
+                        <p class="product__details--info__desc mb-20">
+                            #{{$dish->category_name}},
+                            @if(!empty($dish->category_home_id))
+                            @php
+                            $category_home = \App\Models\CategoryHome::select('id', 'name')->whereIn('id', $dish->category_home_id)->get();
+                            @endphp
+                            @if(count($category_home) > 0)
+                            @foreach($category_home as $item)
+                            <span>#{{ $item->name }},</span>
+                            @endforeach
+                            @endif
+                            @endif
+                        </p>
                         <div class="product__variant">
-                            <div class="product__variant--list mb-10">
-                                <fieldset class="variant__input--fieldset">
-                                    <legend class="product__variant--title mb-8">Color :</legend>
-                                    <div class="variant__color d-flex">
-                                        <div class="variant__color--list">
-                                            <input id="color-red1" name="color" type="radio" checked>
-                                            <label class="variant__color--value red" for="color-red1" title="Red"><img class="variant__color--value__img" src="assets/img/product/product1.png" alt="variant-color-img"></label>
-                                        </div>
-                                        <div class="variant__color--list">
-                                            <input id="color-red2" name="color" type="radio">
-                                            <label class="variant__color--value red" for="color-red2" title="Black"><img class="variant__color--value__img" src="assets/img/product/product2.png" alt="variant-color-img"></label>
-                                        </div>
-                                        <div class="variant__color--list">
-                                            <input id="color-red3" name="color" type="radio">
-                                            <label class="variant__color--value red" for="color-red3" title="Pink"><img class="variant__color--value__img" src="assets/img/product/product3.png" alt="variant-color-img"></label>
-                                        </div>
-                                        <div class="variant__color--list">
-                                            <input id="color-red4" name="color" type="radio">
-                                            <label class="variant__color--value red" for="color-red4" title="Orange"><img class="variant__color--value__img" src="assets/img/product/product4.png" alt="variant-color-img"></label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
+                            @foreach($menus as $menu)
                             <div class="product__variant--list mb-20">
                                 <fieldset class="variant__input--fieldset">
-                                    <legend class="product__variant--title mb-8">Weight :</legend>
+                                    <legend class="product__variant--title mb-8">{{$menu->name}} :</legend>
                                     <ul class="variant__size d-flex">
+                                        @foreach($menu_items as $menu_item)
+                                        @if($menu_item->menu_id == $menu->id)
                                         <li class="variant__size--list">
-                                            <input id="weight1" name="weight" type="radio" checked>
-                                            <label class="variant__size--value red" for="weight1">5 kg</label>
+                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="radio" checked>
+                                            <label class="variant__size--value red" for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                         </li>
-                                        <li class="variant__size--list">
-                                            <input id="weight2" name="weight" type="radio">
-                                            <label class="variant__size--value red" for="weight2">3 kg</label>
-                                        </li>
-                                        <li class="variant__size--list">
-                                            <input id="weight3" name="weight" type="radio">
-                                            <label class="variant__size--value red" for="weight3">2 kg</label>
-                                        </li>
+                                        @endif
+                                        @endforeach
                                     </ul>
                                 </fieldset>
                             </div>
+                            @endforeach
                             <div class="product__variant--list quantity d-flex align-items-center mb-20">
                                 <div class="quantity__box">
                                     <button type="button" class="quantity__value quickview__value--quantity decrease" aria-label="quantity value" value="Decrease Value">-</button>
                                     <label>
-                                        <input type="number" class="quantity__number quickview__value--number" value="1" data-counter />
+                                        <input type="number" class="quantity__number quickview__value--number" value="1" min=2 data-counter />
                                     </label>
                                     <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
                                 </div>
-                                <button class="btn quickview__cart--btn" type="submit">Add To Cart</button>
+                                <button class="btn quickview__cart--btn" type="submit">Thêm vào giỏ hàng</button>
                             </div>
                             <div class="product__variant--list mb-15">
-                                <a class="variant__wishlist--icon mb-15" href="wishlist.html" title="Add to wishlist">
+                                <a class="variant__wishlist--icon mb-15" href="" title="Add to wishlist">
                                     <svg class="quickview__variant--wishlist__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
                                     </svg>
-                                    Add to Wishlist
+                                    Thêm vào danh sách yêu thích
                                 </a>
-                                <button class="variant__buy--now__btn btn" type="submit">Buy it now</button>
-                            </div>
-                            <div class="product__variant--list mb-15">
-                                <div class="product__details--info__meta">
-                                    <p class="product__details--info__meta--list"><strong>Barcode:</strong> <span> 565461</span> </p>
-                                    <p class="product__details--info__meta--list"><strong>Sky:</strong> <span>4420</span> </p>
-                                    <p class="product__details--info__meta--list"><strong>Vendor:</strong> <span>Belo</span> </p>
-                                    <p class="product__details--info__meta--list"><strong>Type:</strong> <span>Foods</span> </p>
-                                </div>
+                                <button class="variant__buy--now__btn btn" type="submit">Mua ngay</button>
                             </div>
                         </div>
                         <div class="quickview__social d-flex align-items-center mb-15">
-                            <label class="quickview__social--title">Social Share:</label>
+                            <label class="quickview__social--title">Chia sẻ:</label>
                             <ul class="quickview__social--wrapper mt-0 d-flex">
                                 <li class="quickview__social--list">
                                     <a class="quickview__social--icon" target="_blank" href="https://www.facebook.com">
@@ -312,8 +226,8 @@
                             </ul>
                         </div>
                         <div class="guarantee__safe--checkout">
-                            <h5 class="guarantee__safe--checkout__title">Guaranteed Safe Checkout</h5>
-                            <img class="guarantee__safe--checkout__img" src="assets/img/other/safe-checkout.png" alt="Payment Image">
+                            <h5 class="guarantee__safe--checkout__title">Thanh toán được đảm bảo an toàn</h5>
+                            <img class="guarantee__safe--checkout__img" src="{{ asset('template_web_user/assets/img/other/safe-checkout.png') }}" alt="Payment Image">
                         </div>
                     </form>
                 </div>
@@ -322,61 +236,56 @@
     </div>
 </section>
 <!-- End product details section -->
-
+<section>
+    <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Người bán</h6>
+            </div>
+            <div class="card-body p-0">
+                <div class="modal-content-page">
+                    <div class="modal-body split-list">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <a href="#" data-dismiss="modal" aria-label="Close" class="text-decoration-none d-flex border rounded p-2 bg-light align-items-center mb-2">
+                                    <div class="mr-4"><img src="{{asset('storage/'.$restaurant->logo)}}" class="img-fluid rounded-circle" width="100px"></div>
+                                    <div class="">
+                                        <p class="mb-0 text-dark">{{ $restaurant->name }}</p>
+                                        <span class="mb-0 small text-black-50">{{ $restaurant->email }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="modal-header">
+                                    <h6 class="m-0 font-weight-bold text-primary">Đánh giá: <span style="color:red; margin-left:1rem">314</span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Sản phẩm: <span style="color:red; margin-left:1rem">{{ count($dishes) }}</span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Tham gia: <span style="color:red; margin-left:1rem">{{ $restaurant->started_at }}</span></h6>
+                                </div>
+                                <div class="modal-header border-0" style="flex-direction: row-reverse;">
+                                    <a href="" class="btn btn-primary btn-block">{{ $text_restaurant }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Start product details tab section -->
 <section class="product__details--tab__section section--padding">
     <div class="container">
         <div class="row row-cols-1">
             <div class="col">
                 <ul class="product__tab--one product__details--tab d-flex mb-30">
-                    <li class="product__details--tab__list active" data-toggle="tab" data-target="#description">Description</li>
-                    <li class="product__details--tab__list" data-toggle="tab" data-target="#reviews">Product Reviews</li>
-                    <li class="product__details--tab__list" data-toggle="tab" data-target="#information">Additional Info</li>
-                    <li class="product__details--tab__list" data-toggle="tab" data-target="#custom">Custom Content</li>
+                    <li class="product__details--tab__list active" data-toggle="tab" data-target="#description">Mô tả</li>
+                    <li class="product__details--tab__list" data-toggle="tab" data-target="#reviews">Đánh giá</li>
                 </ul>
                 <div class="product__details--tab__inner border-radius-10">
                     <div class="tab_content">
                         <div id="description" class="tab_pane active show">
                             <div class="product__tab--content">
-                                <div class="product__tab--content__step mb-30">
-                                    <h2 class="product__tab--content__title h4 mb-10">Nam provident sequi</h2>
-                                    <p class="product__tab--content__desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam provident sequi, nemo sapiente culpa nostrum rem eum perferendis quibusdam, magnam a vitae corporis! Magnam enim modi, illo harum suscipit tempore aut dolore doloribus deserunt voluptatum illum, est porro? Ducimus dolore accusamus impedit ipsum maiores, ea iusto temporibus numquam eaque mollitia fugiat laborum dolor tempora eligendi voluptatem quis necessitatibus nam ab?</p>
-                                </div>
-                                <div class="product__tab--content__step">
-                                    <h2 class="product__tab--content__title h4 mb-10">More Details</h2>
-                                    <ul>
-                                        <li class="product__tab--content__list">
-                                            <svg class="product__tab--content__list--icon" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"></path>
-                                            </svg>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, dolorum?
-                                        </li>
-                                        <li class="product__tab--content__list">
-                                            <svg class="product__tab--content__list--icon" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"></path>
-                                            </svg>
-                                            Magnam enim modi, illo harum suscipit tempore aut dolore?
-                                        </li>
-                                        <li class="product__tab--content__list">
-                                            <svg class="product__tab--content__list--icon" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"></path>
-                                            </svg>
-                                            Numquam eaque mollitia fugiat laborum dolor tempora;
-                                        </li>
-                                        <li class="product__tab--content__list">
-                                            <svg class="product__tab--content__list--icon" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"></path>
-                                            </svg>
-                                            Sit amet consectetur adipisicing elit. Quo delectus repellat facere maiores.
-                                        </li>
-                                        <li class="product__tab--content__list">
-                                            <svg class="product__tab--content__list--icon" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"></path>
-                                            </svg>
-                                            Repellendus itaque sit quia consequuntur, unde veritatis. dolorum?
-                                        </li>
-                                    </ul>
-                                </div>
+                                {!! $dish->content !!}
                             </div>
                         </div>
                         <div id="reviews" class="tab_pane">
@@ -428,7 +337,7 @@
                                 <div class="reviews__comment--area">
                                     <div class="reviews__comment--list d-flex">
                                         <div class="reviews__comment--thumb">
-                                            <img src="assets/img/other/comment-thumb1.png" alt="comment-thumb">
+                                            <img src="{{ asset('template_web_user/assets/img/other/comment-thumb1.png') }}" alt="comment-thumb">
                                         </div>
                                         <div class="reviews__comment--content">
                                             <div class="reviews__comment--top d-flex justify-content-between">
@@ -479,7 +388,7 @@
                                     </div>
                                     <div class="reviews__comment--list margin__left d-flex">
                                         <div class="reviews__comment--thumb">
-                                            <img src="assets/img/other/comment-thumb2.png" alt="comment-thumb">
+                                            <img src="{{ asset('template_web_user/assets/img/other/comment-thumb2.png') }}" alt="comment-thumb">
                                         </div>
                                         <div class="reviews__comment--content">
                                             <div class="reviews__comment--top d-flex justify-content-between">
@@ -530,7 +439,7 @@
                                     </div>
                                     <div class="reviews__comment--list d-flex">
                                         <div class="reviews__comment--thumb">
-                                            <img src="assets/img/other/comment-thumb3.png" alt="comment-thumb">
+                                            <img src="{{ asset('template_web_user/assets/img/other/comment-thumb3.png') }}" alt="comment-thumb">
                                         </div>
                                         <div class="reviews__comment--content">
                                             <div class="reviews__comment--top d-flex justify-content-between">
@@ -580,82 +489,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="writereview" class="reviews__comment--reply__area">
-                                    <form action="#">
-                                        <h3 class="reviews__comment--reply__title mb-15">Add a review </h3>
-                                        <div class="reviews__ratting d-flex align-items-center mb-20">
-                                            <ul class="d-flex">
-                                                <li class="reviews__ratting--list">
-                                                    <span class="reviews__ratting--icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.105" height="12.732" viewBox="0 0 10.105 9.732">
-                                                            <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </li>
-                                                <li class="reviews__ratting--list">
-                                                    <span class="reviews__ratting--icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.105" height="12.732" viewBox="0 0 10.105 9.732">
-                                                            <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </li>
-                                                <li class="reviews__ratting--list">
-                                                    <span class="reviews__ratting--icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.105" height="12.732" viewBox="0 0 10.105 9.732">
-                                                            <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </li>
-                                                <li class="reviews__ratting--list">
-                                                    <span class="reviews__ratting--icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.105" height="12.732" viewBox="0 0 10.105 9.732">
-                                                            <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </li>
-                                                <li class="reviews__ratting--list">
-                                                    <span class="reviews__ratting--icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.105" height="12.732" viewBox="0 0 10.105 9.732">
-                                                            <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="#c7c5c2" />
-                                                        </svg>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 mb-10">
-                                                <textarea class="reviews__comment--reply__textarea" placeholder="Your Comments...."></textarea>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 mb-15">
-                                                <label>
-                                                    <input class="reviews__comment--reply__input" placeholder="Your Name...." type="text">
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 mb-15">
-                                                <label>
-                                                    <input class="reviews__comment--reply__input" placeholder="Your Email...." type="email">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <button class="btn text-white" data-hover="Submit" type="submit">SUBMIT</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="information" class="tab_pane">
-                            <div class="product__tab--conten">
-                                <div class="product__tab--content__step mb-30">
-                                    <h2 class="product__tab--content__title h4 mb-10">Nam provident sequi</h2>
-                                    <p class="product__tab--content__desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam provident sequi, nemo sapiente culpa nostrum rem eum perferendis quibusdam, magnam a vitae corporis! Magnam enim modi, illo harum suscipit tempore aut dolore doloribus deserunt voluptatum illum, est porro? Ducimus dolore accusamus impedit ipsum maiores, ea iusto temporibus numquam eaque mollitia fugiat laborum dolor tempora eligendi voluptatem quis necessitatibus nam ab?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="custom" class="tab_pane">
-                            <div class="product__tab--content">
-                                <div class="product__tab--content__step mb-30">
-                                    <h2 class="product__tab--content__title h4 mb-10">Nam provident sequi</h2>
-                                    <p class="product__tab--content__desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam provident sequi, nemo sapiente culpa nostrum rem eum perferendis quibusdam, magnam a vitae corporis! Magnam enim modi, illo harum suscipit tempore aut dolore doloribus deserunt voluptatum illum, est porro? Ducimus dolore accusamus impedit ipsum maiores, ea iusto temporibus numquam eaque mollitia fugiat laborum dolor tempora eligendi voluptatem quis necessitatibus nam ab?</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -670,55 +503,74 @@
 <section class="product__section product__section--style3 section--padding">
     <div class="container product3__section--container">
         <div class="section__heading3 text-center mb-40">
-            <h2 class="section__heading3--maintitle">You may also like</h2>
+            <h2 class="section__heading3--maintitle">{{ $text_dish }}</h2>
         </div>
         <div class="product__section--inner product3__section--inner__padding product__section--style3__inner product__swiper--activation swiper">
             <div class="swiper-wrapper">
+                @foreach($dishes as $dish)
                 <div class="swiper-slide">
                     <div class="product__items product__items2">
                         <div class="product__items--thumbnail">
-                            <a class="product__items--link" href="product-details.html">
-                                <img class="product__items--img product__primary--img" src="assets/img/product/product7.png" alt="product-img">
-                                <img class="product__items--img product__secondary--img" src="assets/img/product/product8.png" alt="product-img">
+                            <a class="product__items--link" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
+                                <img class="product__items--img product__primary--img" src="{{asset('storage/'.$dish->image)}}" alt="product-img">
+                                @php
+                                $item = \App\Models\MenuItem::query()
+                                ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
+                                ->where('menus.dish_id', $dish->id)
+                                ->whereNotNull('menu_items.image')
+                                ->first();
+                                @endphp
+                                @if(!empty($item))
+                                <img class="product__items--img product__secondary--img" src="{{asset('storage/'.$item->image)}}" alt="product-img">
+                                @endif
                             </a>
-                            <div class="product__badge">
-                                <span class="product__badge--items sale">Sale</span>
-                            </div>
-                            <ul class="product__items--action">
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="wishlist.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Wishlist</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                                        </svg>
-                                        <span class="visually-hidden">Quick View</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="compare.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
-                                            <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Compare</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            @php
+                            $nowDate = Carbon\Carbon::now();
+                            $promotion = \App\Models\Promotion::query()
+                            ->where('type', 3)
+                            ->where('restaurant_id', $dish->restaurant_id)
+                            ->whereDate('started_at', '<=', $nowDate) ->whereDate('ended_at', '>=', $nowDate)
+                                ->first();
+                                @endphp
+                                @if(!empty($promotion))
+                                <div class="product__badge">
+                                    <span class="product__badge--items sale">Sale</span>
+                                </div>
+                                @endif
+                                <ul class="product__items--action">
+                                    <li class="product__items--action__list">
+                                        <a class="product__items--action__btn" href="wishlist.html">
+                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                            </svg>
+                                            <span class="visually-hidden">Wishlist</span>
+                                        </a>
+                                    </li>
+                                    <li class="product__items--action__list">
+                                        <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
+                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
+                                            </svg>
+                                            <span class="visually-hidden">Quick View</span>
+                                        </a>
+                                    </li>
+                                    <li class="product__items--action__list">
+                                        <a class="product__items--action__btn" href="compare.html">
+                                            <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
+                                                <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                            </svg>
+                                            <span class="visually-hidden">Compare</span>
+                                        </a>
+                                    </li>
+                                </ul>
                         </div>
                         <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Add to cart</a>
-                            <h3 class="product__items--content__title h4"><a href="product-details.html">Green-surface</a></h3>
+                            <a class="add__to--cart__btn" href="cart.html">+ Thêm giỏ hàng</a>
+                            <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                             <div class="product__items--price">
-                                <span class="current__price">$38.00</span>
-                                <span class="old__price">$40.00</span>
+                                <span class="current__price">{{ number_format($dish->price) }} VND</span>
                             </div>
                             <div class="product__items--rating d-flex justify-content-center align-items-center">
                                 <ul class="d-flex">
@@ -763,362 +615,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="product__items product__items2">
-                        <div class="product__items--thumbnail">
-                            <a class="product__items--link" href="product-details.html">
-                                <img class="product__items--img product__primary--img" src="assets/img/product/product2.png" alt="product-img">
-                                <img class="product__items--img product__secondary--img" src="assets/img/product/product1.png" alt="product-img">
-                            </a>
-                            <div class="product__badge">
-                                <span class="product__badge--items sale">Sale</span>
-                            </div>
-                            <ul class="product__items--action">
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="wishlist.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Wishlist</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                                        </svg>
-                                        <span class="visually-hidden">Quick View</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="compare.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
-                                            <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Compare</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Add to cart</a>
-                            <h3 class="product__items--content__title h4"><a href="product-details.html">Red-tomato-isolated</a></h3>
-                            <div class="product__items--price">
-                                <span class="current__price">$52.00</span>
-                                <span class="old__price">$62.00</span>
-                            </div>
-                            <div class="product__items--rating d-flex justify-content-center align-items-center">
-                                <ul class="d-flex">
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="#c7c5c2" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                </ul>
-                                <span class="product__items--rating__count--number">(24)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items product__items2">
-                        <div class="product__items--thumbnail">
-                            <a class="product__items--link" href="product-details.html">
-                                <img class="product__items--img product__primary--img" src="assets/img/product/product1.png" alt="product-img">
-                                <img class="product__items--img product__secondary--img" src="assets/img/product/product2.png" alt="product-img">
-                            </a>
-                            <div class="product__badge">
-                                <span class="product__badge--items sale">Sale</span>
-                            </div>
-                            <ul class="product__items--action">
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="wishlist.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Wishlist</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                                        </svg>
-                                        <span class="visually-hidden">Quick View</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="compare.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
-                                            <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Compare</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Add to cart</a>
-                            <h3 class="product__items--content__title h4"><a href="product-details.html">Vegetable-healthy</a></h3>
-                            <div class="product__items--price">
-                                <span class="current__price">$39.00</span>
-                                <span class="old__price">$59.00</span>
-                            </div>
-                            <div class="product__items--rating d-flex justify-content-center align-items-center">
-                                <ul class="d-flex">
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="#c7c5c2" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                </ul>
-                                <span class="product__items--rating__count--number">(24)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items product__items2">
-                        <div class="product__items--thumbnail">
-                            <a class="product__items--link" href="product-details.html">
-                                <img class="product__items--img product__primary--img" src="assets/img/product/product3.png" alt="product-img">
-                                <img class="product__items--img product__secondary--img" src="assets/img/product/product4.png" alt="product-img">
-                            </a>
-                            <div class="product__badge">
-                                <span class="product__badge--items sale">Sale</span>
-                            </div>
-                            <ul class="product__items--action">
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="wishlist.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Wishlist</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                                        </svg>
-                                        <span class="visually-hidden">Quick View</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="compare.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
-                                            <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Compare</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Add to cart</a>
-                            <h3 class="product__items--content__title h4"><a href="product-details.html">Fresh-whole-fish</a></h3>
-                            <div class="product__items--price">
-                                <span class="current__price">$42.00</span>
-                                <span class="old__price">$48.00</span>
-                            </div>
-                            <div class="product__items--rating d-flex justify-content-center align-items-center">
-                                <ul class="d-flex">
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="#c7c5c2" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                </ul>
-                                <span class="product__items--rating__count--number">(24)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product__items product__items2">
-                        <div class="product__items--thumbnail">
-                            <a class="product__items--link" href="product-details.html">
-                                <img class="product__items--img product__primary--img" src="assets/img/product/product5.png" alt="product-img">
-                                <img class="product__items--img product__secondary--img" src="assets/img/product/product6.png" alt="product-img">
-                            </a>
-                            <div class="product__badge">
-                                <span class="product__badge--items sale">Sale</span>
-                            </div>
-                            <ul class="product__items--action">
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="wishlist.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Wishlist</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" data-open="modal1" href="javascript:void(0)">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
-                                        </svg>
-                                        <span class="visually-hidden">Quick View</span>
-                                    </a>
-                                </li>
-                                <li class="product__items--action__list">
-                                    <a class="product__items--action__btn" href="compare.html">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 304l48 48-48 48M400 112l48 48-48 48M64 352h85.19a80 80 0 0066.56-35.62L256 256" />
-                                            <path d="M64 160h85.19a80 80 0 0166.56 35.62l80.5 120.76A80 80 0 00362.81 352H416M416 160h-53.19a80 80 0 00-66.56 35.62L288 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <span class="visually-hidden">Compare</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Add to cart</a>
-                            <h3 class="product__items--content__title h4"><a href="product-details.html">Chili-pepper</a></h3>
-                            <div class="product__items--price">
-                                <span class="current__price">$38.00</span>
-                                <span class="old__price">$44.00</span>
-                            </div>
-                            <div class="product__items--rating d-flex justify-content-center align-items-center">
-                                <ul class="d-flex">
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                    <li class="product__items--rating__list">
-                                        <span class="product__items--rating__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="10.105" height="9.732" viewBox="0 0 10.105 9.732">
-                                                <path data-name="star - Copy" d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z" transform="translate(0 -0.018)" fill="#c7c5c2" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                </ul>
-                                <span class="product__items--rating__count--number">(24)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="swiper__nav--btn swiper-button-next"></div>
             <div class="swiper__nav--btn swiper-button-prev"></div>

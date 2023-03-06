@@ -594,7 +594,7 @@ if (quantityWrapper) {
       let input = e.target.previousElementSibling.children[0];
       if (input.dataset.counter != undefined) {
         let value = parseInt(input.value, 10);
-        value = isNaN(value) ? 0 : value;
+        value = isNaN(value) ? 1 : value;
         value++;
         input.value = value;
       }
@@ -604,10 +604,10 @@ if (quantityWrapper) {
       let input = e.target.nextElementSibling.children[0];
       if (input.dataset.counter != undefined) {
         let value = parseInt(input.value, 10);
-        value = isNaN(value) ? 0 : value;
+        value = isNaN(value) ? 1 : value;
         value < 1 ? (value = 1) : "";
         value--;
-        input.value = value;
+        input.value = value < 1 ? 1 : value;
       }
     });
   });
