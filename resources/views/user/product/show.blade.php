@@ -247,7 +247,7 @@
                     <div class="modal-body split-list">
                         <div class="row">
                             <div class="col-md-6 col-sm-12 col-12">
-                                <a href="#" data-dismiss="modal" aria-label="Close" class="text-decoration-none d-flex border rounded p-2 bg-light align-items-center mb-2">
+                                <a href="{{ route($url_restaurant, ['id' => $restaurant->id]) }}" data-dismiss="modal" aria-label="Close" class="text-decoration-none d-flex border rounded p-2 bg-light align-items-center mb-2">
                                     <div class="mr-4"><img src="{{asset('storage/'.$restaurant->logo)}}" class="img-fluid rounded-circle" width="100px"></div>
                                     <div class="">
                                         <p class="mb-0 text-dark">{{ $restaurant->name }}</p>
@@ -258,11 +258,13 @@
                             <div class="col-md-6 col-sm-12 col-12">
                                 <div class="modal-header">
                                     <h6 class="m-0 font-weight-bold text-primary">Đánh giá: <span style="color:red; margin-left:1rem">314</span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Tỉ lệ phản hồi: <span style="color:red; margin-left:1rem">90%</span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Thời gian phản hổi: <span style="color:red; margin-left:1rem">trong vài giờ</span></h6>
+                                </div>
+                                <div class="modal-header">
+                                    <h6 class="m-0 font-weight-bold text-primary">Người theo dõi: <span style="color:red; margin-left:1rem">314</span></h6>
                                     <h6 class="m-0 font-weight-bold text-primary">Sản phẩm: <span style="color:red; margin-left:1rem">{{ count($dishes) }}</span></h6>
                                     <h6 class="m-0 font-weight-bold text-primary">Tham gia: <span style="color:red; margin-left:1rem">{{ $restaurant->started_at }}</span></h6>
-                                </div>
-                                <div class="modal-header border-0" style="flex-direction: row-reverse;">
-                                    <a href="" class="btn btn-primary btn-block">{{ $text_restaurant }}</a>
                                 </div>
                             </div>
                         </div>

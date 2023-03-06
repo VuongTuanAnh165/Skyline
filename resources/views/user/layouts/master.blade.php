@@ -118,13 +118,19 @@ $src_logo = asset('img/logo.png');
             function setheight3(img) {
                 return img.css('height', (img.width() * 270) / 281 + 'px');
             }
+
+            function setheight4(img) {
+                return img.css('height', (img.width() * 9) / 26 + 'px');
+            }
             setheight($('.banner__items--thumbnail__img'));
             setheight2($('.categories2__product--img'));
             setheight3($('.product__items--img'));
+            setheight4($('.background-restaurant'));
             $(window).on('resize', function() {
                 setheight($('.banner__items--thumbnail__img'));
                 setheight2($('.categories2__product--img'));
                 setheight3($('.product__items--img'));
+                setheight4($('.background-restaurant'));
             });
         })
     </script>

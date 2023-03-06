@@ -158,5 +158,4 @@
 @if (session('success') || session('error'))
 @include('user.partials.script.toastr')
 @endif
-@include('user.home.script')
 @stop

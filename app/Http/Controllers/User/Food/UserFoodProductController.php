@@ -87,6 +87,7 @@ class UserFoodProductController extends Controller
         $dishes = Dish::where('restaurant_id', $restaurant->id)->get();
         $text_dish = 'Các món ăn khác của nhà hàng';
         $url_show = 'user.food.product.show';
-        return view($this->pathView . 'show', compact('dish', 'url_home', 'menu_items', 'menus', 'restaurant' , 'text_restaurant', 'dishes', 'text_dish', 'url_show'));
+        $url_restaurant = 'user.food.restaurant.index';
+        return view($this->pathView . 'show', compact('dish', 'url_home', 'menu_items', 'menus', 'restaurant' , 'text_restaurant', 'dishes', 'text_dish', 'url_show', 'url_restaurant'));
     }
 }

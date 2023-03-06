@@ -35,6 +35,9 @@ class ComposerUserProvider extends ServiceProvider
             $name = Route::currentRouteName();
             $arr_route_food = array(  
                 'user.food.home.index',
+                'user.food.allProduct.index',
+                'user.food.product.index',
+                'user.food.product.show',
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),

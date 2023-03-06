@@ -44,9 +44,11 @@ use App\Http\Controllers\Sell\SellRestaurantEatController;
 use App\Http\Controllers\User\Food\UserFoodAllProductController;
 use App\Http\Controllers\User\Food\UserFoodHomeController;
 use App\Http\Controllers\User\Food\UserFoodProductController;
+use App\Http\Controllers\User\Food\UserFoodRestaurantController;
 use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
+use App\Http\Controllers\User\Shop\UserShopRestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -376,6 +378,9 @@ Route::prefix('food')->group(function () {
         Route::get('/', [UserFoodProductController::class, 'index'])->name('user.food.product.index');
         Route::get('/{id}-{name_link}', [UserFoodProductController::class, 'show'])->name('user.food.product.show');
     });
+    Route::prefix('/nha-hang')->group(function () {
+        Route::get('/{id}', [UserFoodRestaurantController::class, 'index'])->name('user.food.restaurant.index');
+    });
 });
 
 Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index');
@@ -383,4 +388,7 @@ Route::get('/tat-ca-san-pham', [UserShopAllProductController::class, 'index'])->
 Route::prefix('/san-pham')->group(function () {
     Route::get('/', [UserShopProductController::class, 'index'])->name('user.product.index');
     Route::get('/{id}-{name_link}', [UserShopProductController::class, 'show'])->name('user.product.show');
+});
+Route::prefix('/shop')->group(function () {
+    Route::get('/{id}', [UserShopRestaurantController::class, 'index'])->name('user.restaurant.index');
 });
