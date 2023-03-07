@@ -29,7 +29,7 @@
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
                             <li class="pagination__list page-item active">
-                                <a href="shop.html" class="pagination__item link page-link">{{ $page }}</a>
+                                <a href="javascript:void(0)" class="pagination__item link page-link">{{ $page }}</a>
                             </li>
                         @else
                             <li class="pagination__list page-item">

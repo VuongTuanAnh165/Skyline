@@ -1,6 +1,6 @@
 <section class="restaurant-header shadow">
     <div class="container">
-        <div class="mb-4">
+        <div class="">
             <div class="card-body p-0">
                 <div class="modal-content-page">
                     <div class="modal-body split-list">
@@ -9,7 +9,7 @@
                                 <img src="{{asset('storage/'.$restaurant->background[0])}}" class="background-restaurant">
                                 <div class="profile-restaurant">
                                     <a href="#" class="text-decoration-none d-flex rounded p-2 align-items-center mb-2">
-                                        <div class="mr-4"><img src="{{asset('storage/'.$restaurant->logo)}}" class="img-fluid rounded-circle" width="100px"></div>
+                                        <div style="background-color: #ffffff; border-radius: 50%;" class="mr-4"><img style="padding: 1rem;" src="{{asset('storage/'.$restaurant->logo)}}" class="img-fluid rounded-circle" width="100px"></div>
                                         <div class="">
                                             <p class="mb-4 current__price name-restaurant">{{ $restaurant->name }}</p>
                                             <p class="mb-0 small text-black-50">{{ $restaurant->email }}</p>

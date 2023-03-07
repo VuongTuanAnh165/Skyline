@@ -159,7 +159,7 @@
                                         @foreach($menu_items as $menu_item)
                                         @if($menu_item->menu_id == $menu->id)
                                         <li class="variant__size--list">
-                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="radio" checked>
+                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="radio">
                                             <label class="variant__size--value red" for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                         </li>
                                         @endif

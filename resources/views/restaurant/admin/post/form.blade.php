@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">{{ __('messages.admin.post.table.description') }}</label>
-                            <textarea rows="3" type="text" id="description" name="description" placeholder="{{ __('messages.admin.post.table.description') }}" value="{{ old('description') ? old('description') : (isset($data->description) ? $data->description : '') }}" class="form-control"></textarea>
+                            <textarea rows="3" type="text" id="description" name="description" placeholder="{{ __('messages.admin.post.table.description') }}" value="{{ old('description') ? old('description') : (isset($data->description) ? $data->description : '') }}" class="form-control">{{ old('description') ? old('description') : (isset($data->description) ? $data->description : '') }}</textarea>
                             @if ($errors->first('description'))
                             <div class="error error-be">{{ $errors->first('description') }}</div>
                             @endif

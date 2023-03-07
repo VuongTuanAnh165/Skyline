@@ -53,6 +53,7 @@ class UserShopProductController extends Controller
             $dishes = $dishes->orderBy('dishes.updated_at', 'DESC');
         }
         $dishes = $dishes->paginate(25);
+        $dishes = $dishes->appends(request()->query());
         $title = "Sản phẩm";
         $url_home = route('user.home.index');
         $categoryHomes = CategoryHome::where('service_id', 2)->get();

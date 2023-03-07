@@ -53,6 +53,7 @@ class UserFoodProductController extends Controller
             $dishes = $dishes->orderBy('dishes.updated_at', 'DESC');
         }
         $dishes = $dishes->paginate(25);
+        $dishes = $dishes->appends(request()->query());
         $title = "Món ăn";
         $url_home = route('user.food.home.index');
         $categoryHomes = CategoryHome::where('service_id', 1)->get();
