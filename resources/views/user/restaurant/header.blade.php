@@ -8,7 +8,7 @@
                             <div class="col-md-6 col-sm-12 col-12">
                                 <img src="{{asset('storage/'.$restaurant->background[0])}}" class="background-restaurant">
                                 <div class="profile-restaurant">
-                                    <a href="#" class="text-decoration-none d-flex rounded p-2 align-items-center mb-2">
+                                    <a href="{{ route($url_home, ['id'=>$restaurant->id]) }}" class="text-decoration-none d-flex rounded p-2 align-items-center mb-2">
                                         <div style="background-color: #ffffff; border-radius: 50%;" class="mr-4"><img style="padding: 1rem;" src="{{asset('storage/'.$restaurant->logo)}}" class="img-fluid rounded-circle" width="100px"></div>
                                         <div class="">
                                             <p class="mb-4 current__price name-restaurant">{{ $restaurant->name }}</p>

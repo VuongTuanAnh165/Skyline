@@ -380,6 +380,7 @@ Route::prefix('food')->group(function () {
     });
     Route::prefix('/nha-hang')->group(function () {
         Route::get('/{id}', [UserFoodRestaurantController::class, 'index'])->name('user.food.restaurant.index');
+        Route::get('/tin-tuc/{id}', [UserFoodRestaurantController::class, 'post'])->name('user.food.restaurant.post');
     });
 });
 
@@ -391,4 +392,5 @@ Route::prefix('/san-pham')->group(function () {
 });
 Route::prefix('/shop')->group(function () {
     Route::get('/{id}', [UserShopRestaurantController::class, 'index'])->name('user.restaurant.index');
+    Route::get('/tin-tuc/{id}', [UserShopRestaurantController::class, 'post'])->name('user.restaurant.post');
 });

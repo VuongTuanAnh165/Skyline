@@ -1,12 +1,8 @@
 @php
-$name = Route::currentRouteName();
-$arr_route_food = array(
-'user.food.home.index',
-);
-$src_logo = asset('img/logo_shop.png');
-if ( in_array($name,$arr_route_food) ) {
-$src_logo = asset('img/logo.png');
-}
+    $src_logo = asset('img/logo_shop.png');
+    if ( in_array($name,$arr_route_food) ) {
+        $src_logo = asset('img/logo.png');
+    }
 @endphp
 <!doctype html>
 <html lang="en">
@@ -126,17 +122,23 @@ $src_logo = asset('img/logo.png');
             function setheight5(img) {
                 return img.css('height', (img.width() * 293) / 370 + 'px');
             }
+
+            function setheight6(img) {
+                return img.css('height', (img.width() * 19) / 31 + 'px');
+            }
             setheight($('.banner__items--thumbnail__img'));
             setheight2($('.categories2__product--img'));
             setheight3($('.product__items--img'));
             setheight4($('.background-restaurant'));
             setheight5($('.blog__items--img'));
+            setheight6($('.related__post--img'));
             $(window).on('resize', function() {
                 setheight($('.banner__items--thumbnail__img'));
                 setheight2($('.categories2__product--img'));
                 setheight3($('.product__items--img'));
                 setheight4($('.background-restaurant'));
                 setheight5($('.blog__items--img'));
+                setheight6($('.related__post--img'));
             });
         })
     </script>

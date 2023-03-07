@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class UserFoodRestaurantController extends Controller
 {
-    protected $pathView = 'user.restaurant.home.';
+    protected $pathView = 'user.restaurant.';
 
     /**
      * Display a listing of the resource.
@@ -52,6 +52,23 @@ class UserFoodRestaurantController extends Controller
         $url_show = 'user.food.product.show';
         $title = "Món ăn";
         $posts = Post::where('restaurant_id', $id)->get();
-        return view($this->pathView.'index', compact('restaurant', 'categories', 'dishes', 'url_show', 'title', 'posts'));
+        $url_post = 'user.food.restaurant.post';
+        $url_home = 'user.food.restaurant.index';
+        return view($this->pathView.'index', compact('restaurant', 'categories', 'dishes', 'url_show', 'title', 'posts', 'url_post', 'url_home'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function post($id)
+    {
+        $post = Post::find($id);
+        $restaurant = Restaurant::find($post->restaurant_id);
+        $post_other = Post::where('id', '<>', $id)->inRandomOrder()->limit(2)->get();
+        $url_post = 'user.food.restaurant.post';
+        $url_home = 'user.food.restaurant.index';
+        return view($this->pathView.'post', compact('post', 'restaurant', 'post_other', 'url_post', 'url_home'));
     }
 }

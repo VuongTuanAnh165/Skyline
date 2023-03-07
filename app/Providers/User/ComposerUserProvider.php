@@ -33,12 +33,13 @@ class ComposerUserProvider extends ServiceProvider
     {
         View::composer('user.layouts.footer', function ($view) {
             $name = Route::currentRouteName();
-            $arr_route_food = array(  
+            $arr_route_food = array(
                 'user.food.home.index',
                 'user.food.allProduct.index',
                 'user.food.product.index',
                 'user.food.product.show',
                 'user.food.restaurant.index',
+                'user.food.restaurant.post'
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -47,7 +48,7 @@ class ComposerUserProvider extends ServiceProvider
                 'categoryHome' => CategoryHome::where('service_id', 2)->get(),
                 'allProduct' => route('user.allProduct.index'),
             ];
-            if ( in_array($name,$arr_route_food) ) {
+            if (in_array($name, $arr_route_food)) {
                 $url = [
                     'logo' => asset('img/logo.png'),
                     'home' => route('user.food.home.index'),
@@ -65,12 +66,13 @@ class ComposerUserProvider extends ServiceProvider
         });
         View::composer('user.layouts.header', function ($view) {
             $name = Route::currentRouteName();
-            $arr_route_food = array(  
+            $arr_route_food = array(
                 'user.food.home.index',
                 'user.food.allProduct.index',
                 'user.food.product.index',
                 'user.food.product.show',
                 'user.food.restaurant.index',
+                'user.food.restaurant.post'
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -80,7 +82,7 @@ class ComposerUserProvider extends ServiceProvider
                 'allProduct' => route('user.allProduct.index'),
                 'product' => route('user.product.index'),
             ];
-            if ( in_array($name,$arr_route_food) ) {
+            if (in_array($name, $arr_route_food)) {
                 $url = [
                     'logo' => asset('img/logo.png'),
                     'home' => route('user.food.home.index'),
@@ -93,6 +95,22 @@ class ComposerUserProvider extends ServiceProvider
             return $view->with([
                 'url' => $url,
                 'name' => $name,
+                'arr_route_food' => $arr_route_food
+            ]);
+        });
+        View::composer('user.layouts.master', function ($view) {
+            $name = Route::currentRouteName();
+            $arr_route_food = array(
+                'user.food.home.index',
+                'user.food.allProduct.index',
+                'user.food.product.index',
+                'user.food.product.show',
+                'user.food.restaurant.index',
+                'user.food.restaurant.post'
+            );
+            return $view->with([
+                'name' => $name,
+                'arr_route_food' => $arr_route_food
             ]);
         });
     }
