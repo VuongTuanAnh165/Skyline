@@ -399,7 +399,7 @@ $name_route = Route::currentRouteName();
                 <div class="swiper-slide">
                     <div class="blog__items">
                         <div class="blog__items--thumbnail">
-                            <a class="blog__items--link" href="{{ route($url_post, ['id' => $post->id]) }}"><img class="blog__items--img" src="{{ asset('storage/'.$post->image) }}" alt="blog-img"></a>
+                            <a class="blog__items--link" href="{{ route($url_post, ['id' => $post->id, 'name_link' => $post->name_link]) }}"><img class="blog__items--img" src="{{ asset('storage/'.$post->image) }}" alt="blog-img"></a>
                         </div>
                         <div class="blog__items--content">
                             <div class="blog__items--meta">
@@ -418,9 +418,9 @@ $name_route = Route::currentRouteName();
                                     </li>
                                 </ul>
                             </div>
-                            <h3 class="blog__items--title"><a href="{{ route($url_post, ['id' => $post->id]) }}">{{ $post->name }}</a></h3>
+                            <h3 class="blog__items--title"><a href="{{ route($url_post, ['id' => $post->id, 'name_link' => $post->name_link]) }}">{{ $post->name }}</a></h3>
                             <p class="blog__items--desc">I{{ $post->description }}</p>
-                            <a class="blog__items--readmore" href="{{ route($url_post, ['id' => $post->id]) }}">Xem thêm <svg class="blog__items--readmore__icon" xmlns="http://www.w3.org/2000/svg" width="6.2" height="6.2" viewBox="0 0 6.2 6.2">
+                            <a class="blog__items--readmore" href="{{ route($url_post, ['id' => $post->id, 'name_link' => $post->name_link]) }}">Xem thêm <svg class="blog__items--readmore__icon" xmlns="http://www.w3.org/2000/svg" width="6.2" height="6.2" viewBox="0 0 6.2 6.2">
                                     <path d="M7.1,4l-.546.546L8.716,6.713H4v.775H8.716L6.554,9.654,7.1,10.2,9.233,8.067,10.2,7.1Z" transform="translate(-4 -4)" fill="currentColor" />
                                 </svg>
                             </a>

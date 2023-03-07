@@ -62,7 +62,7 @@ class UserShopRestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function post($id)
+    public function post($id, $name_link)
     {
         $post = Post::find($id);
         $restaurant = Restaurant::find($post->restaurant_id);

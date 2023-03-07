@@ -70,10 +70,10 @@
                         <div class="col mb-28">
                             <div class="related__post--items">
                                 <div class="related__post--thumb border-radius-10 mb-20">
-                                    <a class="display-block" href="{{ route($url_post, ['id' => $item->id]) }}"><img class="related__post--img display-block border-radius-10" src="{{ asset('storage/'.$item->image) }}" alt="related-post"></a>
+                                    <a class="display-block" href="{{ route($url_post, ['id' => $item->id, 'name_link' => $item->name_link]) }}"><img class="related__post--img display-block border-radius-10" src="{{ asset('storage/'.$item->image) }}" alt="related-post"></a>
                                 </div>
                                 <div class="related__post--text">
-                                    <h3 class="related__post--title mb-10"><a class="related__post--title__link" href="{{ route($url_post, ['id' => $item->id]) }}">{{ $item->name }}</a></h3>
+                                    <h3 class="related__post--title mb-10"><a class="related__post--title__link" href="{{ route($url_post, ['id' => $item->id, 'name_link' => $item->name_link]) }}">{{ $item->name }}</a></h3>
                                     <span class="related__post--deta">{{ $item->updated_at }}</span>
                                 </div>
                             </div>
