@@ -2537,6 +2537,10 @@ body.overlay__active::before,
 .offcanvas__stikcy--toolbar__btn {
   position: relative;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .offcanvas__stikcy--toolbar__btn:hover .offcanvas__stikcy--toolbar__icon {
@@ -7428,6 +7432,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .blog__items--img {
   display: block;
+  object-fit: cover;
 }
 
 @media only screen and (max-width: 767px) {

@@ -34,6 +34,7 @@ class UserShopHomeController extends Controller
             ->get();
         $url_allProduct = route('user.allProduct.index');
         $url_show = 'user.product.show';
-        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show'));
+        $url_product = route('user.product.index');
+        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show', 'url_product'));
     }
 }

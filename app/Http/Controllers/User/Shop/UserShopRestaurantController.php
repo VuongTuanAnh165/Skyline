@@ -6,6 +6,7 @@ use App\Helpers\ConvertNameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
+use App\Models\Post;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,7 @@ class UserShopRestaurantController extends Controller
         $dishes = $dishes->appends(request()->query());
         $url_show = 'user.product.show';
         $title = "Sản phẩm";
-        return view($this->pathView.'index', compact('restaurant', 'categories', 'dishes', 'url_show', 'title'));
+        $posts = Post::where('restaurant_id', $id)->get();
+        return view($this->pathView.'index', compact('restaurant', 'categories', 'dishes', 'url_show', 'title', 'posts'));
     }
 }

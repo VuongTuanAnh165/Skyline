@@ -122,15 +122,21 @@ $src_logo = asset('img/logo.png');
             function setheight4(img) {
                 return img.css('height', (img.width() * 9) / 26 + 'px');
             }
+
+            function setheight5(img) {
+                return img.css('height', (img.width() * 293) / 370 + 'px');
+            }
             setheight($('.banner__items--thumbnail__img'));
             setheight2($('.categories2__product--img'));
             setheight3($('.product__items--img'));
             setheight4($('.background-restaurant'));
+            setheight5($('.blog__items--img'));
             $(window).on('resize', function() {
                 setheight($('.banner__items--thumbnail__img'));
                 setheight2($('.categories2__product--img'));
                 setheight3($('.product__items--img'));
                 setheight4($('.background-restaurant'));
+                setheight5($('.blog__items--img'));
             });
         })
     </script>

@@ -34,6 +34,7 @@ class UserFoodHomeController extends Controller
             ->get();
         $url_allProduct = route('user.food.allProduct.index');
         $url_show = 'user.food.product.show';
-        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show'));
+        $url_product = route('user.food.product.index');
+        return view($this->pathView.'index', compact('images' , 'promotions', 'categoryHomes', 'dishes' , 'url_allProduct' , 'url_show', 'url_product'));
     }
 }

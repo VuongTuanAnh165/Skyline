@@ -119,7 +119,7 @@
                                     @endforeach
                                 </div>
                             </li>
-                            <li class="header__menu--items">
+                            <!-- <li class="header__menu--items">
                                 <a class="header__menu--link" href="blog.html">Blog
                                     <svg class="menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12" height="7.41" viewBox="0 0 12 7.41">
                                         <path d="M16.59,8.59,12,13.17,7.41,8.59,6,10l6,6,6-6Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
@@ -143,14 +143,14 @@
                                     <li class="header__sub--menu__items"><a href="contact.html" class="header__sub--menu__link">Contact Us</a></li>
                                     <li class="header__sub--menu__items"><a href="cart.html" class="header__sub--menu__link">Cart Page</a></li>
                                     <li class="header__sub--menu__items"><a href="portfolio.html" class="header__sub--menu__link">Portfolio Page</a></li>
-                                    <li class="header__sub--menu__items"><a href="wishlist.html" class="header__sub--menu__link">Wishlist Page</a></li>
+                                    <li class="header__sub--menu__items"><a href="javascript:void(0)" class="header__sub--menu__link">Wishlist Page</a></li>
                                     <li class="header__sub--menu__items"><a href="login.html" class="header__sub--menu__link">Login Page</a></li>
                                     <li class="header__sub--menu__items"><a href="404.html" class="header__sub--menu__link">Error Page</a></li>
                                 </ul>
                             </li>
                             <li class="header__menu--items">
                                 <a class="header__menu--link" href="contact.html">Contact </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </nav>
                 </div>
@@ -166,7 +166,7 @@
                             </a>
                         </li>
                         <li class="header__account--items d-none d-lg-block">
-                            <a class="header__account--btn" href="https://marvelous.pw/public/nguyen-hai-yen/index.html">
+                            <a class="header__account--btn" href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18.541" height="15.557" viewBox="0 0 18.541 15.557">
                                     <path d="M71.775,135.51a5.153,5.153,0,0,1,1.267-1.524,4.986,4.986,0,0,1,6.584.358,4.728,4.728,0,0,1,1.174,4.914,10.458,10.458,0,0,1-2.132,3.808,22.591,22.591,0,0,1-5.4,4.558c-.445.282-.9.549-1.356.812a.306.306,0,0,1-.254.013,25.491,25.491,0,0,1-6.279-4.8,11.648,11.648,0,0,1-2.52-4.009,4.957,4.957,0,0,1,.028-3.787,4.629,4.629,0,0,1,3.744-2.863,4.782,4.782,0,0,1,5.086,2.447c.013.019.025.034.057.076Z" transform="translate(-62.498 -132.915)" fill="currentColor" />
                                 </svg>
@@ -222,12 +222,15 @@
                         <ul class="offcanvas__sub_menu">
                             @foreach($url['categoryHome'] as $item)
                                 <li class="offcanvas__sub_menu_li">
-                                    <a href="#" class="offcanvas__sub_menu_item">{{ $item->name }}</a>
+                                    <a href="#" class="offcanvas__sub_menu_item" onclick="event.preventDefault(); document.getElementById('product-redirect-1-{{$item->id}}').submit();">{{ $item->name }}</a>
+                                    <form id="product-redirect-1-{{$item->id}}" action="{{ $url['product'] }}" method="GET" style="display: none;">
+                                        <input type="hidden" name="categoryHome" value="{{$item->id}}">
+                                    </form>
                                 </li>
                             @endforeach
                         </ul>
                     </li>
-                    <li class="offcanvas__menu_li">
+                    <!-- <li class="offcanvas__menu_li">
                         <a class="offcanvas__menu_item" href="blog.html">Blog</a>
                         <ul class="offcanvas__sub_menu">
                             <li class="offcanvas__sub_menu_li"><a href="blog.html" class="offcanvas__sub_menu_item">Blog Grid</a></li>
@@ -243,13 +246,13 @@
                             <li class="offcanvas__sub_menu_li"><a href="contact.html" class="offcanvas__sub_menu_item">Contact Us</a></li>
                             <li class="offcanvas__sub_menu_li"><a href="cart.html" class="offcanvas__sub_menu_item">Cart Page</a></li>
                             <li class="offcanvas__sub_menu_li"><a href="portfolio.html" class="offcanvas__sub_menu_item">Portfolio Page</a></li>
-                            <li class="offcanvas__sub_menu_li"><a href="wishlist.html" class="offcanvas__sub_menu_item">Wishlist Page</a></li>
+                            <li class="offcanvas__sub_menu_li"><a href="javascript:void(0)" class="offcanvas__sub_menu_item">Wishlist Page</a></li>
                             <li class="offcanvas__sub_menu_li"><a href="login.html" class="offcanvas__sub_menu_item">Login Page</a></li>
                             <li class="offcanvas__sub_menu_li"><a href="404.html" class="offcanvas__sub_menu_item">Error Page</a></li>
                         </ul>
                     </li>
                     <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="about.html">About</a></li>
-                    <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="contact.html">Contact</a></li>
+                    <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="contact.html">Contact</a></li> -->
                 </ul>
                 <div class="offcanvas__account--items">
                     <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
@@ -261,43 +264,6 @@
                         </span>
                         <span class="offcanvas__account--items__label">Login / Register</span>
                     </a>
-                </div>
-                <div class="language__currency">
-                    <ul class="d-flex align-items-center">
-                        <li class="language__currency--list">
-                            <a class="offcanvas__language--switcher text-black" href="#">
-                                <img class="language__switcher--icon__img" src="assets/img/icon/language-icon.png" alt="currency">
-                                <span>EN</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="9.797" height="6.05" viewBox="0 0 9.797 6.05">
-                                    <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                </svg>
-                            </a>
-                            <div class="offcanvas__dropdown--language">
-                                <ul>
-                                    <li class="language__items"><a class="language__text" href="#">France</a></li>
-                                    <li class="language__items"><a class="language__text" href="#">Russia</a></li>
-                                    <li class="language__items"><a class="language__text" href="#">Spanish</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="language__currency--list">
-                            <a class="offcanvas__account--currency__menu text-black" href="javascript:void(0)">
-                                <img src="assets/img/icon/usd-icon.png" alt="currency">
-                                <span>USD</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="9.797" height="6.05" viewBox="0 0 9.797 6.05">
-                                    <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z" transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                </svg>
-                            </a>
-                            <div class="offcanvas__account--currency__submenu">
-                                <ul>
-                                    <li class="currency__items"><a class="currency__text" href="#">CAD</a></li>
-                                    <li class="currency__items"><a class="currency__text" href="#">CNY</a></li>
-                                    <li class="currency__items"><a class="currency__text" href="#">EUR</a></li>
-                                    <li class="currency__items"><a class="currency__text" href="#">GBP</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </nav>
         </div>
@@ -314,17 +280,17 @@
                             <path fill="currentColor" d="M20.9141 7.93359c.1406.11719.2109.26953.2109.45703 0 .14063-.0469.25782-.1406.35157l-.3516.42187c-.1172.14063-.2578.21094-.4219.21094-.1406 0-.2578-.04688-.3515-.14062l-.9844-.77344V15c0 .3047-.1172.5625-.3516.7734-.2109.2344-.4687.3516-.7734.3516h-4.5c-.3047 0-.5742-.1172-.8086-.3516-.2109-.2109-.3164-.4687-.3164-.7734v-3.6562h-2.25V15c0 .3047-.11719.5625-.35156.7734-.21094.2344-.46875.3516-.77344.3516h-4.5c-.30469 0-.57422-.1172-.80859-.3516-.21094-.2109-.31641-.4687-.31641-.7734V8.46094l-.94922.77344c-.11719.09374-.24609.14062-.38672.14062-.16406 0-.30468-.07031-.42187-.21094l-.35157-.42187C.921875 8.625.875 8.50781.875 8.39062c0-.1875.070312-.33984.21094-.45703L9.73438.832031C10.1094.527344 10.5312.375 11 .375s.8906.152344 1.2656.457031l8.6485 7.101559zm-3.7266 6.50391V7.05469L11 1.99219l-6.1875 5.0625v7.38281h3.375v-3.6563c0-.3046.10547-.5624.31641-.7734.23437-.23436.5039-.35155.80859-.35155h3.375c.3047 0 .5625.11719.7734.35155.2344.211.3516.4688.3516.7734v3.6563h3.375z"></path>
                         </svg>
                     </span>
-                    <span class="offcanvas__stikcy--toolbar__label">Home</span>
+                    <span class="offcanvas__stikcy--toolbar__label">Trang chủ</span>
                 </a>
             </li>
             <li class="offcanvas__stikcy--toolbar__list">
-                <a class="offcanvas__stikcy--toolbar__btn" href="shop.html">
+                <a class="offcanvas__stikcy--toolbar__btn" href="{{ $url['allProduct'] }}">
                     <span class="offcanvas__stikcy--toolbar__icon">
                         <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="18.51" height="17.443" viewBox="0 0 448 512">
                             <path d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z"></path>
                         </svg>
                     </span>
-                    <span class="offcanvas__stikcy--toolbar__label">Shop</span>
+                    <span class="offcanvas__stikcy--toolbar__label">Sản phẩm</span>
                 </a>
             </li>
             <li class="offcanvas__stikcy--toolbar__list ">
@@ -350,7 +316,7 @@
                 </a>
             </li>
             <li class="offcanvas__stikcy--toolbar__list">
-                <a class="offcanvas__stikcy--toolbar__btn" href="wishlist.html">
+                <a class="offcanvas__stikcy--toolbar__btn" href="javascript:void(0)">
                     <span class="offcanvas__stikcy--toolbar__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18.541" height="15.557" viewBox="0 0 18.541 15.557">
                             <path d="M71.775,135.51a5.153,5.153,0,0,1,1.267-1.524,4.986,4.986,0,0,1,6.584.358,4.728,4.728,0,0,1,1.174,4.914,10.458,10.458,0,0,1-2.132,3.808,22.591,22.591,0,0,1-5.4,4.558c-.445.282-.9.549-1.356.812a.306.306,0,0,1-.254.013,25.491,25.491,0,0,1-6.279-4.8,11.648,11.648,0,0,1-2.52-4.009,4.957,4.957,0,0,1,.028-3.787,4.629,4.629,0,0,1,3.744-2.863,4.782,4.782,0,0,1,5.086,2.447c.013.019.025.034.057.076Z" transform="translate(-62.498 -132.915)" fill="currentColor" />
