@@ -8,7 +8,7 @@
         checkCreate();
 
         var html_no = `<div class="row row-menu">
-                        <div class="col-md-8">
+                        <div class="col-md-3">
                             <div class="form-group ">
                                 <input type="text" id="name" name="name" placeholder="Tên" value="{{ old('name') ? old('name') : '' }}" class="form-control name">
                                 @if ($errors->first('name'))
@@ -16,7 +16,25 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <input type="checkbox" id="required" name="required" value=1 class="form-control required_check">
+                                <label for="required">Bắt buộc ?</label>
+                                @if ($errors->first('required'))
+                                <div class="error error-be">{{ $errors->first('required') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <input type="checkbox" id="multiple" name="multiple" value=1 class="form-control multiple_check">
+                                <label for="multiple">Chọn nhiều ?</label>
+                                @if ($errors->first('multiple'))
+                                <div class="error error-be">{{ $errors->first('multiple') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group form-group-button">
                                 <button class="create"><i class="fas fa-plus"></i></button>
                                 <button class="delete"><i class="fas fa-times"></i></button>
@@ -29,8 +47,10 @@
         function html_yes(menus) {
             let html = '';
             for (let x in menus) {
+                let check_required = menus[x].required == 1 ? 'checked' : '';
+                let check_multiple = menus[x].multiple == 1 ? 'checked' : '';
                 html += `<div class="row row-menu">
-                        <div class="col-md-8">
+                        <div class="col-md-3">
                             <div class="form-group ">
                                 <input type="hidden" class="id" name="id" value="${menus[x].id}">
                                 <input type="text" id="name" disabled name="name" placeholder="Tên" value="${menus[x].name}" class="form-control name">
@@ -39,7 +59,25 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <input type="checkbox" id="required" disabled name="required" value=1 class="form-control required_check" ${check_required}>
+                                <label for="required">Bắt buộc ?</label>
+                                @if ($errors->first('required'))
+                                <div class="error error-be">{{ $errors->first('required') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <input type="checkbox" id="multiple" disabled name="multiple" value=1 class="form-control multiple_check" ${check_multiple}>
+                                <label for="multiple">Chọn nhiều ?</label>
+                                @if ($errors->first('multiple'))
+                                <div class="error error-be">{{ $errors->first('multiple') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group form-group-button">
                                 <button class="create display-none"><i class="fas fa-plus"></i></button>
                                 <button class="delete display-none"><i class="fas fa-times"></i></button>
@@ -91,8 +129,12 @@
         $(document).on('click', '.edit', function() {
             let parent = $(this).closest('.row-menu');
             let name = parent.find('.name');
+            let required = parent.find('.required_check');
+            let multiple = parent.find('.multiple_check');
             let save = parent.find('.save');
             name.prop('disabled', false);
+            required.prop('disabled', false);
+            multiple.prop('disabled', false);
             save.removeClass('display-none');
             save.attr('data-url', `{{route('restaurant.dish.updateMenu')}}`);
             $(this).addClass('display-none');
@@ -104,6 +146,8 @@
             let id = parent.find('.id');
             let dish_id = $('#dish_id');
             let name = parent.find('.name');
+            let required = parent.find('.required_check:checked');
+            let multiple = parent.find('.multiple_check:checked');
             let url = save.data('url');
             $.ajax({
                 type: "POST",
@@ -115,11 +159,15 @@
                     id: id.val(),
                     dish_id: dish_id.val(),
                     name: name.val(),
+                    required: required.val(),
+                    multiple: multiple.val(),
                 },
                 success: function(response) {
                     if (response.code == 200) {
                         name.val(response.data.name);
                         name.prop('disabled', true);
+                        required.prop('disabled', true);
+                        multiple.prop('disabled', true);
                         edit.removeClass('display-none');
                         save.addClass('display-none');
                         toastr.success('Cập thật thành công', {

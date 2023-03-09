@@ -239,6 +239,8 @@ class RestaurantDishController extends Controller
                 $params = $request->only([
                     'dish_id',
                     'name',
+                    'required',
+                    'multiple',
                 ]);
                 $data = Menu::create($params);
                 DB::commit();
@@ -276,6 +278,8 @@ class RestaurantDishController extends Controller
                 $params = $request->only([
                     'dish_id',
                     'name',
+                    'required',
+                    'multiple',
                 ]);
                 $data->update($params);
                 DB::commit();

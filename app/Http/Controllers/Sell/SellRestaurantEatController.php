@@ -377,6 +377,8 @@ class SellRestaurantEatController extends Controller
                 ->select(
                     'detail_menu_logs.*',
                     'menus.name as menu_name',
+                    'menus.required',
+                    'menus.multiple',
                     DB::raw('group_concat(menu_items.name) as item_name'),
                     DB::raw('group_concat(menu_items.id) as item_id'),
                 )

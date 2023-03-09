@@ -63,9 +63,28 @@
                                                 @endphp
                                                 <div>
                                                     {{$menu->name}}:
-                                                    @foreach($item[1] as $value)
+                                                    @if(is_array($item[1]))
+                                                        @foreach($item[1] as $value)
+                                                            @php
+                                                                $menu_item = App\Models\MenuItem::select('name', 'add_price')->where('id', $value)->first();
+                                                            @endphp
+                                                            @if($menu_item)
+                                                                <span>
+                                                                    <ul>
+                                                                        <li>
+                                                                            {{ $menu_item->name }}
+                                                                            <span style="float:right;"> + {{ number_format($menu_item->add_price) }} VND</span>
+                                                                            <input type="hidden" class="value_price" value="{{ $menu_item->add_price }}">
+                                                                        </li>
+                                                                    </ul>
+                                                                </span>
+                                                            @else
+                                                                <span>Không có</span>
+                                                            @endif
+                                                        @endforeach
+                                                    @else
                                                         @php
-                                                            $menu_item = App\Models\MenuItem::select('name', 'add_price')->where('id', $value)->first();
+                                                            $menu_item = App\Models\MenuItem::select('name', 'add_price')->where('id', $item[1])->first();
                                                         @endphp
                                                         @if($menu_item)
                                                             <span>
@@ -80,7 +99,7 @@
                                                         @else
                                                             <span>Không có</span>
                                                         @endif
-                                                    @endforeach
+                                                    @endif
                                                 </div>
                                             @endforeach
                                             </li>

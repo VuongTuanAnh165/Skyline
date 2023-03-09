@@ -18,11 +18,9 @@
             $('#product-redirect').submit();
         })
         $(document).on('click', '.pagination__item', function() {
-            console.log(1111);
             $('#product-redirect').submit();
         })
         $(document).on('click', '.pagination__item--arrow', function() {
-            console.log(2222);
             $('#product-redirect').submit();
         })
     })

@@ -389,6 +389,8 @@
                                     for (let x in response.detail_menu_logs) {
                                         let array_item_id = response.detail_menu_logs[x].item_id.split(",");
                                         let array_item_name = response.detail_menu_logs[x].item_name.split(",");
+                                        let required = response.detail_menu_logs[x].required == 1 ? 'required' : '';
+                                        let multiple = response.detail_menu_logs[x].multiple == 1 ? 'multiple' : '';
                                         html_item = '';
                                         for (let j in array_item_name) {
                                             let check_selected = '';
@@ -401,9 +403,9 @@
                                         };
                                         html += `
                                             <div class="form-group form-item">
-                                                <label class="form-label small font-weight-bold">${response.detail_menu_logs[x].menu_name}</label><br>
+                                                <label class="form-label small font-weight-bold ${required}">${response.detail_menu_logs[x].menu_name}</label><br>
                                                 <input type="hidden" name="menu_id" value="${response.detail_menu_logs[x].menu_id}">
-                                                <select class="custom-select form-control select2 item_id" id="item_id_${stt}" name="item_id" multiple>
+                                                <select ${required} class="custom-select form-control select2 item_id ${required}" id="item_id_${stt}" name="item_id" ${multiple}>
                                                     ` + html_item + `
                                                 </select>
                                             </div>
@@ -423,6 +425,8 @@
                                     for (let x in response.detail_menu_logs) {
                                         let array_item_id = response.detail_menu_logs[x].item_id.split(",");
                                         let array_item_name = response.detail_menu_logs[x].item_name.split(",");
+                                        let required = response.detail_menu_logs[x].required == 1 ? 'required' : '';
+                                        let multiple = response.detail_menu_logs[x].multiple == 1 ? 'multiple' : '';
                                         html_item = '';
                                         for (let j in array_item_name) {
                                             let check_selected = '';
@@ -435,9 +439,9 @@
                                         };
                                         html += `
                                             <div class="form-group form-item">
-                                                <label class="form-label small font-weight-bold">${response.detail_menu_logs[x].menu_name}</label><br>
+                                                <label class="form-label small font-weight-bold ${required}">${response.detail_menu_logs[x].menu_name}</label><br>
                                                 <input type="hidden" name="menu_id" value="${response.detail_menu_logs[x].menu_id}">
-                                                <select class="custom-select form-control select2 item_id" id="item_id_${stt}" name="item_id" multiple>
+                                                <select ${required} class="custom-select form-control select2 item_id ${required}" id="item_id_${stt}" name="item_id" ${multiple}>
                                                     ` + html_item + `
                                                 </select>
                                             </div>
@@ -456,15 +460,17 @@
                                     for (let x in response.detail_menu_logs) {
                                         let array_item_id = response.detail_menu_logs[x].item_id.split(",");
                                         let array_item_name = response.detail_menu_logs[x].item_name.split(",");
+                                        let required = response.detail_menu_logs[x].required == 1 ? 'required' : '';
+                                        let multiple = response.detail_menu_logs[x].multiple == 1 ? 'multiple' : '';
                                         html_item = '';
                                         for (let j in array_item_name) {
                                             html_item += `<option value="${array_item_id[j]}">${array_item_name[j]}</option>`;
                                         };
                                         html += `
                                             <div class="form-group form-item">
-                                                <label class="form-label small font-weight-bold">${response.detail_menu_logs[x].menu_name}</label><br>
+                                                <label class="form-label small font-weight-bold ${required}">${response.detail_menu_logs[x].menu_name}</label><br>
                                                 <input type="hidden" name="menu_id" value="${response.detail_menu_logs[x].menu_id}">
-                                                <select class="custom-select form-control select2 item_id" id="item_id_${stt}" name="item_id" multiple>
+                                                <select ${required} class="custom-select form-control select2 item_id ${required}" id="item_id_${stt}" name="item_id" ${multiple}>
                                                     ` + html_item + `
                                                 </select>
                                             </div>
@@ -485,15 +491,17 @@
                                 for (let x in response.detail_menu_logs) {
                                     let array_item_id = response.detail_menu_logs[x].item_id.split(",");
                                     let array_item_name = response.detail_menu_logs[x].item_name.split(",");
+                                    let required = response.detail_menu_logs[x].required == 1 ? 'required' : '';
+                                    let multiple = response.detail_menu_logs[x].multiple == 1 ? 'multiple' : '';
                                     html_item = '';
                                     for (let j in array_item_name) {
                                         html_item += `<option value="${array_item_id[j]}">${array_item_name[j]}</option>`;
                                     };
                                     html += `
                                         <div class="form-group form-item">
-                                            <label class="form-label small font-weight-bold">${response.detail_menu_logs[x].menu_name}</label><br>
+                                            <label class="form-label small font-weight-bold ${required}">${response.detail_menu_logs[x].menu_name}</label><br>
                                             <input type="hidden" name="menu_id" value="${response.detail_menu_logs[x].menu_id}">
-                                            <select class="custom-select form-control select2 item_id" id="item_id_${stt}" name="item_id" multiple>
+                                            <select ${required} class="custom-select form-control select2 item_id ${required}" id="item_id_${stt}" name="item_id" ${multiple}>
                                                 ` + html_item + `
                                             </select>
                                         </div>
@@ -531,47 +539,62 @@
         $("#btn-item-save").on('click', function() {
             let form_row_group = $('.form-row-group');
             let array_item = [];
-            form_row_group.each(function() {
-                let menu_id = $(this).find("input[name='menu_id']");
-                let arr_new = [];
-                menu_id.each(function() {
-                    arr_new.push([
-                        $(this).val(),
-                        $(this).parent().find($("select[name=item_id]")).val().length ? $(this).parent().find($("select[name=item_id]")).val() : [-1],
-                    ]);
+            let check = true;
+            let menu = $('.form-row-group select.required');
+            menu.each(function() {
+                let item_id = $(this).val();
+                if (!item_id || item_id.length <= 0) {
+                    check = false;
+                    return false;
+                }
+            })
+            if (check) {
+                form_row_group.each(function() {
+                    let menu_id = $(this).find("input[name='menu_id']");
+                    let arr_new = [];
+                    menu_id.each(function() {
+                        arr_new.push([
+                            $(this).val(),
+                            $(this).parent().find($("select[name=item_id]")).val().length ? $(this).parent().find($("select[name=item_id]")).val() : [-1],
+                        ]);
+                    });
+                    array_item.push(arr_new)
                 });
-                array_item.push(arr_new)
-            });
-            let detail_order_log_id = $(this).data('detail_order_log_id');
-            let url = $(this).data('url');
-            $.ajax({
-                url: url,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    detail_order_log_id: detail_order_log_id,
-                    array_item: array_item,
-                },
-                cache: false,
-                method: 'POST',
-                success: function(response) {
-                    if (response.code == 200) {
-                        toastr.success('Cập nhật số lượng món thành công', {
-                            timeOut: 5000,
-                        });
-                    } else {
+                let detail_order_log_id = $(this).data('detail_order_log_id');
+                let url = $(this).data('url');
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        detail_order_log_id: detail_order_log_id,
+                        array_item: array_item,
+                    },
+                    cache: false,
+                    method: 'POST',
+                    success: function(response) {
+                        if (response.code == 200) {
+                            toastr.success('Cập nhật số lượng món thành công', {
+                                timeOut: 5000,
+                            });
+                        } else {
+                            toastr.error('Cập nhật số lượng món thất bại', {
+                                timeOut: 5000
+                            });
+                        }
+                    },
+                    error: function(xhr) {
                         toastr.error('Cập nhật số lượng món thất bại', {
                             timeOut: 5000
                         });
                     }
-                },
-                error: function(xhr) {
-                    toastr.error('Cập nhật số lượng món thất bại', {
-                        timeOut: 5000
-                    });
-                }
-            });
+                });
+            } else {
+                toastr.error('Nhập thiếu', {
+                    timeOut: 5000
+                });
+            }
         });
 
         $("#btn-delete-order").on('click', function() {

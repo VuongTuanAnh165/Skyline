@@ -171,7 +171,7 @@
                         <th class="text-center">ID</th>
                         <th>Món ăn</th>
                         <th class="text-center">Số lượng</th>
-                        <th>Lựa chọn</th>
+                        <th>Lựa chọn (Chú ý món bắt buộc có lựa chọn)</th>
                         <th class="text-right">Hành động</th>
                     </tr>
                 </thead>
