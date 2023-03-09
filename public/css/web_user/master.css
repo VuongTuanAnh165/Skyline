@@ -111,3 +111,10 @@ body {
 .mo-ta ul li {
     font-size: 2rem;
 }
+
+.product__items--content__title a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
+}

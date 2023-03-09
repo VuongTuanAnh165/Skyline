@@ -152,6 +152,10 @@
                         </p>
                         <div class="product__variant">
                             @foreach($menus as $menu)
+                            @php
+                                $required = $menu->required == 1 ? 'required' : '';
+                                $multiple = $menu->multiple == 1 ? 'checkbox' : 'radio';
+                            @endphp
                             <div class="product__variant--list mb-20">
                                 <fieldset class="variant__input--fieldset">
                                     <legend class="product__variant--title mb-8">{{$menu->name}} :</legend>
@@ -159,7 +163,7 @@
                                         @foreach($menu_items as $menu_item)
                                         @if($menu_item->menu_id == $menu->id)
                                         <li class="variant__size--list">
-                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="radio">
+                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="{{$multiple}}" class="{{$required}}">
                                             <label class="variant__size--value red" for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                         </li>
                                         @endif
