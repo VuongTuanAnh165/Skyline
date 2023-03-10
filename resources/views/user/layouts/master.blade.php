@@ -140,6 +140,12 @@
                 setheight5($('.blog__items--img'));
                 setheight6($('.related__post--img'));
             });
+
+            $(document).on('click', '.btn-account', function() {
+                let url = $(this).data('url');
+                let prev = $(this).data('prev');
+                window.location.href = url + '?prev=' + prev;
+            })
         })
     </script>
 </body>

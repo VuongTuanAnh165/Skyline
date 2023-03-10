@@ -49,6 +49,7 @@ use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
 use App\Http\Controllers\User\Shop\UserShopRestaurantController;
+use App\Http\Controllers\User\UserAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -394,3 +395,5 @@ Route::prefix('/shop')->group(function () {
     Route::get('/{id}', [UserShopRestaurantController::class, 'index'])->name('user.restaurant.index');
     Route::get('/tin-tuc/{id}-{name_link}', [UserShopRestaurantController::class, 'post'])->name('user.restaurant.post');
 });
+
+Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
