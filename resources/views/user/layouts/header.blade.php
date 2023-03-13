@@ -1,3 +1,6 @@
+@php
+
+@endphp
 <!-- Start header area -->
 <header class="header__section header__transparent">
     <div class="header__topbar bg__primary2">
@@ -5,9 +8,9 @@
             <div class="header__topbar--inner d-flex align-items-center justify-content-between">
                 <a href="{{ route('admin.fe.home.index') }}" target="_blank" class="wellcome__text m-0"><b>Trang dịch vụ</b></a>
                 @if(in_array($name,$arr_route_food))
-                    <a href="{{ route('user.home.index') }}" class="wellcome__text m-0"><b>Sky Line</b></a>
+                <a href="{{ route('user.home.index') }}" class="wellcome__text m-0"><b>Sky Line</b></a>
                 @else
-                    <a href="{{ route('user.food.home.index') }}" class="wellcome__text m-0"><b>Sky Line Food</b></a>
+                <a href="{{ route('user.food.home.index') }}" class="wellcome__text m-0"><b>Sky Line Food</b></a>
                 @endif
                 <div class="header__topbar--right d-flex align-items-center">
                     <div class="language__currency d-none d-lg-block">
@@ -76,31 +79,31 @@
                     <nav class="header__menu--navigation">
                         <ul class="d-flex">
                             @php
-                                $arg_home = array(
-                                    'user.food.home.index',
-                                    'user.home.index',
-                                );
-                                $active = '';
-                                if ( in_array($name,$arg_home) ) {
-                                    $active = 'active';
-                                }
+                            $arg_home = array(
+                            'user.food.home.index',
+                            'user.home.index',
+                            );
+                            $active = '';
+                            if ( in_array($name,$arg_home) ) {
+                            $active = 'active';
+                            }
                             @endphp
                             <li class="header__menu--items {{ $active }}">
                                 <a class="header__menu--link" href="{{ $url['home'] }}">Trang chủ</a>
                             </li>
                             @php
-                                $arg_all_product = array(
-                                    'user.food.allProduct.index',
-                                    'user.allProduct.index',
-                                    'user.food.product.index',
-                                    'user.product.index',
-                                    'user.food.product.show',
-                                    'user.product.show',
-                                );
-                                $active = '';
-                                if ( in_array($name,$arg_all_product) ) {
-                                    $active = 'active';
-                                }
+                            $arg_all_product = array(
+                            'user.food.allProduct.index',
+                            'user.allProduct.index',
+                            'user.food.product.index',
+                            'user.product.index',
+                            'user.food.product.show',
+                            'user.product.show',
+                            );
+                            $active = '';
+                            if ( in_array($name,$arg_all_product) ) {
+                            $active = 'active';
+                            }
                             @endphp
                             <li class="header__menu--items {{ $active }} mega__menu--items">
                                 <a class="header__menu--link" href="{{ $url['allProduct'] }}">{{ $url['name'] }}
@@ -174,13 +177,35 @@
                             </a>
                         </li>
                         <li class="header__account--items d-none d-lg-block">
-                            <a class="header__account--btn btn-account" data-url="{{route('user.auth')}}" data-prev="{{$name}}" href="javascript:void(0)">
+                            @if(isset($user))
+                            <a class="header__account--btn" href="javascript:void(0)">
+                                @if(empty($user->avatar))
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
+                                    <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                    <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                </svg>
+                                @else
+                                <img src="{{ asset('storage/'.$user->avatar)}}" class="user-avatar">
+                                @endif
+                                <span class="visually-hidden">{{ $user->name }}</span>
+                            </a>
+                            <ul class="header__sub--menu sub-menu-acount">
+                                <li class="header__sub--menu__items">
+                                    <a href="#" class="header__sub--menu__link" onclick="event.preventDefault(); document.getElementById('logout-form-pc').submit();">Đăng xuất</a>
+                                    <form id="logout-form-pc" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                            @else
+                            <a class="header__account--btn btn-account" data-url="{{route('user.auth')}}" data-prev="{{URL::full()}}" href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
                                     <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
                                     <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
                                 </svg>
                                 <span class="visually-hidden">My account</span>
                             </a>
+                            @endif
                         </li>
                         <li class="header__account--items">
                             <a class="header__account--btn minicart__open--btn" href="javascript:void(0)" data-offcanvas>
@@ -196,7 +221,6 @@
                                 <span class="items__count">3</span>
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -221,12 +245,12 @@
                         <a class="offcanvas__menu_item" href="{{ $url['allProduct'] }}">{{ $url['name'] }}</a>
                         <ul class="offcanvas__sub_menu">
                             @foreach($url['categoryHome'] as $item)
-                                <li class="offcanvas__sub_menu_li">
-                                    <a href="#" class="offcanvas__sub_menu_item" onclick="event.preventDefault(); document.getElementById('product-redirect-1-{{$item->id}}').submit();">{{ $item->name }}</a>
-                                    <form id="product-redirect-1-{{$item->id}}" action="{{ $url['product'] }}" method="GET" style="display: none;">
-                                        <input type="hidden" name="categoryHome" value="{{$item->id}}">
-                                    </form>
-                                </li>
+                            <li class="offcanvas__sub_menu_li">
+                                <a href="#" class="offcanvas__sub_menu_item" onclick="event.preventDefault(); document.getElementById('product-redirect-1-{{$item->id}}').submit();">{{ $item->name }}</a>
+                                <form id="product-redirect-1-{{$item->id}}" action="{{ $url['product'] }}" method="GET" style="display: none;">
+                                    <input type="hidden" name="categoryHome" value="{{$item->id}}">
+                                </form>
+                            </li>
                             @endforeach
                         </ul>
                     </li>
@@ -254,16 +278,42 @@
                     <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="about.html">About</a></li>
                     <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="contact.html">Contact</a></li> -->
                 </ul>
-                <div class="offcanvas__account--items">
-                    <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
+                <div class="offcanvas__account--items header__account--items">
+                    @if(isset($user))
+                    <a class="offcanvas__account--items__btn d-flex align-items-center" href="javascript:void(0)">
+                        @if(empty($user->avatar))
                         <span class="offcanvas__account--items__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
                                 <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
                                 <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
                             </svg>
                         </span>
-                        <span class="offcanvas__account--items__label">Login / Register</span>
+                        @else
+                        <span class="offcanvas__account--items__icon">
+                            <img src="{{ asset('storage/'.$user->avatar)}}" class="user-avatar">
+                        </span>
+                        @endif
+                        <span class="offcanvas__account--items__label">{{ $user->name }}</span>
                     </a>
+                    <ul class="header__sub--menu sub-menu-acount">
+                        <li class="header__sub--menu__items">
+                            <a href="#" class="header__sub--menu__link" onclick="event.preventDefault(); document.getElementById('logout-form-sp').submit();">Đăng xuất</a>
+                            <form id="logout-form-sp" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                    @else
+                    <a class="offcanvas__account--items__btn d-flex align-items-center btn-account" data-url="{{route('user.auth')}}" data-prev="{{URL::full()}}" href="javascript:void(0)">
+                        <span class="offcanvas__account--items__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
+                                <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                            </svg>
+                        </span>
+                        <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
+                    </a>
+                    @endif
                 </div>
             </nav>
         </div>

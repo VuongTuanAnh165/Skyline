@@ -397,3 +397,8 @@ Route::prefix('/shop')->group(function () {
 });
 
 Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
+Route::post('/login', [UserAuthController::class, 'login'])->name('user.login');
+Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
+Route::post('/register', [UserAuthController::class, 'register'])->name('user.register');
+Route::get('/verify-{id}', [UserAuthController::class, 'verify'])->name('user.verify');
+Route::post('/verifyStore-{id}', [UserAuthController::class, 'verifyStore'])->name('user.verify.store');

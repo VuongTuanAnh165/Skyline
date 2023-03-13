@@ -2441,6 +2441,11 @@ body.overlay__active::before,
 
 .offcanvas__account--items {
   padding: 28px 17px 20px;
+  padding-bottom: 0;
+}
+
+.header__account--items.offcanvas__account--items:hover .sub-menu-acount {
+  margin-left: 17px;
 }
 
 .offcanvas__account--items__icon {
@@ -3405,6 +3410,10 @@ body.overlay__active::before,
   font-weight: bold;
 }
 
+.header__account--items {
+  position: relative;
+}
+
 @media only screen and (min-width: 1200px) {
   .header__menu--items {
     margin-right: 35px;
@@ -3415,21 +3424,21 @@ body.overlay__active::before,
   margin-right: 0;
 }
 
-.header__menu--items:hover .header__menu--link {
+.header__menu--items:hover .header__menu--link, .header__account--items:hover .header__menu--link {
   color: var(--theme-color);
 }
 
-.header__menu--items.active .header__menu--link {
+.header__menu--items.active .header__menu--link, .header__account--items.active .header__menu--link {
   color: var(--theme-color);
 }
 
-.header__menu--items:hover .header__sub--menu {
+.header__menu--items:hover .header__sub--menu, .header__account--items:hover .header__sub--menu {
   visibility: visible;
   margin-top: 0;
   opacity: 1;
 }
 
-.header__menu--items:hover .header__mega--menu {
+.header__menu--items:hover .header__mega--menu, .header__account--items:hover .header__mega--menu {
   visibility: visible;
   margin-top: 0;
   opacity: 1;
@@ -8978,6 +8987,7 @@ input.quickview__value--number {
   background: var(--theme-color);
   color: var(--white-color);
   border-radius: 50%;
+  box-shadow: var(--f7-elevation-3);
 }
 
 .quickview__social--icon:hover {

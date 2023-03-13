@@ -92,10 +92,12 @@ class ComposerUserProvider extends ServiceProvider
                     'product' => route('user.food.product.index'),
                 ];
             }
+            $user = Auth::guard('user')->user();
             return $view->with([
                 'url' => $url,
                 'name' => $name,
-                'arr_route_food' => $arr_route_food
+                'arr_route_food' => $arr_route_food,
+                'user' => $user,
             ]);
         });
         View::composer('user.layouts.master', function ($view) {

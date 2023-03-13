@@ -36,11 +36,6 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -59,6 +54,11 @@ return [
         'ceo' => [
             'driver' => 'session',
             'provider' => 'ceos',
+        ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
 
         'api' => [
@@ -109,11 +109,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Ceo::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

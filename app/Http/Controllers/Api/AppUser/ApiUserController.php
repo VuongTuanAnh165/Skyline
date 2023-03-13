@@ -126,7 +126,6 @@ class ApiUserController extends AbstractApiController
     public function login(ApiUserLoginRequest $request)
     {
         try {
-
             $email = $request->input('email');
             $guard = User::where('email', $email)->select('*')->first();
             if (empty($guard) || !Hash::check($request->input('password'), $guard->password)) {

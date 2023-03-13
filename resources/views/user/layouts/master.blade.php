@@ -1,8 +1,8 @@
 @php
-    $src_logo = asset('img/logo_shop.png');
-    if ( in_array($name,$arr_route_food) ) {
-        $src_logo = asset('img/logo.png');
-    }
+$src_logo = asset('img/logo_shop.png');
+if ( in_array($name,$arr_route_food) ) {
+$src_logo = asset('img/logo.png');
+}
 @endphp
 <!doctype html>
 <html lang="en">
@@ -12,6 +12,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="Morden Bootstrap HTML5 Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{$src_logo}}">
 
     <!-- ======= All CSS Plugins here ======== -->
@@ -21,11 +22,31 @@
 
     <!-- Plugin css -->
     <link rel="stylesheet" href="{{asset('template_web_user/assets/css/vendor/bootstrap.min.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/toastr/toastr.min.css') }}">
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{asset('template_web_user/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/web_user/master.css')}}">
     @yield('addcss')
+    <style>
+        .error {
+            margin: -1.5rem 0 1.5rem;
+            color: red;
+        }
+
+        .user-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .sub-menu-acount {
+            padding: 10px;
+            width: max-content;
+        }
+        .header__account--items:hover .sub-menu-acount {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -100,6 +121,7 @@
     <script src="{{ asset('template_web_admin/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- Customscript js -->
     <script src="{{asset('template_web_user/assets/js/script.js')}}"></script>
+    <script src="{{ asset('template_web_admin/plugins/toastr/toastr.min.js') }}"></script>
     @yield('addjs')
     <script>
         $(document).ready(function() {
