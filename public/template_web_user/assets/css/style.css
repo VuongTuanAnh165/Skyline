@@ -2897,7 +2897,7 @@ body.overlay__active::before,
   align-items: center;
 }
 
-.header__account--btn:hover {
+.header__account--btn:hover, .header__account--btn.active {
   background: var(--secondary-color);
   color: var(--white-color);
 }

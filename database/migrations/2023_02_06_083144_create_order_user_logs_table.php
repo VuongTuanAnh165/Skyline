@@ -16,6 +16,7 @@ class CreateOrderUserLogsTable extends Migration
         Schema::create('order_user_logs', function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
+            $table->integer('user_id')->nullable();
             $table->longText('table_id')->nullable();
             $table->double('total_money')->nullable();
             $table->double('payment')->nullable();

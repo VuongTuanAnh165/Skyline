@@ -79,31 +79,31 @@
                     <nav class="header__menu--navigation">
                         <ul class="d-flex">
                             @php
-                            $arg_home = array(
-                            'user.food.home.index',
-                            'user.home.index',
-                            );
-                            $active = '';
-                            if ( in_array($name,$arg_home) ) {
-                            $active = 'active';
-                            }
+                                $arg_home = array(
+                                    'user.food.home.index',
+                                    'user.home.index',
+                                );
+                                $active = '';
+                                if ( in_array($name,$arg_home) ) {
+                                    $active = 'active';
+                                }
                             @endphp
                             <li class="header__menu--items {{ $active }}">
                                 <a class="header__menu--link" href="{{ $url['home'] }}">Trang chủ</a>
                             </li>
                             @php
-                            $arg_all_product = array(
-                            'user.food.allProduct.index',
-                            'user.allProduct.index',
-                            'user.food.product.index',
-                            'user.product.index',
-                            'user.food.product.show',
-                            'user.product.show',
-                            );
-                            $active = '';
-                            if ( in_array($name,$arg_all_product) ) {
-                            $active = 'active';
-                            }
+                                $arg_all_product = array(
+                                    'user.food.allProduct.index',
+                                    'user.allProduct.index',
+                                    'user.food.product.index',
+                                    'user.product.index',
+                                    'user.food.product.show',
+                                    'user.product.show',
+                                );
+                                $active = '';
+                                if ( in_array($name,$arg_all_product) ) {
+                                    $active = 'active';
+                                }
                             @endphp
                             <li class="header__menu--items {{ $active }} mega__menu--items">
                                 <a class="header__menu--link" href="{{ $url['allProduct'] }}">{{ $url['name'] }}
@@ -176,9 +176,19 @@
                                 <span class="items__count">3</span>
                             </a>
                         </li>
+                        @php
+                            $arg_account = array(
+                                'user.auth',
+                                'user.verify',
+                            );
+                            $active = '';
+                            if ( in_array($name,$arg_account) ) {
+                                $active = 'active';
+                            }
+                        @endphp
                         <li class="header__account--items d-none d-lg-block">
                             @if(isset($user))
-                            <a class="header__account--btn" href="javascript:void(0)">
+                            <a class="header__account--btn {{ $active }}" href="javascript:void(0)">
                                 @if(empty($user->avatar))
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
                                     <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
@@ -198,7 +208,7 @@
                                 </li>
                             </ul>
                             @else
-                            <a class="header__account--btn btn-account" data-url="{{route('user.auth')}}" data-prev="{{URL::full()}}" href="javascript:void(0)">
+                            <a class="header__account--btn btn-account {{ $active }}" data-url="{{route('user.auth')}}" data-prev="{{URL::full()}}" href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443" viewBox="0 0 512 512">
                                     <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
                                     <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
