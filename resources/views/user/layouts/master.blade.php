@@ -122,6 +122,7 @@ $src_logo = asset('img/logo.png');
     <!-- Customscript js -->
     <script src="{{asset('template_web_user/assets/js/script.js')}}"></script>
     <script src="{{ asset('template_web_admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     @yield('addjs')
     <script>
         $(document).ready(function() {

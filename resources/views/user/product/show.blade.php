@@ -92,7 +92,7 @@
             </div>
             <div class="col">
                 <div class="product__details--info">
-                    <form action="#">
+                    <div>
                         <h2 class="product__details--info__title mb-15">{{ $dish->name }}</h2>
                         <div class="product__details--info__price mb-15">
                             <span class="current__price">{{ number_format($dish->price) }} VND</span>
@@ -153,8 +153,8 @@
                         <div class="product__variant">
                             @foreach($menus as $menu)
                             @php
-                                $required = $menu->required == 1 ? 'required' : '';
-                                $multiple = $menu->multiple == 1 ? 'checkbox' : 'radio';
+                            $required = $menu->required == 1 ? 'required' : '';
+                            $multiple = $menu->multiple == 1 ? 'checkbox' : 'radio';
                             @endphp
                             <div class="product__variant--list mb-20">
                                 <fieldset class="variant__input--fieldset">
@@ -180,7 +180,9 @@
                                     </label>
                                     <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
                                 </div>
-                                <button class="btn quickview__cart--btn" type="submit">Thêm vào giỏ hàng</button>
+                                <input type="hidden" name="dish_id" class="dish_id" value="{{ $dish->id }}">
+                                <input type="hidden" name="user_id" class="user_id" value="{{ Auth:: }}">
+                                <button class="btn quickview__cart--btn">Thêm vào giỏ hàng</button>
                             </div>
                             <div class="product__variant--list mb-15">
                                 <a class="variant__wishlist--icon mb-15" href="" title="Add to wishlist">
@@ -233,7 +235,7 @@
                             <h5 class="guarantee__safe--checkout__title">Thanh toán được đảm bảo an toàn</h5>
                             <img class="guarantee__safe--checkout__img" src="{{ asset('template_web_user/assets/img/other/safe-checkout.png') }}" alt="Payment Image">
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

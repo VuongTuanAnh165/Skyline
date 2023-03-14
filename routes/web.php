@@ -50,6 +50,7 @@ use App\Http\Controllers\User\Shop\UserShopHomeController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
 use App\Http\Controllers\User\Shop\UserShopRestaurantController;
 use App\Http\Controllers\User\UserAuthController;
+use App\Http\Controllers\User\UserCartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -402,3 +403,7 @@ Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout
 Route::post('/register', [UserAuthController::class, 'register'])->name('user.register');
 Route::get('/verify-{id}', [UserAuthController::class, 'verify'])->name('user.verify');
 Route::post('/verifyStore-{id}', [UserAuthController::class, 'verifyStore'])->name('user.verify.store');
+
+Route::middleware(['admin'])->group(function () {
+    Route::post('/addCart', [UserCartController::class, 'addCart'])->name('user.addCart');
+});
