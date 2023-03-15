@@ -156,14 +156,15 @@
                             $required = $menu->required == 1 ? 'required' : '';
                             $multiple = $menu->multiple == 1 ? 'checkbox' : 'radio';
                             @endphp
+                            <input type="hidden" value="{{ $menu->id }}" class="menu">
                             <div class="product__variant--list mb-20">
                                 <fieldset class="variant__input--fieldset">
                                     <legend class="product__variant--title mb-8">{{$menu->name}} :</legend>
-                                    <ul class="variant__size d-flex">
+                                    <ul class="variant__size d-flex {{$required}} menu_{{ $menu->id }}" data-name="{{$menu->name}}">
                                         @foreach($menu_items as $menu_item)
                                         @if($menu_item->menu_id == $menu->id)
                                         <li class="variant__size--list">
-                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="{{$multiple}}" class="{{$required}}">
+                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="{{$multiple}}" value="{{ $menu_item->id }}">
                                             <label class="variant__size--value red" for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                         </li>
                                         @endif
@@ -181,7 +182,7 @@
                                     <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
                                 </div>
                                 <input type="hidden" name="dish_id" class="dish_id" value="{{ $dish->id }}">
-                                <input type="hidden" name="user_id" class="user_id" value="{{ Auth:: }}">
+                                <input type="hidden" name="user_id" class="user_id" value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->id : '' }}">
                                 <button class="btn quickview__cart--btn">Thêm vào giỏ hàng</button>
                             </div>
                             <div class="product__variant--list mb-15">
@@ -575,7 +576,7 @@
                                 </ul>
                         </div>
                         <div class="product__items--content product__items2--content text-center">
-                            <a class="add__to--cart__btn" href="cart.html">+ Thêm giỏ hàng</a>
+                            <a class="add__to--cart__btn" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">Chi tiết</a>
                             <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                             <div class="product__items--price">
                                 <span class="current__price">{{ number_format($dish->price) }} VND</span>

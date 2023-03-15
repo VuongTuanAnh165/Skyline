@@ -973,3 +973,9 @@ const newsletterPopup = function () {
   }
 };
 newsletterPopup();
+
+function redirectUser() {
+  let url = $('#route-user-auth').val();
+  let prev = $('#route-prev').val();
+  window.location.href = url + '?prev=' + prev;
+}

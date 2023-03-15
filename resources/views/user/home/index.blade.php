@@ -177,7 +177,7 @@
                                         </ul>
                                     </div>
                                     <div class="product__items--content product__items2--content text-center">
-                                        <a class="add__to--cart__btn" href="">+ Thêm giỏ hàng</a>
+                                        <a class="add__to--cart__btn" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">Chi tiết</a>
                                         <h3 class="product__items--content__title h4"><a href="javascript:void(0)">{{ $dish->name }}</a></h3>
                                         <div class="product__items--price">
                                             <span class="current__price">{{ number_format($dish->price) }} VND</span>

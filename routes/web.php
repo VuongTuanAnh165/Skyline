@@ -404,6 +404,7 @@ Route::post('/register', [UserAuthController::class, 'register'])->name('user.re
 Route::get('/verify-{id}', [UserAuthController::class, 'verify'])->name('user.verify');
 Route::post('/verifyStore-{id}', [UserAuthController::class, 'verifyStore'])->name('user.verify.store');
 
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['user'])->group(function () {
     Route::post('/addCart', [UserCartController::class, 'addCart'])->name('user.addCart');
+    Route::post('/showCart', [UserCartController::class, 'showCart'])->name('user.showCart');
 });

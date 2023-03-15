@@ -3754,6 +3754,8 @@ body.overlay__active::before,
 .minicart__text {
   width: calc(100% - 100px);
   padding-left: 10px;
+  display: flex;
+  align-items: center;
 }
 
 @media only screen and (min-width: 480px) {
@@ -3768,6 +3770,18 @@ body.overlay__active::before,
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 2px;
+  width: 100%;
+}
+
+.minicart__subtitle a {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  margin: 0 auto;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media only screen and (min-width: 480px) {

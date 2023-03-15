@@ -15,7 +15,7 @@
 <div style="padding-top: 55px;" class="container-fluid">
     <div class="row">
         @php
-            $order_user_log_all = \App\Models\OrderUserLog::get();
+            $order_user_log_all = \App\Models\OrderUserLog::where('type',\App\Models\OrderUser::TYPE_RESTAURANT_EAT)->get();
         @endphp
         @foreach($tables as $table)
             @php

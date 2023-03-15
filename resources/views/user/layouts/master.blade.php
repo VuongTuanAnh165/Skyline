@@ -39,10 +39,12 @@ $src_logo = asset('img/logo.png');
             object-fit: cover;
             border-radius: 50%;
         }
+
         .sub-menu-acount {
             padding: 10px;
             width: max-content;
         }
+
         .header__account--items:hover .sub-menu-acount {
             margin-top: 10px;
         }
@@ -123,7 +125,6 @@ $src_logo = asset('img/logo.png');
     <script src="{{asset('template_web_user/assets/js/script.js')}}"></script>
     <script src="{{ asset('template_web_admin/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    @yield('addjs')
     <script>
         $(document).ready(function() {
             function setheight(img) {
@@ -165,12 +166,49 @@ $src_logo = asset('img/logo.png');
             });
 
             $(document).on('click', '.btn-account', function() {
-                let url = $(this).data('url');
-                let prev = $(this).data('prev');
-                window.location.href = url + '?prev=' + prev;
+                redirectUser();
             })
+
+            $('.minicart__open--btn').on('click', function() {
+                let service_id = $('#service_id_check').val();
+                $.ajax({
+                    url: `{{route('user.showCart')}}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        service_id: service_id,
+                    },
+                    cache: false,
+                    method: 'POST',
+                    success: function(response) {
+                        if (response.code == 200) {
+                            let html = ``;
+                            for (let x in response.data) {
+                                let route = `{{ route($url_product, ['id' => 'param_id', 'name_link' => 'param_name_link']) }}`;
+                                route = route.replace('param_id', response.data[x].dish_id);
+                                route = route.replace('param_name_link', response.data[x].name_link);
+                                html += `
+                                    <div class="minicart__product--items d-flex">
+                                        <div class="minicart__thumb">
+                                            <a href="`+route+`"><img src="{{asset('storage/')}}/${response.data[x].image}" alt="prduct-img"></a>
+                                        </div>
+                                        <div class="minicart__text">
+                                            <h4 class="minicart__subtitle"><a href="`+route+`">${response.data[x].name}.</a></h4>
+                                        </div>
+                                    </div>
+                                `
+                            }
+                            $('.minicart__header--desc_span').text(response.data.length)
+                            $('.minicart__product').html(html);
+                        }
+                    },
+                    error: function(xhr) {}
+                });
+            });
         })
     </script>
+    @yield('addjs')
 </body>
 
 </html>

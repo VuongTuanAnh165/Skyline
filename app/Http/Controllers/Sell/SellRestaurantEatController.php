@@ -96,7 +96,7 @@ class SellRestaurantEatController extends Controller
      */
     public function edit($table_id)
     {
-        $order_user_log_all = OrderUserLog::get();
+        $order_user_log_all = OrderUserLog::where('type',OrderUser::TYPE_RESTAURANT_EAT)->get();
         $order_user_log = [];
         $arr_table = [];
         foreach ($order_user_log_all as $item) {
