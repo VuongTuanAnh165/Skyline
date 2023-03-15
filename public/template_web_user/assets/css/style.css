@@ -3717,6 +3717,7 @@ body.overlay__active::before,
 
 .minicart__product {
   margin-bottom: 17px;
+  border-bottom: 1px solid var(--border-color2);
 }
 
 .minicart__product--items {
@@ -3755,7 +3756,8 @@ body.overlay__active::before,
   width: calc(100% - 100px);
   padding-left: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 480px) {

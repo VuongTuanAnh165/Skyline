@@ -55,20 +55,30 @@ class UserCartController extends Controller
                     'type' => $type,
                     'status_payment' => OrderUser::UNPAID,
                 ];
-                $order_user_log = OrderUserLog::create($data_order_user_log);
-                $data_detail_order_log = [
-                    'order_id' => $order_user_log->order_id,
-                    'dish_id' => $request->dish_id,
-                    'quantity' => $request->quantity,
-                ];
-                $detail_order_log = DetailOrderLog::create($data_detail_order_log);
-                $menus = Menu::where('dish_id', $request->dish_id)->get();
-                foreach ($menus as $menu) {
-                    $data_detail_menu_log = [
-                        'detail_order_log_id' => $detail_order_log->id,
-                        'menu_id' => $menu->id,
+                $detail_order_log = DetailOrderLog::query()
+                    ->leftJoin('detail_item_logs', 'detail_item_logs.detail_order_log_id', 'detail_order_logs.id')
+                    ->select('detail_order_logs.*')
+                    ->where('detail_order_logs.dish_id', $request->dish_id)
+                    ->where('detail_item_logs.item', json_encode($request->item))
+                    ->first();
+                if($detail_order_log) {
+                    $detail_order_log->update(['quantity' => $detail_order_log->quantity + $request->quantity]);
+                } else {
+                    $order_user_log = OrderUserLog::create($data_order_user_log);
+                    $data_detail_order_log = [
+                        'order_id' => $order_user_log->order_id,
+                        'dish_id' => $request->dish_id,
+                        'quantity' => $request->quantity,
                     ];
-                    DetailMenuLog::create($data_detail_menu_log);
+                    $detail_order_log = DetailOrderLog::create($data_detail_order_log);
+                    $menus = Menu::where('dish_id', $request->dish_id)->get();
+                    foreach ($menus as $menu) {
+                        $data_detail_menu_log = [
+                            'detail_order_log_id' => $detail_order_log->id,
+                            'menu_id' => $menu->id,
+                        ];
+                        DetailMenuLog::create($data_detail_menu_log);
+                    }
                 }
                 for ($i = 0; $i < $request->quantity; $i++) {
                     $data_detail_item_log = [
@@ -85,6 +95,7 @@ class UserCartController extends Controller
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
                 DB::rollBack();
+                dd($e);
                 return response()->json([
                     'code' => 400,
                 ]);
@@ -122,7 +133,7 @@ class UserCartController extends Controller
                         ->where('order_user_logs.user_id', $user->id)
                         ->whereNull('order_user_logs.status')
                         ->where('service_types.service_id', $request->service_id)
-                        ->orderBy('order_user_logs.updated_at', 'DESC')->limit(5)->get();
+                        ->orderBy('order_user_logs.updated_at', 'DESC')->limit(4)->get();
                     return response()->json([
                         'code' => 200,
                         'data' => $data,

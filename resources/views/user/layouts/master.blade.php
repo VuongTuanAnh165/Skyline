@@ -195,6 +195,11 @@ $src_logo = asset('img/logo.png');
                                         </div>
                                         <div class="minicart__text">
                                             <h4 class="minicart__subtitle"><a href="`+route+`">${response.data[x].name}.</a></h4>
+                                            <div class="minicart__text--footer d-flex align-items-center">
+                                                <div class="quantity__box minicart__quantity">
+                                                    <div class="quantity__number">Số lượng: ${response.data[x].quantity}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 `
