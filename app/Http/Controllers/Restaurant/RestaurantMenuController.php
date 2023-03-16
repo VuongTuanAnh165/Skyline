@@ -27,11 +27,7 @@ class RestaurantMenuController extends Controller
     public function index($id)
     {
         $datas = MenuItem::where('menu_id', $id)->get();
-        $menu = Menu::query()
-            ->leftJoin('dishes', 'dishes.id', 'menus.dish_id')
-            ->select('menus.*', 'dishes.name as dish_name')
-            ->where('menus.id', $id)
-            ->first();
+        $menu = Menu::find($id);
         $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
         $service_type = ServiceType::query()
             ->leftJoin('service_charges', 'service_charges.service_type_id', 'service_types.id')

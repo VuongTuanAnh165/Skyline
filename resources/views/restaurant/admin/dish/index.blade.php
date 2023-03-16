@@ -35,13 +35,16 @@
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ route('restaurant.category.index') }}" class="m-0 btn bg-gradient-warning btn-lg">{{ $messages['category']['title'] }}</a>
+                <a href="{{ route('restaurant.menu') }}"  class="m-0 btn btn-danger btn-lg">
+                    <i class="fas fa-ellipsis-v"></i>
+                    {{ $messages['menu']['title'] }}
+                </a>
                 <a href="{{ route('restaurant.dish.create') }}" class="m-0 btn bg-gradient-success btn-lg">{{ __('messages.admin.table.create') }}</a>
             </div>
         </div>
     </div>
 </div>
 @include('restaurant.admin.dish.table')
-@include('restaurant.admin.dish.menu.form')
 @stop
 @section('addjs')
     @if (session('success') || session('error'))
@@ -57,5 +60,4 @@
         });
     </script>
     @include('restaurant.admin.dish.script')
-    @include('restaurant.admin.dish.menu.script')
 @stop

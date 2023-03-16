@@ -207,6 +207,24 @@ class RestaurantDishController extends Controller
         }
     }
 
+    public function menu()
+    {
+        $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
+        $datas = Menu::where('restaurant_id', $restaurant_id)->get();
+        $service_type = ServiceType::query()
+            ->leftJoin('service_charges', 'service_charges.service_type_id', 'service_types.id')
+            ->leftJoin('order_ceos', 'order_ceos.service_charge_id', 'service_charges.id')
+            ->select('service_types.service_id')
+            ->where('order_ceos.restaurant_id', $restaurant_id)
+            ->first();
+        if ($service_type->service_id == 1) {
+            $messages = Dish::MESS_RESTAURANT;
+        } else {
+            $messages = Dish::MESS_SHOP;
+        }
+        return view($this->pathView . 'menu.index', compact('datas', 'messages'));
+    }
+
     /**
      * Display the specified resource.
      *
@@ -215,7 +233,8 @@ class RestaurantDishController extends Controller
      */
     public function showMenu(Request $request)
     {
-        $menus = Menu::where('dish_id', $request->id)->get();
+        $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
+        $menus = Menu::where('restaurant_id', $restaurant_id)->get();
         return response()->json([
             'code' => 200,
             'menus' => $menus,
@@ -237,11 +256,17 @@ class RestaurantDishController extends Controller
             try {
                 DB::beginTransaction();
                 $params = $request->only([
-                    'dish_id',
                     'name',
+                    'describe',
                     'required',
                     'multiple',
                 ]);
+                if (Auth::guard('personnel')->user()) {
+                    $params['create_by'] = Auth::guard('personnel')->user()->id;
+                } else {
+                    $params['create_by'] = -1;
+                }
+                $params['restaurant_id'] = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
                 $data = Menu::create($params);
                 DB::commit();
                 return response()->json([
@@ -276,11 +301,17 @@ class RestaurantDishController extends Controller
                 $data = Menu::find($request->id);
                 DB::beginTransaction();
                 $params = $request->only([
-                    'dish_id',
                     'name',
+                    'describe',
                     'required',
                     'multiple',
                 ]);
+                if (Auth::guard('personnel')->user()) {
+                    $params['update_by'] = Auth::guard('personnel')->user()->id;
+                } else {
+                    $params['update_by'] = -1;
+                }
+                $params['restaurant_id'] = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
                 $data->update($params);
                 DB::commit();
                 return response()->json([

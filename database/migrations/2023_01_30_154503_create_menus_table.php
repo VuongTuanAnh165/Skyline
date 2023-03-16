@@ -19,6 +19,9 @@ class CreateMenusTable extends Migration
             $table->string('describe')->nullable();
             $table->integer('required')->nullable()->default(0);
             $table->integer('multiple')->nullable()->default(0);
+            $table->integer('restaurant_id')->nullable();
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
             $table->timestamps();
         });
     }
