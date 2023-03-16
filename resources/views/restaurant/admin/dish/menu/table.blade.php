@@ -6,7 +6,7 @@
                 <!-- /.card -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $messages['dish']['table']['title'] }}</h3>
+                        <h3 class="card-title">{{ $messages['menu']['table']['title'] }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -14,11 +14,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
-                                    <th>{{ $messages['dish']['table']['name'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['image'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['category'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['price'] }}</th>
-                                    <th class="text-left">{{ $messages['menu']['title'] }}</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th class="text-center">Bắt buộc</th>
+                                    <th class="text-center">Chọn nhiều</th>
                                     <th class="text-center">{{ __('messages.admin.table.create_by') }}</th>
                                     <th class="text-center">{{ __('messages.admin.table.update_by') }}</th>
                                     <th class="text-right">{{ __('messages.admin.table.action') }}</th>
@@ -37,21 +36,16 @@
                                     @endphp
                                     <td class="text-center">{{$stt}}</td>
                                     <td>{{ $data->name }}</td>
-                                    <td class="text-center"><img style="width: 100px;" src="{{ !empty($data->image) ? asset('storage/'.$data->image) : '' }}"></td>
-                                    <td class="text-center">{{ $data->category_name }}</td>
-                                    <td class="text-center">{{ number_format($data->price) }} VND</td>
-                                    <td></td>
+                                    <td>{{ $data->describe }}</td>
+                                    <td class="text-center">{{ $data->required == 1 ? 'Có' : 'Không' }}</td>
+                                    <td class="text-center">{{ $data->multiple == 1 ? 'Có' : 'Không' }}</td>
                                     <td class="text-center">{{ $create_by }}</td>
                                     <td class="text-center">{{ $update_by }}</td>
                                     <td class="project-actions text-right">
-                                        <a href="{{route('restaurant.dish.edit', ['id'=>$data->id])}}" class="btn btn-info btn-sm dish-update">
+                                        <a href="{{ route('restaurant.menu.index', ['id' => $data->id]) }}" class="btn btn-info btn-sm dish-update">
                                             <i class="fas fa-pencil-alt"></i>
-                                            {{ __('messages.admin.table.edit') }}
-                                        </a>
-                                        <a class="btn btn-danger btn-sm deleteDialog tip" href="javascript:void(0);" data-id="{{$data->id}}">
-                                            <i class="fas fa-trash"></i>
-                                            {{ __('messages.admin.table.destroy') }}
-                                        </a>                                 
+                                            Lựa chọn của menu
+                                        </a>                                
                                     </td>
                                 </tr>
                                 @php
@@ -63,11 +57,10 @@
                             <tfoot>
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
-                                    <th>{{ $messages['dish']['table']['name'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['image'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['category'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['price'] }}</th>
-                                    <th class="text-center">{{ $messages['menu']['title'] }}</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th class="text-center">Bắt buộc</th>
+                                    <th class="text-center">Chọn nhiều</th>
                                     <th class="text-center">{{ __('messages.admin.table.create_by') }}</th>
                                     <th class="text-center">{{ __('messages.admin.table.update_by') }}</th>
                                     <th class="text-right">{{ __('messages.admin.table.action') }}</th>

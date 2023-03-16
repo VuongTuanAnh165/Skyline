@@ -1,5 +1,37 @@
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('template_web_admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('template_web_admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Page specific script -->
+<script src="{{ asset('template_web_admin/dist/js/demo.js') }}"></script>
 <script>
     $(document).ready(function() {
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
         function checkCreate() {
             $('#form-menu').find('.create').eq($('#form-menu').find('.create').length - 1).removeClass('display-none');
             $('#form-menu').find('.delete').eq($('#form-menu').find('.create').length - 1).removeClass('display-none');
@@ -18,6 +50,14 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group ">
+                                <input type="text" id="describe" name="describe" placeholder="Mô tả" value="{{ old('describe') ? old('describe') : '' }}" class="form-control describe">
+                                @if ($errors->first('describe'))
+                                <div class="error error-be">{{ $errors->first('describe') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
                                 <input type="checkbox" id="required" name="required" value=1 class="form-control required_check">
                                 <label for="required">Bắt buộc ?</label>
                                 @if ($errors->first('required'))
@@ -25,7 +65,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group ">
                                 <input type="checkbox" id="multiple" name="multiple" value=1 class="form-control multiple_check">
                                 <label for="multiple">Chọn nhiều ?</label>
@@ -34,7 +74,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group form-group-button">
                                 <button class="create"><i class="fas fa-plus"></i></button>
                                 <button class="delete"><i class="fas fa-times"></i></button>
@@ -61,6 +101,14 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group ">
+                                <input type="text" id="describe" disabled name="describe" placeholder="Mô tả" value="${menus[x].describe}" class="form-control describe">
+                                @if ($errors->first('describe'))
+                                <div class="error error-be">{{ $errors->first('describe') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
                                 <input type="checkbox" id="required" disabled name="required" value=1 class="form-control required_check" ${check_required}>
                                 <label for="required">Bắt buộc ?</label>
                                 @if ($errors->first('required'))
@@ -68,7 +116,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group ">
                                 <input type="checkbox" id="multiple" disabled name="multiple" value=1 class="form-control multiple_check" ${check_multiple}>
                                 <label for="multiple">Chọn nhiều ?</label>
@@ -77,7 +125,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group form-group-button">
                                 <button class="create display-none"><i class="fas fa-plus"></i></button>
                                 <button class="delete display-none"><i class="fas fa-times"></i></button>
@@ -90,18 +138,11 @@
             return html;
         };
         $(document).on('click', '.show-dish-menu', function() {
-            let id = $(this).data('dish_id');
-            let name = $(this).data('dish_name');
-            $('#dish_id').val(id);
-            $('.title-form-menu').text(name);
             $.ajax({
                 type: "POST",
                 url: `{{route('restaurant.dish.showMenu')}}`,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: {
-                    id: id,
                 },
                 success: function(response) {
                     if (response.code == 200) {
@@ -129,10 +170,12 @@
         $(document).on('click', '.edit', function() {
             let parent = $(this).closest('.row-menu');
             let name = parent.find('.name');
+            let describe = parent.find('.describe');
             let required = parent.find('.required_check');
             let multiple = parent.find('.multiple_check');
             let save = parent.find('.save');
             name.prop('disabled', false);
+            describe.prop('disabled', false);
             required.prop('disabled', false);
             multiple.prop('disabled', false);
             save.removeClass('display-none');
@@ -144,8 +187,8 @@
             let parent = $(this).closest('.row-menu');
             let edit = parent.find('.edit');
             let id = parent.find('.id');
-            let dish_id = $('#dish_id');
             let name = parent.find('.name');
+            let describe = parent.find('.describe');
             let required = parent.find('.required_check:checked');
             let multiple = parent.find('.multiple_check:checked');
             let url = save.data('url');
@@ -157,8 +200,8 @@
                 },
                 data: {
                     id: id.val(),
-                    dish_id: dish_id.val(),
                     name: name.val(),
+                    describe: describe.val(),
                     required: required.val(),
                     multiple: multiple.val(),
                 },
@@ -166,6 +209,7 @@
                     if (response.code == 200) {
                         name.val(response.data.name);
                         name.prop('disabled', true);
+                        describe.prop('disabled', true);
                         required.prop('disabled', true);
                         multiple.prop('disabled', true);
                         edit.removeClass('display-none');

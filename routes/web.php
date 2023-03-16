@@ -168,6 +168,7 @@ Route::prefix('restaurant')->group(function () {
             Route::post('/updateMenu', [RestaurantDishController::class, 'updateMenu'])->name('restaurant.dish.updateMenu');
             Route::post('/destroyMenu', [RestaurantDishController::class, 'destroyMenu'])->name('restaurant.dish.destroyMenu');
             Route::prefix('/menu')->group(function () {
+                Route::get('/', [RestaurantDishController::class, 'menu'])->name('restaurant.menu');
                 Route::get('/item-{id}', [RestaurantMenuController::class, 'index'])->name('restaurant.menu.index');
                 Route::get('/item/show', [RestaurantMenuController::class, 'itemShow'])->name('restaurant.menu.itemShow');
                 Route::post('/itemStore/{menu_id}', [RestaurantMenuController::class, 'itemStore'])->name('restaurant.menu.itemStore');
