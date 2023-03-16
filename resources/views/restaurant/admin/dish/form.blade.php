@@ -1,3 +1,6 @@
+@php
+    $collectMenu = old('menu_id') ? collect(old('menu_id')) : ( isset($menuDish) && isset($data) ? $menuDish : collect())
+@endphp
 {{ csrf_field() }}
 <div class="row">
     <div class="col-md-10">
@@ -72,6 +75,20 @@
                                     </select>
                                     @if ($errors->first('branch_id'))
                                     <div class="error error-be">{{ $errors->first('branch_id') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="menu_id">Chọn Menu</label>
+                                    <select class="form-control select2 menu_id" id="menu_id" name="menu_id[]" multiple>
+                                        <option value="">Chọn chi nhánh</option>
+                                        @foreach($menus as $menu)
+                                            <option value={{ $menu->id }} {{ ($collectMenu->contains($menu->id)) ? 'selected':'' }}>Chi nhánh số: {{ $menu->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->first('menu_id'))
+                                    <div class="error error-be">{{ $errors->first('menu_id') }}</div>
                                     @endif
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\CategoryHome;
 use App\Models\Dish;
 use App\Models\Menu;
+use App\Models\MenuDish;
 use App\Models\ServiceType;
 use Exception;
 use Illuminate\Http\Request;
@@ -159,7 +160,8 @@ class RestaurantDishController extends Controller
             } else {
                 $messages = Dish::MESS_SHOP;
             }
-            return view($this->pathView . 'edit', compact('data', 'categories', 'branches', 'categoryHomes', 'messages'));
+            $menuDish = MenuDish::query()->where('dish_id', $data->id)->pluck('menu_id');
+            return view($this->pathView . 'edit', compact('data', 'categories', 'branches', 'categoryHomes', 'messages', 'menuDish'));
         }
         return redirect()->back()->with(['error' => trans('messages.common.error')]);
     }
