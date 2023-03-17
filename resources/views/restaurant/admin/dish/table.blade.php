@@ -40,7 +40,7 @@
                                     <td class="text-center"><img style="width: 100px;" src="{{ !empty($data->image) ? asset('storage/'.$data->image) : '' }}"></td>
                                     <td class="text-center">{{ $data->category_name }}</td>
                                     <td class="text-center">{{ number_format($data->price) }} VND</td>
-                                    <td></td>
+                                    <td>{{ $data->menu_name }}</td>
                                     <td class="text-center">{{ $create_by }}</td>
                                     <td class="text-center">{{ $update_by }}</td>
                                     <td class="project-actions text-right">

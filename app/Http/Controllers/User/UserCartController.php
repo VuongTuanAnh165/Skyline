@@ -71,7 +71,7 @@ class UserCartController extends Controller
                         'quantity' => $request->quantity,
                     ];
                     $detail_order_log = DetailOrderLog::create($data_detail_order_log);
-                    $menus = Menu::where('dish_id', $request->dish_id)->get();
+                    $menus = Menu::leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')->select('menus.*')->where('menu_dishes.dish_id', $request->dish_id)->get();
                     foreach ($menus as $menu) {
                         $data_detail_menu_log = [
                             'detail_order_log_id' => $detail_order_log->id,
@@ -90,7 +90,7 @@ class UserCartController extends Controller
                 DB::commit();
                 return response()->json([
                     'code' => 200,
-                    'data' => OrderUserLog::where('user_id', $request->user_id)->whereNull('status')->get(),
+                    'data' => OrderUserLog::where('user_id', $request->user_id)->where('type',$type)->whereNull('status')->get(),
                 ]);
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());

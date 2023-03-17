@@ -21,6 +21,9 @@
         $('.branch_id').select2({
             placeholder: "Chọn chi nhánh"
         });
+        $('.menu_id').select2({
+            placeholder: "Chọn menu"
+        });
         $('.category_home_id').select2({
             placeholder: "{{ $messages['dish']['table']['category_home'] }}"
         });

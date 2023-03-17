@@ -34,9 +34,16 @@ class RestaurantDishController extends Controller
         $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
         $datas = Dish::query()
             ->leftJoin('categories', 'categories.id', 'dishes.category_id')
-            ->select('dishes.*', 'categories.name as category_name')
+            ->leftJoin('menu_dishes', 'menu_dishes.dish_id', 'dishes.id')
+            ->leftJoin('menus', 'menus.id', 'menu_dishes.menu_id')
+            ->select(
+                'dishes.*', 
+                'categories.name as category_name',
+                DB::raw('group_concat(menus.name) as menu_name'),
+            )
             ->where('categories.restaurant_id', $restaurant_id)
             ->where('dishes.restaurant_id', $restaurant_id)
+            ->groupBy('dishes.id')
             ->get();
         $categories = Category::query()
             ->where('restaurant_id', $restaurant_id)
@@ -85,7 +92,8 @@ class RestaurantDishController extends Controller
         } else {
             $messages = Dish::MESS_SHOP;
         }
-        return view($this->pathView . 'create', compact('categories', 'branches', 'categoryHomes', 'messages'));
+        $menus = Menu::where('restaurant_id', $restaurant_id)->get();
+        return view($this->pathView . 'create', compact('categories', 'branches', 'categoryHomes', 'messages','menus'));
     }
 
     /**
@@ -118,6 +126,15 @@ class RestaurantDishController extends Controller
                 $params['create_by'] = -1;
             }
             $data = Dish::create($params);
+            if ($request->menu_id) {
+                MenuDish::where('dish_id', $data->id)->delete();
+                foreach($request->menu_id as $item) {
+                    MenuDish::create([
+                        'dish_id' => $data->id,
+                        'menu_id' => $item,
+                    ]);
+                }
+            }
             DB::commit();
             return redirect()->route('restaurant.dish.index')->with(['success' => trans('messages.common.success')]);
         } catch (Exception $e) {
@@ -160,8 +177,9 @@ class RestaurantDishController extends Controller
             } else {
                 $messages = Dish::MESS_SHOP;
             }
+            $menus = Menu::where('restaurant_id', $restaurant_id)->get();
             $menuDish = MenuDish::query()->where('dish_id', $data->id)->pluck('menu_id');
-            return view($this->pathView . 'edit', compact('data', 'categories', 'branches', 'categoryHomes', 'messages', 'menuDish'));
+            return view($this->pathView . 'edit', compact('data', 'categories', 'branches', 'categoryHomes', 'messages', 'menuDish', 'menus'));
         }
         return redirect()->back()->with(['error' => trans('messages.common.error')]);
     }
@@ -199,6 +217,15 @@ class RestaurantDishController extends Controller
             } else {
                 $params['update_by'] = -1;
             }
+            if ($request->menu_id) {
+                MenuDish::where('dish_id', $id)->delete();
+                foreach($request->menu_id as $item) {
+                    MenuDish::create([
+                        'dish_id' => $id,
+                        'menu_id' => $item,
+                    ]);
+                }
+            }
             $data->update($params);
             DB::commit();
             return redirect()->route('restaurant.dish.index')->with(['success' => trans('messages.common.success')]);
@@ -212,7 +239,14 @@ class RestaurantDishController extends Controller
     public function menu()
     {
         $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
-        $datas = Menu::where('restaurant_id', $restaurant_id)->get();
+        $datas = Menu::query()
+            ->leftJoin('menu_items', 'menu_items.menu_id', 'menus.id')
+            ->select(
+                'menus.*',
+                DB::raw('group_concat(menu_items.name) as item_name'),
+            )
+            ->where('menus.restaurant_id', $restaurant_id)
+            ->groupBy('menus.id')->get();
         $service_type = ServiceType::query()
             ->leftJoin('service_charges', 'service_charges.service_type_id', 'service_types.id')
             ->leftJoin('order_ceos', 'order_ceos.service_charge_id', 'service_charges.id')

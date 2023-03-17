@@ -79,10 +79,14 @@ class UserShopProductController extends Controller
         $url_home = route('user.home.index');
         $menu_items = MenuItem::query()
             ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
-            ->where('menus.dish_id', $id)
+            ->leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
+            ->where('menu_dishes.dish_id', $id)
             ->select('menu_items.*')
             ->get();
-        $menus = Menu::where('dish_id', $id)->get();
+        $menus = Menu::leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
+            ->select('menus.*')
+            ->where('menu_dishes.dish_id', $id)
+            ->get();
         $restaurant = Restaurant::find($dish->restaurant_id);
         $text_restaurant = 'Xem shop';
         $dishes = Dish::where('restaurant_id', $restaurant->id)->get();

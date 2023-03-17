@@ -254,7 +254,7 @@ class SellRestaurantEatController extends Controller
                         'quantity' => 1,
                     ];
                     $detail_order_log = DetailOrderLog::create($data_detail_order_log);
-                    $menus = Menu::where('dish_id', $item)->get();
+                    $menus = Menu::leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')->select('menus.*')->where('menu_dishes.dish_id', $item)->get();
                     foreach ($menus as $menu) {
                         $data_detail_menu_log = [
                             'detail_order_log_id' => $detail_order_log->id,

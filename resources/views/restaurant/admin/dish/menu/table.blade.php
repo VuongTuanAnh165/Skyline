@@ -16,6 +16,7 @@
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>Tên</th>
                                     <th>Mô tả</th>
+                                    <th>Lựa chọn</th>
                                     <th class="text-center">Bắt buộc</th>
                                     <th class="text-center">Chọn nhiều</th>
                                     <th class="text-center">{{ __('messages.admin.table.create_by') }}</th>
@@ -37,6 +38,7 @@
                                     <td class="text-center">{{$stt}}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->describe }}</td>
+                                    <td>{{ $data->item_name }}</td>
                                     <td class="text-center">{{ $data->required == 1 ? 'Có' : 'Không' }}</td>
                                     <td class="text-center">{{ $data->multiple == 1 ? 'Có' : 'Không' }}</td>
                                     <td class="text-center">{{ $create_by }}</td>
@@ -59,6 +61,7 @@
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>Tên</th>
                                     <th>Mô tả</th>
+                                    <th>Lựa chọn</th>
                                     <th class="text-center">Bắt buộc</th>
                                     <th class="text-center">Chọn nhiều</th>
                                     <th class="text-center">{{ __('messages.admin.table.create_by') }}</th>

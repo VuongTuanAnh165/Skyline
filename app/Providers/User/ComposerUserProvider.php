@@ -5,6 +5,7 @@ namespace App\Providers\User;
 use App\Models\Branch;
 use App\Models\CategoryHome;
 use App\Models\Ceo;
+use App\Models\OrderUser;
 use App\Models\OrderUserLog;
 use App\Models\Restaurant;
 use App\Models\Skyline;
@@ -102,6 +103,7 @@ class ComposerUserProvider extends ServiceProvider
                 ->leftJoin('order_ceos', 'order_ceos.restaurant_id', 'dishes.restaurant_id')
                 ->leftJoin('service_charges', 'service_charges.id', 'order_ceos.service_charge_id')
                 ->leftJoin('service_types', 'service_types.id', 'service_charges.service_type_id')
+                ->where('order_user_logs.type', OrderUser::TYPE_RESTAURANT_SHIP)
                 ->whereNull('order_user_logs.status');
             if($user) {
                 $order_user_log = $order_user_log->where('order_user_logs.user_id', $user->id);

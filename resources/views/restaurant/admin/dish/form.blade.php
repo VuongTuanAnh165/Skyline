@@ -82,9 +82,9 @@
                                 <div class="form-group">
                                     <label for="menu_id">Chọn Menu</label>
                                     <select class="form-control select2 menu_id" id="menu_id" name="menu_id[]" multiple>
-                                        <option value="">Chọn chi nhánh</option>
+                                        <option value="">Chọn menu</option>
                                         @foreach($menus as $menu)
-                                            <option value={{ $menu->id }} {{ ($collectMenu->contains($menu->id)) ? 'selected':'' }}>Chi nhánh số: {{ $menu->name }}</option>
+                                            <option value={{ $menu->id }} {{ ($collectMenu->contains($menu->id)) ? 'selected':'' }}>{{ $menu->name }} ({{ $menu->describe }})</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->first('menu_id'))
