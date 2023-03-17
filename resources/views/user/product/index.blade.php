@@ -179,7 +179,8 @@ $name_route = Route::currentRouteName();
                                                     @php
                                                     $item = \App\Models\MenuItem::query()
                                                     ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
-                                                    ->where('menus.dish_id', $dish->id)
+                                                    ->leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
+                                                    ->where('menu_dishes.dish_id', $dish->id)
                                                     ->whereNotNull('menu_items.image')
                                                     ->first();
                                                     @endphp
@@ -288,7 +289,8 @@ $name_route = Route::currentRouteName();
                                                     @php
                                                     $item = \App\Models\MenuItem::query()
                                                     ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
-                                                    ->where('menus.dish_id', $dish->id)
+                                                    ->leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
+                                                    ->where('menu_dishes.dish_id', $dish->id)
                                                     ->whereNotNull('menu_items.image')
                                                     ->first();
                                                     @endphp
