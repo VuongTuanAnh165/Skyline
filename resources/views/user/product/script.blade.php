@@ -62,6 +62,7 @@
             let parent = $(this).parent().parent();
             if (user_id) {
                 let dish_id = parent.find('.dish_id').val();
+                let restaurant_id = parent.find('.restaurant_id').val();
                 let quantity = parent.find('.quantity__number').val();
                 let menu = parent.find('.menu');
                 let item = [];
@@ -90,7 +91,6 @@
                     item.push(menu_menu_item);
                 });
                 if (check) {
-                    console.log(dish_id,quantity,item);
                     $.ajax({
                         url: `{{route('user.addCart')}}`,
                         headers: {
@@ -98,6 +98,7 @@
                         },
                         data: {
                             dish_id: dish_id,
+                            restaurant_id: restaurant_id,
                             quantity: quantity,
                             item: item,
                             user_id: user_id,

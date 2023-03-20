@@ -182,6 +182,7 @@
                                     <button type="button" class="quantity__value quickview__value--quantity increase" aria-label="quantity value" value="Increase Value">+</button>
                                 </div>
                                 <input type="hidden" name="dish_id" class="dish_id" value="{{ $dish->id }}">
+                                <input type="hidden" name="restaurant_id" class="restaurant_id" value="{{ $dish->restaurant_id }}">
                                 <input type="hidden" name="user_id" class="user_id" value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->id : '' }}">
                                 <button class="btn quickview__cart--btn">Thêm vào giỏ hàng</button>
                             </div>

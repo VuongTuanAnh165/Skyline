@@ -399,7 +399,7 @@
 
         </div>
         <div class="minicart__button d-flex justify-content-center">
-            <a class="btn minicart__button--link" href="">Xem giỏ hàng</a>
+            <a class="btn minicart__button--link" href="{{$url['cart']}}">Xem giỏ hàng</a>
         </div>
     </div>
     <!-- End offCanvas minicart -->

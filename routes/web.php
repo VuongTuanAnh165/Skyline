@@ -42,9 +42,11 @@ use App\Http\Controllers\Sell\SellAuthController;
 use App\Http\Controllers\Sell\SellHomeController;
 use App\Http\Controllers\Sell\SellRestaurantEatController;
 use App\Http\Controllers\User\Food\UserFoodAllProductController;
+use App\Http\Controllers\User\Food\UserFoodCartController;
 use App\Http\Controllers\User\Food\UserFoodHomeController;
 use App\Http\Controllers\User\Food\UserFoodProductController;
 use App\Http\Controllers\User\Food\UserFoodRestaurantController;
+use App\Http\Controllers\User\Shop\UserShopCartController;
 use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
@@ -385,6 +387,9 @@ Route::prefix('food')->group(function () {
         Route::get('/{id}', [UserFoodRestaurantController::class, 'index'])->name('user.food.restaurant.index');
         Route::get('/tin-tuc/{id}-{name_link}', [UserFoodRestaurantController::class, 'post'])->name('user.food.restaurant.post');
     });
+    Route::middleware(['user'])->group(function () {
+        Route::get('/cart', [UserFoodCartController::class, 'index'])->name('user.food.cart');
+    });
 });
 
 Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index');
@@ -397,6 +402,9 @@ Route::prefix('/shop')->group(function () {
     Route::get('/{id}', [UserShopRestaurantController::class, 'index'])->name('user.restaurant.index');
     Route::get('/tin-tuc/{id}-{name_link}', [UserShopRestaurantController::class, 'post'])->name('user.restaurant.post');
 });
+Route::middleware(['user'])->group(function () {
+    Route::get('/cart', [UserShopCartController::class, 'index'])->name('user.cart');
+});
 
 Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
 Route::post('/login', [UserAuthController::class, 'login'])->name('user.login');
@@ -408,4 +416,5 @@ Route::post('/verifyStore-{id}', [UserAuthController::class, 'verifyStore'])->na
 Route::middleware(['user'])->group(function () {
     Route::post('/addCart', [UserCartController::class, 'addCart'])->name('user.addCart');
     Route::post('/showCart', [UserCartController::class, 'showCart'])->name('user.showCart');
+    Route::post('/updateCart', [UserCartController::class, 'updateCart'])->name('user.updateCart');
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailItemLog;
 use App\Models\DetailMenuLog;
 use App\Models\DetailOrderLog;
+use App\Models\Dish;
 use App\Models\Menu;
 use App\Models\OrderUser;
 use App\Models\OrderUserLog;
@@ -51,18 +52,45 @@ class UserCartController extends Controller
                 }
                 $data_order_user_log = [
                     'order_id' => $order_id,
+                    'restaurant_id' => $request->restaurant_id,
                     'user_id' => $request->user_id,
                     'type' => $type,
                     'status_payment' => OrderUser::UNPAID,
                 ];
-                $detail_order_log = DetailOrderLog::query()
-                    ->leftJoin('detail_item_logs', 'detail_item_logs.detail_order_log_id', 'detail_order_logs.id')
-                    ->select('detail_order_logs.*')
-                    ->where('detail_order_logs.dish_id', $request->dish_id)
-                    ->where('detail_item_logs.item', json_encode($request->item))
+                $order_user_log = OrderUserLog::query()
+                    ->where('order_user_logs.user_id', $request->user_id)
+                    ->where('order_user_logs.restaurant_id', $request->restaurant_id)
                     ->first();
-                if($detail_order_log) {
-                    $detail_order_log->update(['quantity' => $detail_order_log->quantity + $request->quantity]);
+                if($order_user_log) {
+                    $detail_order_log = DetailOrderLog::query()
+                        ->leftJoin('detail_item_logs', 'detail_item_logs.detail_order_log_id', 'detail_order_logs.id')
+                        ->select('detail_order_logs.*')
+                        ->where('detail_order_logs.order_id', $order_user_log->order_id)
+                        ->where('detail_order_logs.dish_id', $request->dish_id)
+                        // ->where('detail_item_logs.item', json_encode($request->item))
+                        ->Where(function($query) use ($request) {
+                            $query->where('detail_item_logs.item', json_encode($request->item))
+                                ->orWhereNull('detail_item_logs.item');
+                        })
+                        ->first();
+                    if($detail_order_log) {
+                        $detail_order_log->update(['quantity' => $detail_order_log->quantity + $request->quantity]);
+                    } else {
+                        $data_detail_order_log = [
+                            'order_id' => $order_user_log->order_id,
+                            'dish_id' => $request->dish_id,
+                            'quantity' => $request->quantity,
+                        ];
+                        $detail_order_log = DetailOrderLog::create($data_detail_order_log);
+                        $menus = Menu::leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')->select('menus.*')->where('menu_dishes.dish_id', $request->dish_id)->get();
+                        foreach ($menus as $menu) {
+                            $data_detail_menu_log = [
+                                'detail_order_log_id' => $detail_order_log->id,
+                                'menu_id' => $menu->id,
+                            ];
+                            DetailMenuLog::create($data_detail_menu_log);
+                        }
+                    }
                 } else {
                     $order_user_log = OrderUserLog::create($data_order_user_log);
                     $data_detail_order_log = [
@@ -90,7 +118,7 @@ class UserCartController extends Controller
                 DB::commit();
                 return response()->json([
                     'code' => 200,
-                    'data' => OrderUserLog::where('user_id', $request->user_id)->where('type',$type)->whereNull('status')->get(),
+                    'data' => DetailOrderLog::leftJoin('order_user_logs', 'order_user_logs.order_id', 'detail_order_logs.order_id')->where('order_user_logs.user_id', $request->user_id)->where('order_user_logs.type',$type)->whereNull('order_user_logs.status')->get(),
                 ]);
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
@@ -142,6 +170,46 @@ class UserCartController extends Controller
                 return response()->json([
                     'code' => 400,
                 ]);
+            } catch (Exception $e) {
+                Log::error('[UserCartController][addCart] error ' . $e->getMessage());
+                dd($e);
+                DB::rollBack();
+                return response()->json([
+                    'code' => 400,
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => 400,
+            ]);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateCart(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+                $detail_order_log = DetailOrderLog::find($request->detail_order_log_id);
+                if($detail_order_log && $detail_order_log->quantity >= 1) {
+                    $detail_item_log = DetailItemLog::where('detail_order_log_id', $detail_order_log->id)->first();
+                    if($detail_order_log->quantity > $request->quantity) {
+                        $detail_item_log->delete();
+                    } elseif($detail_order_log->quantity < $request->quantity) {
+                        DetailItemLog::create([
+                            'detail_order_log_id' => $detail_order_log->id,
+                            'item' => $detail_item_log->item,
+                        ]);
+                    }
+                    $detail_order_log->update(['quantity' => $request->quantity]);
+                    return response()->json([
+                        'code' => 200,
+                    ]);
+                }
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
                 dd($e);

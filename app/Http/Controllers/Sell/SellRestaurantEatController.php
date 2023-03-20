@@ -45,6 +45,7 @@ class SellRestaurantEatController extends Controller
      */
     public function create($table_id)
     {
+        $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
         $branch_id = session('branch_id');
         try {
             $nowDate = Carbon::now();
@@ -56,6 +57,7 @@ class SellRestaurantEatController extends Controller
                 'order_id' => $order_id,
                 'table_id' => [$table_id],
                 'branch_id' => $branch_id,
+                'restaurant_id' => $restaurant_id,
                 'status' => [
                     [
                         OrderUser::ORDER_CONFIRMED,

@@ -85,6 +85,7 @@ class ComposerUserProvider extends ServiceProvider
                 'product' => route('user.product.index'),
                 'service_id' => 2,
                 'order_user_type' => OrderUser::TYPE_SHOP_SHIP,
+                'cart' => route('user.cart'),
             ];
             if (in_array($name, $arr_route_food)) {
                 $url = [
@@ -96,6 +97,7 @@ class ComposerUserProvider extends ServiceProvider
                     'product' => route('user.food.product.index'),
                     'service_id' => 1,
                     'order_user_type' => OrderUser::TYPE_RESTAURANT_SHIP,
+                    'cart' => route('user.food.cart'),
                 ];
             }
             $user = Auth::guard('user')->user();
@@ -105,6 +107,7 @@ class ComposerUserProvider extends ServiceProvider
                 ->leftJoin('order_ceos', 'order_ceos.restaurant_id', 'dishes.restaurant_id')
                 ->leftJoin('service_charges', 'service_charges.id', 'order_ceos.service_charge_id')
                 ->leftJoin('service_types', 'service_types.id', 'service_charges.service_type_id')
+                ->select('order_user_logs.*')
                 ->where('order_user_logs.type', $url['order_user_type'])
                 ->whereNull('order_user_logs.status');
             if($user) {
