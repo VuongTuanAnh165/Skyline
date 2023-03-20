@@ -418,3 +418,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('/showCart', [UserCartController::class, 'showCart'])->name('user.showCart');
     Route::post('/updateCart', [UserCartController::class, 'updateCart'])->name('user.updateCart');
 });
+
+Route::get('/nguyen-hai-yen', function () {
+    return view('welcome');
+});
