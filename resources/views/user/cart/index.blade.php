@@ -29,7 +29,13 @@
                 @if (count($order_user_logs) > 0)
                     @foreach ($order_user_logs as $order_user_log)
                         <div class="cart-restaurant mb-60">
-                            <h2 class="cart__title mb-40">{{ $order_user_log->restaurant_name }}</h2>
+                            <div class="title-product d-flex align-items-center mb-40">
+                                <h2 class="cart__title mr-4">{{ $order_user_log->restaurant_name }}</h2>
+                                <div class="checkbox-rect">
+                                    <input type="checkbox" id="checkbox-all-{{$order_user_log->id}}" class="checkbox-all" name="check">
+                                    <label for="checkbox-all-{{$order_user_log->id}}" class="">Chọn hết</label>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="cart__table">
@@ -40,6 +46,7 @@
                                                     <th class="cart__table--header__list">Phân loại</th>
                                                     <th class="cart__table--header__list">Số lượng</th>
                                                     <th class="cart__table--header__list">Tổng cộng</th>
+                                                    <th class="cart__table--header__list"></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="cart__table--body">
@@ -50,7 +57,7 @@
                                                         ->get();
                                                 @endphp
                                                 @foreach ($detail_order_logs as $detail_order_log)
-                                                    <tr class="cart__table--body__items">
+                                                    <tr class="cart__table--body__items cart__table--body__items-{{$detail_order_log->id}}">
                                                         <input type="hidden" class="detail_order_log_id"
                                                             value="{{ $detail_order_log->id }}">
                                                         <td class="cart__table--body__list">
@@ -185,19 +192,25 @@
                                                         <td class="cart__table--body__list">
                                                             <span class="cart__price end">£130.00</span>
                                                         </td>
+                                                        <td>
+                                                            <div class="checkbox-rect">
+                                                                <input type="checkbox" id="checkbox-one-{{$detail_order_log->id}}" class="checkbox-one" name="check">
+                                                                <label for="checkbox-one-{{$detail_order_log->id}}" class=""></label>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="continue__shopping d-flex justify-content-between">
-                                            <a class="continue__shopping--link" href="shop.html">Continue shopping</a>
-                                            <button class="continue__shopping--clear" type="submit">Clear Cart</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <div class="continue__shopping d-flex justify-content-between">
+                        <a class="continue__shopping--link" href="javascript:void(0)">Trang thanh toán</a>
+                        <button class="continue__shopping--clear" type="submit">Xóa giỏ hàng</button>
+                    </div>
                 @endif
             </div>
         </div>

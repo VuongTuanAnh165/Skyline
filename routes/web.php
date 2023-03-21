@@ -388,7 +388,7 @@ Route::prefix('food')->group(function () {
         Route::get('/tin-tuc/{id}-{name_link}', [UserFoodRestaurantController::class, 'post'])->name('user.food.restaurant.post');
     });
     Route::middleware(['user'])->group(function () {
-        Route::get('/cart', [UserFoodCartController::class, 'index'])->name('user.food.cart');
+        Route::get('/gio-hang', [UserFoodCartController::class, 'index'])->name('user.food.cart');
     });
 });
 
@@ -403,20 +403,22 @@ Route::prefix('/shop')->group(function () {
     Route::get('/tin-tuc/{id}-{name_link}', [UserShopRestaurantController::class, 'post'])->name('user.restaurant.post');
 });
 Route::middleware(['user'])->group(function () {
-    Route::get('/cart', [UserShopCartController::class, 'index'])->name('user.cart');
+    Route::get('/gio-hang', [UserShopCartController::class, 'index'])->name('user.cart');
 });
 
 Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
 Route::post('/login', [UserAuthController::class, 'login'])->name('user.login');
 Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
 Route::post('/register', [UserAuthController::class, 'register'])->name('user.register');
-Route::get('/verify-{id}', [UserAuthController::class, 'verify'])->name('user.verify');
+Route::get('/xac-nhan-{id}', [UserAuthController::class, 'verify'])->name('user.verify');
 Route::post('/verifyStore-{id}', [UserAuthController::class, 'verifyStore'])->name('user.verify.store');
 
 Route::middleware(['user'])->group(function () {
     Route::post('/addCart', [UserCartController::class, 'addCart'])->name('user.addCart');
     Route::post('/showCart', [UserCartController::class, 'showCart'])->name('user.showCart');
     Route::post('/updateCart', [UserCartController::class, 'updateCart'])->name('user.updateCart');
+    Route::post('/deleteOneCart', [UserCartController::class, 'deleteOneCart'])->name('user.deleteOneCart');
+    Route::post('/deleteAllCart', [UserCartController::class, 'deleteAllCart'])->name('user.deleteAllCart');
 });
 
 Route::get('/nguyen-hai-yen', function () {

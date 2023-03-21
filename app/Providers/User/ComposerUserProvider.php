@@ -41,7 +41,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.product.index',
                 'user.food.product.show',
                 'user.food.restaurant.index',
-                'user.food.restaurant.post'
+                'user.food.restaurant.post',
+                'user.food.cart',
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -74,7 +75,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.product.index',
                 'user.food.product.show',
                 'user.food.restaurant.index',
-                'user.food.restaurant.post'
+                'user.food.restaurant.post',
+                'user.food.cart',
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -137,7 +139,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.product.index',
                 'user.food.product.show',
                 'user.food.restaurant.index',
-                'user.food.restaurant.post'
+                'user.food.restaurant.post',
+                'user.food.cart',
             );
             $url_product = 'user.product.show';
             if (in_array($name, $arr_route_food)) {

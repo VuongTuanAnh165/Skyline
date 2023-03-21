@@ -11748,7 +11748,7 @@ input.quickview__value--number {
 .continue__shopping--link {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--theme-color);
+  color: var(--secondary-color);
 }
 
 @media only screen and (min-width: 992px) {
@@ -11760,7 +11760,7 @@ input.quickview__value--number {
 .continue__shopping--clear {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--theme-color);
+  color: var(--secondary-color);
   border: 0;
   padding: 0;
   background: inherit;
