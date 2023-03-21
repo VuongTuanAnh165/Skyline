@@ -1,13 +1,7 @@
 @php
-    $arg_dish = array(
-        'sell.restaurant.eat.index',
-        'sell.restaurant.eat.edit',
-        'sell.restaurant.eat.payment',
-        'sell.restaurant.eat.order',
-        'sell.restaurant.eat.print',
-    );
+    $arg_dish = ['sell.restaurant.eat.index', 'sell.restaurant.eat.edit', 'sell.restaurant.eat.payment', 'sell.restaurant.eat.order', 'sell.restaurant.eat.print'];
     $active = '';
-    if ( in_array($name,$arg_dish) ) {
+    if (in_array($name, $arg_dish)) {
         $active = 'active';
     }
 @endphp
