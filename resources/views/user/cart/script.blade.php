@@ -117,50 +117,60 @@
             let checkbox_one = $('.checkbox-one');
             checkbox_one.each(function() {
                 if ($(this).is(":checked")) {
-                    detail_order_log_id.push($(this).closest('.cart__table--body__items').find('.detail_order_log_id').val());
+                    detail_order_log_id.push($(this).closest('.cart__table--body__items').find(
+                        '.detail_order_log_id').val());
                 }
             });
-            $.ajax({
-                url: `{{ route('user.deleteAllCart') }}`,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    detail_order_log_id: detail_order_log_id,
-                },
-                cache: false,
-                method: 'POST',
-                success: function(response) {
-                    if (response.code == 200) {
-                        toastr.success('Cập nhật giỏ hàng thành công', {
-                            timeOut: 5000
-                        });
-                        total();
-                        for(let x in detail_order_log_id) {
-                            let class_name = '.cart__table--body__items-'+detail_order_log_id[x];
-                            let cart_restaurant = $(class_name).closest('.cart-restaurant');
-                            $(class_name).remove();
-                            if(cart_restaurant.find('.cart__table--body__items').length <= 0) {
-                                cart_restaurant.remove();
+            if (detail_order_log_id.length > 0) {
+                $.ajax({
+                    url: `{{ route('user.deleteAllCart') }}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        detail_order_log_id: detail_order_log_id,
+                    },
+                    cache: false,
+                    method: 'POST',
+                    success: function(response) {
+                        if (response.code == 200) {
+                            toastr.success('Cập nhật giỏ hàng thành công', {
+                                timeOut: 5000
+                            });
+                            total();
+                            for (let x in detail_order_log_id) {
+                                let class_name = '.cart__table--body__items-' +
+                                    detail_order_log_id[x];
+                                let cart_restaurant = $(class_name).closest(
+                                    '.cart-restaurant');
+                                $(class_name).remove();
+                                if (cart_restaurant.find('.cart__table--body__items')
+                                    .length <= 0) {
+                                    cart_restaurant.remove();
+                                }
                             }
+                        } else {
+                            toastr.error('Cập nhật giỏ hàng thất bại', {
+                                timeOut: 5000
+                            });
                         }
-                    } else {
-                        toastr.error('Cập nhật giỏ hàng thất bại', {
+                    },
+                    error: function(xhr) {
+                        toastr.error('Cập nhật giỏ háng thất bại', {
                             timeOut: 5000
                         });
                     }
-                },
-                error: function(xhr) {
-                    toastr.error('Cập nhật giỏ háng thất bại', {
-                        timeOut: 5000
-                    });
-                }
-            });
+                });
+            } else {
+                toastr.error('Chưa chọn dữ liệu cần xóa', {
+                    timeOut: 5000
+                });
+            }
         });
 
         $('.continue__shopping--link').on('click', function() {
             let checkbox_one = $('.checkbox-one');
-            if(checkbox_one.filter(":checked").is(":checked")) {
+            if (checkbox_one.filter(":checked").is(":checked")) {
                 console.log(1);
             } else {
                 console.log(2);
