@@ -105,7 +105,7 @@
                     }
                 },
                 error: function(xhr) {
-                    toastr.error('Cập nhật giỏ háng thất bại', {
+                    toastr.error('Cập nhật giỏ hàng thất bại', {
                         timeOut: 5000
                     });
                 }

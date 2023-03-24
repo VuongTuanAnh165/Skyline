@@ -141,7 +141,7 @@ class UserAuthController extends Controller
                 }
             }
             DB::commit();
-            return redirect(route('user.verify', ['id' => $user->id]).'?prev='.$request->route)->with(['success' => trans('messages.api.user.register.success')]);
+            return redirect(route('user.verify', ['id' => $user->id]) . '?prev=' . $request->route)->with(['success' => trans('messages.api.user.register.success')]);
         } catch (Exception $e) {
             Log::error('[ApiUserController][store] error ' . $e->getMessage());
             DB::rollBack();
@@ -214,5 +214,35 @@ class UserAuthController extends Controller
     {
         Auth::guard('user')->logout();
         return redirect()->route('user.home.index');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+                $user = User::find(Auth::guard('user')->user()->id);
+                $datas = [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                ];
+                $user->update($datas);
+                return response()->json([
+                    'code' => 200,
+                    'user' => $user,
+                ]);
+            } catch (Exception $e) {
+                Log::error('[UserCartController][addCart] error ' . $e->getMessage());
+                dd($e);
+                DB::rollBack();
+                return response()->json([
+                    'code' => 400,
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => 400,
+            ]);
+        }
     }
 }

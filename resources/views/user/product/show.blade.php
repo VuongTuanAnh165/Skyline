@@ -95,7 +95,8 @@
                     <div>
                         <h2 class="product__details--info__title mb-15">{{ $dish->name }}</h2>
                         <div class="product__details--info__price mb-15">
-                            <span class="current__price">{{ number_format($dish->price) }} VND</span>
+                            <span class="current__price current__price-dish-price">{{ number_format($dish->price) }} VND</span>
+                            <input type="hidden" id="dish-price" value="{{ $dish->price }}">
                         </div>
                         <div class="product__items--rating d-flex align-items-center mb-15">
                             <ul class="d-flex">
@@ -164,7 +165,7 @@
                                         @foreach($menu_items as $menu_item)
                                         @if($menu_item->menu_id == $menu->id)
                                         <li class="variant__size--list">
-                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="{{$multiple}}" value="{{ $menu_item->id }}">
+                                            <input id="menu_item_{{ $menu_item->id }}" name="menu_{{ $menu->id }}" type="{{$multiple}}" data-add_price={{ $menu_item->add_price }} value="{{ $menu_item->id }}">
                                             <label class="variant__size--value red" for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                         </li>
                                         @endif

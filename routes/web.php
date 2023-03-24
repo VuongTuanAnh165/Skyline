@@ -44,11 +44,13 @@ use App\Http\Controllers\Sell\SellRestaurantEatController;
 use App\Http\Controllers\User\Food\UserFoodAllProductController;
 use App\Http\Controllers\User\Food\UserFoodCartController;
 use App\Http\Controllers\User\Food\UserFoodHomeController;
+use App\Http\Controllers\User\Food\UserFoodPaymentController;
 use App\Http\Controllers\User\Food\UserFoodProductController;
 use App\Http\Controllers\User\Food\UserFoodRestaurantController;
 use App\Http\Controllers\User\Shop\UserShopCartController;
 use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
+use App\Http\Controllers\User\Shop\UserShopPaymentController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
 use App\Http\Controllers\User\Shop\UserShopRestaurantController;
 use App\Http\Controllers\User\UserAuthController;
@@ -389,6 +391,7 @@ Route::prefix('food')->group(function () {
     });
     Route::middleware(['user'])->group(function () {
         Route::get('/gio-hang', [UserFoodCartController::class, 'index'])->name('user.food.cart');
+        Route::get('/thanh-toan', [UserFoodPaymentController::class, 'index'])->name('user.food.payment');
     });
 });
 
@@ -404,6 +407,7 @@ Route::prefix('/shop')->group(function () {
 });
 Route::middleware(['user'])->group(function () {
     Route::get('/gio-hang', [UserShopCartController::class, 'index'])->name('user.cart');
+    Route::get('/thanh-toan', [UserShopPaymentController::class, 'index'])->name('user.payment');
 });
 
 Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
@@ -419,6 +423,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('/updateCart', [UserCartController::class, 'updateCart'])->name('user.updateCart');
     Route::post('/deleteOneCart', [UserCartController::class, 'deleteOneCart'])->name('user.deleteOneCart');
     Route::post('/deleteAllCart', [UserCartController::class, 'deleteAllCart'])->name('user.deleteAllCart');
+    Route::post('/updateProfile', [UserAuthController::class, 'updateProfile'])->name('user.updateProfile');
 });
 
 Route::get('/nguyen-hai-yen', function () {

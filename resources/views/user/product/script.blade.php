@@ -1,6 +1,11 @@
 <!-- Select2 -->
 <script>
     $(document).ready(function() {
+        const config = {
+            style: 'currency',
+            currency: 'VND',
+            maximumFractionDigits: 9
+        };
         $(document).on('click', '.widget__categories--menu__list', function() {
             let categoryHome = $(this).data('categoryhome');
             $('#input-categoryHome').val(categoryHome);
@@ -17,6 +22,24 @@
             $('#sort').val($(this).val());
             $('#product-redirect').submit();
         })
+
+        function setPrice() {
+            let variant_size_list = $('.variant__size--list');
+            let dish_price = Number($('#dish-price').val());
+            variant_size_list.each(function() {
+                let item = $(this).find('input');
+                if (item.is(":checked")) {
+                    dish_price += Number(item.data('add_price'));
+                }
+            })
+            $('.current__price-dish-price').text(new Intl.NumberFormat('it-IT', config).format(
+                dish_price))
+        };
+
+        setPrice();
+        $(document).on('click', '.variant__size--list input', function() {
+            setPrice();
+        });
 
         function addCard() {
             var cart = $('.minicart__open--btn');
@@ -73,7 +96,8 @@
                     menu_menu_item.push(menu_id);
                     let class_menu_item = '.menu_' + menu_id;
                     let list_menu_item = parent.find(class_menu_item);
-                    let menu_item = list_menu_item.find("input[name='menu_" + menu_id + "']:checked:enabled");
+                    let menu_item = list_menu_item.find("input[name='menu_" + menu_id +
+                        "']:checked:enabled");
                     if (list_menu_item.hasClass('required') && menu_item.length <= 0) {
                         toastr.error(list_menu_item.data('name') + ' là bắt buộc!', {
                             timeOut: 5000
@@ -82,7 +106,6 @@
                         check = false;
                         return false;
                     }
-                    // console.log(menu_item.val());
                     let menu_item_id = []
                     menu_item.each(function() {
                         menu_item_id.push($(this).val());
@@ -92,7 +115,7 @@
                 });
                 if (check) {
                     $.ajax({
-                        url: `{{route('user.addCart')}}`,
+                        url: `{{ route('user.addCart') }}`,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
@@ -111,7 +134,8 @@
                                     timeOut: 5000
                                 });
                                 addCard();
-                                $('.minicart__open--btn').find('.items__count').text(response.data.length);
+                                $('.minicart__open--btn').find('.items__count').text(
+                                    response.data.length);
                             } else {
                                 toastr.error('Thêm giỏ hàng thất bại', {
                                     timeOut: 5000
