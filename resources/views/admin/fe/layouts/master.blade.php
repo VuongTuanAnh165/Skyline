@@ -41,8 +41,9 @@
         <a href="#" id="back-to-top"></a>
         <!-- footer begin -->
         @include('admin.fe.layouts.footer')
-        
         <!-- footer close -->
+        {{-- messenger --}}
+        @include('plugin.messenger')
     </div>
     
     <!-- Javascript Files
