@@ -173,10 +173,10 @@ Route::prefix('restaurant')->group(function () {
             Route::post('/destroyMenu', [RestaurantDishController::class, 'destroyMenu'])->name('restaurant.dish.destroyMenu');
             Route::prefix('/menu')->group(function () {
                 Route::get('/', [RestaurantDishController::class, 'menu'])->name('restaurant.menu');
-                Route::get('/item-{id}', [RestaurantMenuController::class, 'index'])->name('restaurant.menu.index');
-                Route::get('/item/show', [RestaurantMenuController::class, 'itemShow'])->name('restaurant.menu.itemShow');
-                Route::post('/itemStore/{menu_id}', [RestaurantMenuController::class, 'itemStore'])->name('restaurant.menu.itemStore');
-                Route::post('/itemUpdate/{menu_id}/{id}', [RestaurantMenuController::class, 'itemUpdate'])->name('restaurant.menu.itemUpdate');
+                Route::post('/item/show', [RestaurantMenuController::class, 'itemShow'])->name('restaurant.menu.itemShow');
+                Route::post('/itemStore', [RestaurantMenuController::class, 'itemStore'])->name('restaurant.menu.itemStore');
+                Route::post('/itemUpdate', [RestaurantMenuController::class, 'itemUpdate'])->name('restaurant.menu.itemUpdate');
+                Route::post('/destroyMenu', [RestaurantMenuController::class, 'itemDestroy'])->name('restaurant.menu.itemDestroy');
             });
         });
         //category

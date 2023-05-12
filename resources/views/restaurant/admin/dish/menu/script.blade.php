@@ -147,9 +147,9 @@
                 success: function(response) {
                     if (response.code == 200) {
                         if (response.menus.length > 0) {
-                            $('.modal-body').html(html_yes(response.menus));
+                            $('#modalFormMenu .modal-body').html(html_yes(response.menus));
                         } else {
-                            $('.modal-body').html(html_no);
+                            $('#modalFormMenu .modal-body').html(html_no);
                         }
                         checkCreate();
                     }
@@ -161,7 +161,7 @@
         });
 
         $(document).on('click', '.create', function() {
-            let parent = $(this).closest('.modal-body');
+            let parent = $(this).closest('#modalFormMenu .modal-body');
             let father = parent.parent();
             parent.find('.delete').addClass('display-none');
             $(this).addClass('display-none');
@@ -241,7 +241,7 @@
         $(document).on('click', '.delete', function() {
             let parent = $(this).closest('.row-menu');
             let id = parent.find('.id');
-            let father = $(this).closest('.modal-body');
+            let father = $(this).closest('#modalFormMenu .modal-body');
             let grandfather = father.parent();
             if (id.val()) {
                 $.ajax({

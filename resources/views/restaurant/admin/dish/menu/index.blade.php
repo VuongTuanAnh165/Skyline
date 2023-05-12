@@ -45,10 +45,12 @@
 </div>
 @include('restaurant.admin.dish.menu.table')
 @include('restaurant.admin.dish.menu.form')
+@include('restaurant.admin.dish.menu.item.form')
 @stop
 @section('addjs')
     @if (session('success') || session('error'))
         @include('restaurant.admin.partials.script.toastr')
     @endif
     @include('restaurant.admin.dish.menu.script')
+    @include('restaurant.admin.dish.menu.item.script_form')
 @stop

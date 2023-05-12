@@ -5,77 +5,133 @@
             ignore: ":hidden, [contenteditable='true']:not([name])"
         });
 
-        if ($('#modalFormItem').find('#blah').length > 0) {
-            imgInp.onchange = evt => {
-                const [file] = imgInp.files
-                if (file) {
-                    blah.src = URL.createObjectURL(file)
-                }
-            };
-        }
+        function checkCreateItem() {
+            $('#form-item').find('.create').eq($('#form-item').find('.create').length - 1).removeClass(
+                'display-none');
+            $('#form-item').find('.delete').eq($('#form-item').find('.create').length - 1).removeClass(
+                'display-none');
+            $('#form-item').find('.delete').eq(0).addClass('display-none');
+        };
+        checkCreateItem();
 
-        $(document).on('click', '.btn-modal-form', 'click', function() {
-            $(".error.error-be").text('');
-            let id = $(this).data('id');
-            let url = $(this).data('url');
-            if (id) {
-                $('.title-form-item').text("Chỉnh sửa lựa chọn")
-                $.ajax({
-                    url: `{{route('restaurant.menu.itemShow')}}`,
-                    data: {
-                        id: id,
-                    },
-                    success: function(response) {
-                        $('#modalFormItem').find('#name').val(response.item.name);
-                        $('#modalFormItem').find('#add_price').val(response.item.add_price);
-                        if ($('#modalFormItem').find('#blah').length > 0) {
-                            if (response.image !== '') {
-                                $('#modalFormItem').find('#blah').attr('src', response.image);
-                            } else {
-                                $('#modalFormItem').find('#blah').attr('src', `{{asset('img/background_default.jpg')}}`);
-                            }
-                        }
-                    },
-                    error: function(xhr) {
+        var html_no_item = `
+            <div class="row row-item">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Tên" value="{{ old('name') ? old('name') : '' }}" class="form-control name check">
+                        @if ($errors->first('name'))
+                            <div class="error error-be">{{ $errors->first('name') }}</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-button">
+                        <button class="create"><i class="fas fa-plus"></i></button>
+                        <button class="delete"><i class="fas fa-times"></i></button>
+                        <button class="edit display-none"><i class="fas fa-pen"></i></button>
+                        <button data-url="{{ route('restaurant.menu.itemStore') }}" class="save"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+            </div>`;
 
-                    }
-                })
-            } else {
-                $('#modalFormItem').find('#name').val('');
-                $('#modalFormItem').find('#add_price').val('');
-                if ($('#modalFormItem').find('#blah').length > 0) {
-                    $('#modalFormItem').find('#blah').attr('src', `{{asset('img/background_default.jpg')}}`);
-                }
-                $('.title-form-item').text("Thêm lựa chọn")
+        function html_yes_item(items) {
+            let html = '';
+            for (let x in items) {
+                html += `<div class="row row-item">
+                            <input type="hidden" class="id" name="id" value="${items[x].id}">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" id="name" disabled name="name" placeholder="Tên" value="${items[x].name}" class="form-control name check">
+                                    @if ($errors->first('name'))
+                                        <div class="error error-be">{{ $errors->first('name') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-button">
+                                    <button class="create display-none"><i class="fas fa-plus"></i></button>
+                                    <button class="delete display-none"><i class="fas fa-times"></i></button>
+                                    <button class="edit"><i class="fas fa-pen"></i></button>
+                                    <button data-url="{{route('restaurant.menu.itemStore')}}" class="save display-none"><i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </div>`
             }
-            $('#btn-submit-item').attr('data-url', url);
-            $('#btn-submit-item').attr('data-id', id);
-        });
-        $('#btn-submit-item').on('click', function() {
-            let token = $("input[name='_token']").val();
-            let id = $(this).data('id');
-            let url = $(this).data('url');
-            var formData = new FormData();
-            if ($('#modalFormItem').find('#blah').length > 0) {
-                var file = $('#imgInp').prop('files')[0];
-                formData.append('image', file);
-            }
-            formData.append('name', $("input[name='name']").val());
-            formData.append('add_price', $("input[name='add_price']").val());
+            return html;
+        };
+
+        $(document).on('click', '.show-item', function() {
+            let menu_id = $(this).data('menu_id');
             $.ajax({
-                url: url,
-                method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
+                type: "POST",
+                url: `{{route('restaurant.menu.itemShow')}}`,
+                data: {
+                    menu_id: menu_id,
+                },
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 success: function(response) {
                     if (response.code == 200) {
-                        $('#modalFormItem').modal('hide');
-                        if (!alert('Cập nhật thành công! Ấn OK để tiếp tục')) {
-                            window.location.reload();
+                        if (response.items.length > 0) {
+                            $('#modalFormItem .modal-body').html(html_yes_item(response.items));
+                        } else {
+                            $('#modalFormItem .modal-body').html(html_no_item);
+                        }
+                        checkCreateItem();
+                    }
+                },
+                error: function(xhr) {
+
+                }
+            })
+        });
+
+        $(document).on('click', '.create', function() {
+            let parent = $(this).closest('#modalFormItem .modal-body');
+            let father = parent.parent();
+            parent.find('.delete').addClass('display-none');
+            $(this).addClass('display-none');
+            parent.append(html_no_item);
+        });
+        $(document).on('click', '.edit', function() {
+            let parent = $(this).closest('.row-item');
+            let name = parent.find('.name');
+            console.log(parent);
+            let save = parent.find('.save');
+            name.prop('disabled', false);
+            save.removeClass('display-none');
+            save.attr('data-url', `{{route('restaurant.menu.itemUpdate')}}`);
+            $(this).addClass('display-none');
+        });
+        $(document).on('click', '.save', function() {
+            let save = $(this);
+            let parent = $(this).closest('.row-item');
+            let edit = parent.find('.edit');
+            let id = parent.find('.id');
+            let name = parent.find('.name');
+            let url = save.data('url');
+            $.ajax({
+                type: "POST",
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: {
+                    id: id.val(),
+                    name: name.val(),
+                },
+                success: function(response) {
+                    if (response.code == 200) {
+                        name.val(response.data.name);
+                        name.prop('disabled', true);
+                        edit.removeClass('display-none');
+                        save.addClass('display-none');
+                        toastr.success('Cập thật thành công', {
+                            timeOut: 5000
+                        });
+                        if (!id.val()) {
+                            name.before(`<input type="hidden" class="id" name="id" value="` + response.data.id + `">`);
                         }
                     } else {
                         toastr.error('Thất bại', {
@@ -84,26 +140,69 @@
                     }
                 },
                 error: function(xhr) {
+                    toastr.error('Thất bại', {
+                        timeOut: 5000
+                    })
                     if (xhr.responseJSON.errors.name) {
-                        $("input[name='name']").after(`<div class="error error-be">` + xhr.responseJSON.errors.name + `</div>`);
-                        $('#btn-submit-item').addClass('disabledbutton')
-                    }
-                    if (xhr.responseJSON.errors.add_price) {
-                        $("input[name='add_price']").after(`<div class="error error-be">` + xhr.responseJSON.errors.add_price + `</div>`);
-                        $('#btn-submit-item').addClass('disabledbutton')
+                        name.after(`<div class="error error-be">` + xhr.responseJSON.errors.name + `</div>`);
+                        save.addClass('disabledbutton')
                     }
                 }
             })
-        });
-
-        $('.check').on('keyup', function() {
-            $('#btn-submit-item').removeClass('disabledbutton');
-            $('.error.error-be').text('');
         })
 
-        $('.check').on('change', function() {
-            $('#btn-submit-item').removeClass('disabledbutton');
-            $('.error.error-be').text('');
+        $(document).on('click', '.delete', function() {
+            let parent = $(this).closest('.row-item');
+            let id = parent.find('.id');
+            let father = $(this).closest('#modalFormItem .modal-body');
+            let grandfather = father.parent();
+            if (id.val()) {
+                $.ajax({
+                    type: "POST",
+                    url: `{{route('restaurant.menu.itemDestroy')}}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: {
+                        id: id.val(),
+                    },
+                    success: function(response) {
+                        if (response.code == 200) {
+                            parent.remove();
+                            if (father.find('.row-item').length < 1) {
+                                father.append(html_no);
+                            }
+                            checkCreateItem();
+                        } else {
+                            toastr.error('Thất bại', {
+                                timeOut: 5000
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        toastr.error('Thất bại', {
+                            timeOut: 5000
+                        })
+                    }
+                })
+            } else {
+                parent.remove();
+                checkCreateItem();
+            }
+        })
+
+        $(document).on('keyup', '#form-item input', function() {
+            let parent = $(this).closest('.row-item');
+            let save = parent.find('.save');
+            save.removeClass('disabledbutton');
+            parent.find('.error.error-be').text('');
+        })
+
+        $(document).on('change', '#form-item input', function() {
+            let parent = $(this).closest('.row-item');
+            let save = parent.find('.save');
+            save.removeClass('disabledbutton');
+            parent.find('.error.error-be').text('');
         })
     })
 </script>
