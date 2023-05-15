@@ -114,12 +114,10 @@ class RestaurantDishController extends Controller
                 'content',
                 'category_home_id',
                 'branch_id',
+                'image',
             ]);
             $params['name_link'] = ConvertNameHelper::convertName($request->name);
             $params['restaurant_id'] = $restaurant_id;
-            if ($request->hasFile('image')) {
-                $params['image'] = UploadsHelper::handleUploadFile('img/dish/', 'image', $request);
-            }
             if (Auth::guard('personnel')->user()) {
                 $params['create_by'] = Auth::guard('personnel')->user()->id;
             } else {
@@ -206,12 +204,9 @@ class RestaurantDishController extends Controller
                 'content',
                 'category_home_id',
                 'branch_id',
+                'image',
             ]);
             $params['name_link'] = ConvertNameHelper::convertName($request->name);
-            if ($request->hasFile('image')) {
-                Storage::delete($data->image);
-                $params['image'] = UploadsHelper::handleUploadFile('img/dish/', 'image', $request);
-            }
             if (Auth::guard('personnel')->user()) {
                 $params['update_by'] = Auth::guard('personnel')->user()->id;
             } else {
@@ -233,6 +228,37 @@ class RestaurantDishController extends Controller
             Log::error('[RestaurantdishController][update] error ' . $e->getMessage());
             DB::rollBack();
             return redirect()->back()->with(['error' => trans('messages.common.error')]);
+        }
+    }
+
+    /**
+     * upload img
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json
+     */
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $filePath = UploadsHelper::handleUploadFile('img/dish/', 'image', $request);
+            return response()->json(['success' => $filePath]);
+        }
+    }
+
+    /**
+     * remove img
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json
+     */
+    public function remove(Request $request)
+    {
+        if ($request) {
+            $check = UploadsHelper::handleDeleteFile('file_name', $request);
+            if ($check) {
+                return response()->json(['status' => 200]);
+            }
+            return response()->json(['status' => 400]);
         }
     }
 

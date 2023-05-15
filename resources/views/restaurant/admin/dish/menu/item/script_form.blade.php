@@ -16,7 +16,7 @@
 
         var html_no_item = `
             <div class="row row-item">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Tên" value="{{ old('name') ? old('name') : '' }}" class="form-control name check">
                         @if ($errors->first('name'))
@@ -24,7 +24,15 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class = "col-md-3">
+                    <div class="form-group">
+                        <input type="number" id="add_price" name="add_price" min=0 placeholder="Giá cộng thêm" value="{{ old('add_price') ? old('add_price') : '' }}" class="form-control add_price check">
+                        @if ($errors->first('add_price'))
+                        <div class="error error-be">{{ $errors->first('add_price') }}</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group form-group-button">
                         <button class="create"><i class="fas fa-plus"></i></button>
                         <button class="delete"><i class="fas fa-times"></i></button>
@@ -39,7 +47,7 @@
             for (let x in items) {
                 html += `<div class="row row-item">
                             <input type="hidden" class="id" name="id" value="${items[x].id}">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" id="name" disabled name="name" placeholder="Tên" value="${items[x].name}" class="form-control name check">
                                     @if ($errors->first('name'))
@@ -47,7 +55,15 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class = "col-md-3">
+                                <div class="form-group">
+                                    <input type="number" id="add_price" disabled name="add_price" min=0 placeholder="Giá cộng thêm" value="${items[x].add_price}" class="form-control add_price check">
+                                    @if ($errors->first('add_price'))
+                                    <div class="error error-be">{{ $errors->first('add_price') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
                                 <div class="form-group form-group-button">
                                     <button class="create display-none"><i class="fas fa-plus"></i></button>
                                     <button class="delete display-none"><i class="fas fa-times"></i></button>
@@ -62,6 +78,8 @@
 
         $(document).on('click', '.show-item', function() {
             let menu_id = $(this).data('menu_id');
+            let menu_name = $(this).data('menu_name');
+            let menu_describe = $(this).data('menu_describe');
             $.ajax({
                 type: "POST",
                 url: `{{route('restaurant.menu.itemShow')}}`,
@@ -73,6 +91,8 @@
                 },
                 success: function(response) {
                     if (response.code == 200) {
+                        $('#modalFormItem .menu-name').text(menu_name + ' (' + menu_describe + ')');
+                        $('#modalFormItem #menu_id').val(menu_id);
                         if (response.items.length > 0) {
                             $('#modalFormItem .modal-body').html(html_yes_item(response.items));
                         } else {
@@ -87,30 +107,34 @@
             })
         });
 
-        $(document).on('click', '.create', function() {
+        $(document).on('click', '#modalFormItem .create', function() {
             let parent = $(this).closest('#modalFormItem .modal-body');
             let father = parent.parent();
             parent.find('.delete').addClass('display-none');
             $(this).addClass('display-none');
             parent.append(html_no_item);
         });
-        $(document).on('click', '.edit', function() {
+        $(document).on('click', '#modalFormItem .edit', function() {
             let parent = $(this).closest('.row-item');
             let name = parent.find('.name');
-            console.log(parent);
+            let add_price = parent.find('.add_price');
             let save = parent.find('.save');
             name.prop('disabled', false);
+            add_price.prop('disabled', false);
             save.removeClass('display-none');
             save.attr('data-url', `{{route('restaurant.menu.itemUpdate')}}`);
             $(this).addClass('display-none');
         });
-        $(document).on('click', '.save', function() {
+        $(document).on('click', '#modalFormItem .save', function() {
             let save = $(this);
             let parent = $(this).closest('.row-item');
             let edit = parent.find('.edit');
             let id = parent.find('.id');
             let name = parent.find('.name');
+            let add_price = parent.find('.add_price');
             let url = save.data('url');
+            let menu_id = $('#modalFormItem #menu_id');
+            console.log(name.val(), add_price.val(), menu_id.val());
             $.ajax({
                 type: "POST",
                 url: url,
@@ -120,11 +144,13 @@
                 data: {
                     id: id.val(),
                     name: name.val(),
+                    menu_id: menu_id.val(),
                 },
                 success: function(response) {
                     if (response.code == 200) {
                         name.val(response.data.name);
                         name.prop('disabled', true);
+                        add_price.prop('disabled', true);
                         edit.removeClass('display-none');
                         save.addClass('display-none');
                         toastr.success('Cập thật thành công', {
@@ -151,7 +177,7 @@
             })
         })
 
-        $(document).on('click', '.delete', function() {
+        $(document).on('click', '#modalFormItem .delete', function() {
             let parent = $(this).closest('.row-item');
             let id = parent.find('.id');
             let father = $(this).closest('#modalFormItem .modal-body');

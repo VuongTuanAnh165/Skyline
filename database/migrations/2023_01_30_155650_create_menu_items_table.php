@@ -16,6 +16,7 @@ class CreateMenuItemsTable extends Migration
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->double('add_price')->nullable()->default(0);
             $table->integer('menu_id')->nullable();
             $table->integer('create_by')->nullable();
             $table->integer('update_by')->nullable();

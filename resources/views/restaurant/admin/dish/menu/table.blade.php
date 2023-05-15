@@ -44,7 +44,7 @@
                                     <td class="text-center">{{ $create_by }}</td>
                                     <td class="text-center">{{ $update_by }}</td>
                                     <td class="project-actions text-right">
-                                        <a href="javascript:void(0)" data-toggle="modal" data-menu_id = '{{$data->id}}' data-target="#modalFormItem" class="btn btn-info btn-sm dish-update show-item">
+                                        <a href="javascript:void(0)" data-toggle="modal" data-menu_id = '{{$data->id}}' data-menu_name = '{{$data->name}}' data-menu_describe = '{{$data->describe}}' data-target="#modalFormItem" class="btn btn-info btn-sm dish-update show-item">
                                             <i class="fas fa-pencil-alt"></i>
                                             Lựa chọn của menu
                                         </a>                                

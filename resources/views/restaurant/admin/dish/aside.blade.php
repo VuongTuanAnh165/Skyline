@@ -5,7 +5,7 @@
         'restaurant.dish.show',
         'restaurant.dish.edit',
         'restaurant.category.index',
-        'restaurant.menu.index',
+        'restaurant.menu',
     );
     $active = '';
     if ( in_array($name,$arg_dish) ) {

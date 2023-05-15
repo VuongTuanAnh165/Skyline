@@ -18,7 +18,7 @@ class CreateDishesTable extends Migration
             $table->string('name');
             $table->integer('category_id');
             $table->double('price');
-            $table->string('image')->nullable();
+            $table->longText('image')->nullable();
             $table->string('name_link')->nullable();
             $table->longText('content')->nullable();
             $table->longText('category_home_id')->nullable();

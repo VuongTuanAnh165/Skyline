@@ -15,7 +15,6 @@
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>{{ $messages['dish']['table']['name'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['image'] }}</th>
                                     <th class="text-center">{{ $messages['dish']['table']['category'] }}</th>
                                     <th class="text-center">{{ $messages['dish']['table']['price'] }}</th>
                                     <th class="text-left">{{ $messages['menu']['title'] }}</th>
@@ -37,7 +36,6 @@
                                     @endphp
                                     <td class="text-center">{{$stt}}</td>
                                     <td>{{ $data->name }}</td>
-                                    <td class="text-center"><img style="width: 100px;" src="{{ !empty($data->image) ? asset('storage/'.$data->image) : '' }}"></td>
                                     <td class="text-center">{{ $data->category_name }}</td>
                                     <td class="text-center">{{ number_format($data->price) }} VND</td>
                                     <td>{{ $data->menu_name }}</td>
@@ -64,7 +62,6 @@
                                 <tr>
                                     <th class="text-center">{{ __('messages.admin.table.stt') }}</th>
                                     <th>{{ $messages['dish']['table']['name'] }}</th>
-                                    <th class="text-center">{{ $messages['dish']['table']['image'] }}</th>
                                     <th class="text-center">{{ $messages['dish']['table']['category'] }}</th>
                                     <th class="text-center">{{ $messages['dish']['table']['price'] }}</th>
                                     <th class="text-center">{{ $messages['menu']['title'] }}</th>

@@ -160,14 +160,14 @@
             })
         });
 
-        $(document).on('click', '.create', function() {
+        $(document).on('click', '#modalFormMenu .create', function() {
             let parent = $(this).closest('#modalFormMenu .modal-body');
             let father = parent.parent();
             parent.find('.delete').addClass('display-none');
             $(this).addClass('display-none');
             parent.append(html_no);
         });
-        $(document).on('click', '.edit', function() {
+        $(document).on('click', '#modalFormMenu .edit', function() {
             let parent = $(this).closest('.row-menu');
             let name = parent.find('.name');
             let describe = parent.find('.describe');
@@ -182,7 +182,7 @@
             save.attr('data-url', `{{route('restaurant.dish.updateMenu')}}`);
             $(this).addClass('display-none');
         });
-        $(document).on('click', '.save', function() {
+        $(document).on('click', '#modalFormMenu .save', function() {
             let save = $(this);
             let parent = $(this).closest('.row-menu');
             let edit = parent.find('.edit');
@@ -238,7 +238,7 @@
             })
         })
 
-        $(document).on('click', '.delete', function() {
+        $(document).on('click', '#modalFormMenu .delete', function() {
             let parent = $(this).closest('.row-menu');
             let id = parent.find('.id');
             let father = $(this).closest('#modalFormMenu .modal-body');

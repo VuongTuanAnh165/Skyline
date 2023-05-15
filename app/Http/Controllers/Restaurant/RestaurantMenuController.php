@@ -43,7 +43,7 @@ class RestaurantMenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function itemStore(ItemRequest $request, $menu_id)
+    public function itemStore(ItemRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -51,10 +51,7 @@ class RestaurantMenuController extends Controller
                 'name',
             ]);
             $params['add_price'] = $request->add_price ? $request->add_price : 0;
-            $params['menu_id'] = $menu_id;
-            if ($request->hasFile('image')) {
-                $params['image'] = UploadsHelper::handleUploadFile('img/item/', 'image', $request);
-            }
+            $params['menu_id'] = $request->menu_id;
             if (Auth::guard('personnel')->user()) {
                 $params['create_by'] = Auth::guard('personnel')->user()->id;
             } else {
@@ -64,6 +61,7 @@ class RestaurantMenuController extends Controller
             DB::commit();
             return response()->json([
                 'code' => 200,
+                'data' => $data,
             ]);
         } catch (Exception $e) {
             Log::error('[RestaurantMenuController][itemStore] error ' . $e->getMessage());
@@ -82,20 +80,16 @@ class RestaurantMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function itemUpdate(ItemRequest $request, $menu_id, $id)
+    public function itemUpdate(ItemRequest $request)
     {
         if ($request->ajax()) {
             try {
-                $data = MenuItem::find($id);
+                $data = MenuItem::find($request->id);
                 $params = $request->only([
                     'name',
                 ]);
                 $params['add_price'] = $request->add_price ? $request->add_price : 0;
-                $params['menu_id'] = $menu_id;
-                if ($request->hasFile('image')) {
-                    Storage::delete($data->image);
-                    $params['image'] = UploadsHelper::handleUploadFile('img/item/', 'image', $request);
-                }
+                $params['menu_id'] = $request->menu_id;
                 if (Auth::guard('personnel')->user()) {
                     $params['update_by'] = Auth::guard('personnel')->user()->id;
                 } else {
@@ -105,6 +99,7 @@ class RestaurantMenuController extends Controller
                 DB::commit();
                 return response()->json([
                     'code' => 200,
+                    'data' => $data,
                 ]);
             } catch (Exception $e) {
                 Log::error('[RestaurantMenuController][itemUpdate] error ' . $e->getMessage());

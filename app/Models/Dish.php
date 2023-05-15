@@ -20,7 +20,8 @@ class Dish extends Model
     protected $casts = [
         'category_home_id' => 'array',
         'branch_id' => 'array',
-    ];
+        'image' => 'array',
+    ]; 
 
     public $timestamps = true;
 

@@ -9,12 +9,6 @@
 <script src="{{ asset('template_web_admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
 <script>
     $(document).ready(function() {
-        imgInp.onchange = evt => {
-            const [file] = imgInp.files
-            if (file) {
-                blah.src = URL.createObjectURL(file)
-            }
-        };
         $('.category_id').select2({
             placeholder: "{{ $messages['dish']['table']['category'] }}"
         });
@@ -30,9 +24,9 @@
         $('#summernote').summernote({
             placeholder: "{{ __('messages.admin.restaurant.form.content') }}",
             tabsize: 2,
-            height: 250,
+            height: 350,
             minHeight: 100,
-            maxHeight: 300,
+            maxHeight: 400,
             focus: true,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -172,5 +166,91 @@
         $('#category_id').on('change', function () {
             $(this).closest('.form-group').find('.error').focusout().hide();
         })
+
+        function disabledbutton() {
+            if ($('.file-row-old').length == 1) {
+                let btn_delete = $('.file-row-old').find('.delete');
+                btn_delete.addClass("disabledbutton");
+            } else {
+                let btn_delete = $('.disabledbutton');
+                btn_delete.removeClass("disabledbutton");
+            }
+        };
+
+        function disableCreateDelete() {
+            if ($('.file-row').length == 1) {
+                let btn_delete = $('.file-row').find('.delete');
+                btn_delete.addClass("disabledbutton");
+            } else {
+                let btn_delete = $('.disabledbutton');
+                btn_delete.removeClass("disabledbutton");
+            }
+        }
+
+        disabledbutton();
+
+        // DropzoneJS Demo Code Start
+        Dropzone.autoDiscover = false
+
+        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+        var previewNode = document.querySelector("#template")
+        previewNode.id = ""
+        var previewTemplate = previewNode.parentNode.innerHTML
+        previewNode.parentNode.removeChild(previewNode)
+
+        var myDropzone = new Dropzone("#upfile", { // Make the whole body a dropzone
+            url: "#",
+            maxFilesize: 2,
+            thumbnailMethod: "crop",
+            paramName: "image",
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false,
+            previewsContainer: "#previews",
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+        })
+
+        myDropzone.on("addedfile", function(file) {
+            var filePreview = file.previewTemplate
+            var fd = new FormData();
+            fd.append('image', file);
+            $.ajax({
+                headers: {
+                    'X-CSRF-Token': $('input[name="_token"]').val()
+                },
+                url: '/restaurant/dish/image/upload',
+                cache: false,
+                type: 'POST',
+                data: fd,
+                processData: false, ///required to upload file
+                contentType: false, /// required
+                success: function(response) {
+                    $(filePreview).find("input").val(response.success);
+                    disableCreateDelete();
+                }
+            })
+        })
+
+        $(document).on("click", ".delete", function() {
+            var $ele = $(this).parent().parent().parent();
+            var file_name = $(this).closest('.file-row').find('input').val();
+            $.ajax({
+                url: '/restaurant/dish/image/remove',
+                cache: false,
+                type: 'GET',
+                data: {
+                    'file_name': file_name
+                },
+                success: function(response) {
+                    if (response.status == 200) {
+                        $ele.fadeOut().remove();
+                        disableCreateDelete();
+                    }
+                }
+            })
+        });
     })
 </script>

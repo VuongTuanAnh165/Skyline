@@ -167,6 +167,8 @@ Route::prefix('restaurant')->group(function () {
             Route::post('/store', [RestaurantDishController::class, 'store'])->name('restaurant.dish.store');
             Route::get('/edit/{id}', [RestaurantDishController::class, 'edit'])->name('restaurant.dish.edit');
             Route::post('/update/{id}', [RestaurantDishController::class, 'update'])->name('restaurant.dish.update');
+            Route::post('/image/upload', [RestaurantDishController::class, 'upload'])->name('restaurant.dish.image.upload');
+            Route::get('/image/remove', [RestaurantDishController::class, 'remove'])->name('restaurant.dish.image.remove');
             Route::post('/showMenu', [RestaurantDishController::class, 'showMenu'])->name('restaurant.dish.showMenu');
             Route::post('/storeMenu', [RestaurantDishController::class, 'storeMenu'])->name('restaurant.dish.storeMenu');
             Route::post('/updateMenu', [RestaurantDishController::class, 'updateMenu'])->name('restaurant.dish.updateMenu');

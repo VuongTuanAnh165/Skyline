@@ -149,3 +149,13 @@
     border-radius: 0px;
     border: 1px solid #ced4da;
 }
+
+.col-auto {
+    max-width: 110px;
+    max-height: 80px;
+}
+
+.col-auto img {
+    width: 100%;
+    height: 100%;
+}

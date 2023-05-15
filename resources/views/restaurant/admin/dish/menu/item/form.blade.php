@@ -9,6 +9,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="text-center">
+                    Tên - Giá cộng thêm
+                </div>
                 <div class="modal-body">
                     
                 </div>
