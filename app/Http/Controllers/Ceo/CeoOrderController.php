@@ -38,16 +38,20 @@ class CeoOrderController extends Controller
      */
     public function print($id)
     {
-        $skyline = Skyline::first();
         $order = OrderCeo::find($id);
-        $service_charge = ServiceCharge::find($order->service_charge_id);
-        $service_type = ServiceType::find($service_charge->service_type_id);
-        $service = Service::find($service_type->service_id);
-        $ceo = Ceo::find($order->ceo_id);
-        $restaurant = Restaurant::find($order->restaurant_id);
-        $promotions = Promotion::query()
-            ->whereIn('id', $order->promotion_id)
-            ->get();
-        return view($this->pathView . 'print', compact('skyline', 'order', 'service_charge', 'service', 'service_type', 'ceo', 'promotions', 'restaurant'));
+        if($order) {
+            $skyline = Skyline::first();
+            $service_charge = ServiceCharge::find($order->service_charge_id);
+            $service_type = ServiceType::find($service_charge->service_type_id);
+            $service = Service::find($service_type->service_id);
+            $ceo = Ceo::find($order->ceo_id);
+            $restaurant = Restaurant::find($order->restaurant_id);
+            $promotions = Promotion::query()
+                ->whereIn('id', $order->promotion_id)
+                ->get();
+            return view($this->pathView . 'print', compact('skyline', 'order', 'service_charge', 'service', 'service_type', 'ceo', 'promotions', 'restaurant'));
+        } else {
+            abort(404);
+        }
     }
 }

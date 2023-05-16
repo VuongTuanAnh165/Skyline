@@ -114,7 +114,7 @@
                                 <div class="header__mega--menu row">
                                     @foreach($url['categoryHome'] as $item)
                                     <div class="col-3">
-                                        <a class="header__mega--subtitle" href="#" onclick="event.preventDefault(); document.getElementById('product-redirect-{{$item->id}}').submit();">{{ $item->name }}</a>
+                                        <a class="header__mega--subtitle {{ $item->id == app('request')->input('categoryHome') ? 'active' : '' }}" href="#" onclick="event.preventDefault(); document.getElementById('product-redirect-{{$item->id}}').submit();">{{ $item->name }}</a>
                                         <form id="product-redirect-{{$item->id}}" action="{{ $url['product'] }}" method="GET" style="display: none;">
                                             <input type="hidden" name="categoryHome" value="{{$item->id}}">
                                         </form>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Restaurant;
 use App\Helpers\ConvertNameHelper;
 use App\Helpers\UploadsHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CateogryRequest;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\ServiceType;
@@ -51,7 +51,7 @@ class RestaurantCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CateogryRequest $request)
+    public function store(CategoryRequest $request)
     {
         $restaurant_id = Auth::guard('restaurant')->user() ? Auth::guard('restaurant')->user()->id : Auth::guard('personnel')->user()->restaurant_id;
         try {
@@ -87,7 +87,7 @@ class RestaurantCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
@@ -109,7 +109,7 @@ class RestaurantCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CateogryRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         if ($request->ajax()) {
             try {

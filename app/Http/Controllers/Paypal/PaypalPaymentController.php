@@ -47,22 +47,27 @@ class PaypalPaymentController extends Controller
             ],
         ]);
         DB::beginTransaction();
-        $dataOrderCeoLog = [
-            'order_id' => $data['order_id'],
-            'ceo_id' => $data['ceo_id'],
-            'service_charge_id' => $data['service_charge_id'],
-            'type' => $data['type'],
-            'implementation_date' => $data['implementation_date'],
-            'promotion_id' => $data['promotion_id'],
-            'subtotal' => $data['subtotal'],
-            'total' => $data['total'],
-            'status' => OrderCeo::PENDING,
-            'vendor_order_id' => $order['id'],
-            'email' => $data['email'],
-        ];
-        $orderCeoLog = OrderCeoLog::create($dataOrderCeoLog);
-        DB::commit();
-        return response()->json($order);
+        try {
+            $dataOrderCeoLog = [
+                'order_id' => $data['order_id'],
+                'ceo_id' => $data['ceo_id'],
+                'service_charge_id' => $data['service_charge_id'],
+                'type' => $data['type'],
+                'implementation_date' => $data['implementation_date'],
+                'promotion_id' => $data['promotion_id'],
+                'subtotal' => $data['subtotal'],
+                'total' => $data['total'],
+                'status' => OrderCeo::PENDING,
+                'vendor_order_id' => $order['id'],
+                'email' => $data['email'],
+            ];
+            $orderCeoLog = OrderCeoLog::create($dataOrderCeoLog);
+            DB::commit();
+            return response()->json($order);
+        } catch (Exception $e) {
+            Log::error('[PaypalPaymentController][captureCeo] error ' . $e->getMessage());
+            DB::rollBack();
+        }
     }
 
     public function captureCeo(Request $request)
@@ -77,8 +82,8 @@ class PaypalPaymentController extends Controller
         $paypalClient->setAccessToken($token);
         $result = $paypalClient->capturePaymentOrder($orderId);
 
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             if ($result['status'] === "COMPLETED") {
                 $orderCeoLog = OrderCeoLog::where('vendor_order_id', $orderId)->first();
                 $orderCeoLog->update(['status' => OrderCeo::COMPLETED]);
