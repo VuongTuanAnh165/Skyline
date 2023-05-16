@@ -121,17 +121,9 @@
                                 <div class="product__items product__items2">
                                     <div class="product__items--thumbnail">
                                         <a class="product__items--link" href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
-                                            <img class="product__items--img product__primary--img" src="{{asset('storage/'.$dish->image)}}" alt="product-img">
-                                            @php
-                                                $item = \App\Models\MenuItem::query()
-                                                    ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
-                                                    ->leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
-                                                    ->where('menu_dishes.dish_id', $dish->id)
-                                                    ->whereNotNull('menu_items.image')
-                                                    ->first();
-                                            @endphp
-                                            @if(!empty($item))
-                                                <img class="product__items--img product__secondary--img" src="{{asset('storage/'.$item->image)}}" alt="product-img">
+                                            <img class="product__items--img product__primary--img" src="{{ !empty($dish->image[0]) ? asset('storage/'.$dish->image[0]) : asset('img/background_default.jpg') }}" alt="product-img">
+                                            @if (!empty($dish->image[1]))
+                                                <img class="product__items--img product__secondary--img" src="{{ asset('storage/'.$dish->image[1]) }}" alt="product-img">
                                             @endif
                                         </a>
                                         @php

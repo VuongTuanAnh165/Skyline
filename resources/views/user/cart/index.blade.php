@@ -32,8 +32,9 @@
                             <div class="title-product d-flex align-items-center mb-40">
                                 <h2 class="cart__title mr-4">{{ $order_user_log->restaurant_name }}</h2>
                                 <div class="checkbox-rect">
-                                    <input type="checkbox" id="checkbox-all-{{$order_user_log->id}}" class="checkbox-all" name="check">
-                                    <label for="checkbox-all-{{$order_user_log->id}}" class="">Chọn hết</label>
+                                    <input type="checkbox" id="checkbox-all-{{ $order_user_log->id }}" class="checkbox-all"
+                                        name="check">
+                                    <label for="checkbox-all-{{ $order_user_log->id }}" class="">Chọn hết</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -57,7 +58,8 @@
                                                         ->get();
                                                 @endphp
                                                 @foreach ($detail_order_logs as $detail_order_log)
-                                                    <tr class="cart__table--body__items cart__table--body__items-{{$detail_order_log->id}}">
+                                                    <tr
+                                                        class="cart__table--body__items cart__table--body__items-{{ $detail_order_log->id }}">
                                                         <input type="hidden" class="detail_order_log_id"
                                                             value="{{ $detail_order_log->id }}">
                                                         <td class="cart__table--body__list">
@@ -194,8 +196,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="checkbox-rect">
-                                                                <input type="checkbox" id="checkbox-one-{{$detail_order_log->id}}" class="checkbox-one" name="check">
-                                                                <label for="checkbox-one-{{$detail_order_log->id}}" class=""></label>
+                                                                <input type="checkbox"
+                                                                    id="checkbox-one-{{ $detail_order_log->id }}"
+                                                                    class="checkbox-one" name="check">
+                                                                <label for="checkbox-one-{{ $detail_order_log->id }}"
+                                                                    class=""></label>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -233,18 +238,11 @@
                                     <a class="product__items--link"
                                         href="{{ route($url_show, ['id' => $dish->id, 'name_link' => $dish->name_link]) }}">
                                         <img class="product__items--img product__primary--img"
-                                            src="{{ asset('storage/' . $dish->image) }}" alt="product-img">
-                                        @php
-                                            $item = \App\Models\MenuItem::query()
-                                                ->leftJoin('menus', 'menus.id', 'menu_items.menu_id')
-                                                ->leftJoin('menu_dishes', 'menu_dishes.menu_id', 'menus.id')
-                                                ->where('menu_dishes.dish_id', $dish->id)
-                                                ->whereNotNull('menu_items.image')
-                                                ->first();
-                                        @endphp
-                                        @if (!empty($item))
+                                            src="{{ !empty($dish->image[0]) ? asset('storage/' . $dish->image[0]) : asset('img/background_default.jpg') }}"
+                                            alt="product-img">
+                                        @if (!empty($dish->image[1]))
                                             <img class="product__items--img product__secondary--img"
-                                                src="{{ asset('storage/' . $item->image) }}" alt="product-img">
+                                                src="{{ asset('storage/' . $dish->image[1]) }}" alt="product-img">
                                         @endif
                                     </a>
                                     @php
