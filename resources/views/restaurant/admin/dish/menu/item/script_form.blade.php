@@ -145,6 +145,7 @@
                     id: id.val(),
                     name: name.val(),
                     menu_id: menu_id.val(),
+                    add_price: add_price.val(),
                 },
                 success: function(response) {
                     if (response.code == 200) {
