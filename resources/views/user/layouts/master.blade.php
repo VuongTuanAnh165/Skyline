@@ -188,10 +188,17 @@ $src_logo = asset('img/logo.png');
                                 let route = `{{ route($url_product, ['id' => 'param_id', 'name_link' => 'param_name_link']) }}`;
                                 route = route.replace('param_id', response.data[x].dish_id);
                                 route = route.replace('param_name_link', response.data[x].name_link);
+                                let src_img = '';
+                                if (response.data[x].image.length) {
+                                    src_img = `{{asset('storage/src_img')}}`;
+                                    src_img = src_img.replace(src_img, response.data[x].image);
+                                } else {
+                                    src_img = `{{ asset('img/background_default.jpg') }}`
+                                }
                                 html += `
                                     <div class="minicart__product--items d-flex">
                                         <div class="minicart__thumb">
-                                            <a href="`+route+`"><img src="{{asset('storage/')}}/${response.data[x].image}" alt="prduct-img"></a>
+                                            <a href="`+route+`"><img src="${src_img}" alt="prduct-img"></a>
                                         </div>
                                         <div class="minicart__text">
                                             <h4 class="minicart__subtitle"><a href="`+route+`">${response.data[x].name}.</a></h4>
