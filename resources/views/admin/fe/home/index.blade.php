@@ -232,6 +232,11 @@ $service_group = \App\Models\ServiceGroup::where('id', $service_home->service_gr
                                 <div class="de-circle-1"></div>
                                 <div class="de-circle-2"></div>
                             </div>
+                            <div class="de-spot wow fadeIn" style="top:56%; left:79%">
+                                <span>Việt&nbsp;Nam</span>
+                                <div class="de-circle-1"></div>
+                                <div class="de-circle-2"></div>
+                            </div>
                             <img src="{{asset('template_web_service/images/misc/map.png')}}" class="img-fluid" alt="">
                         </div>
                     </div>
