@@ -3,6 +3,28 @@
 
 <head>
     <title>@yield('title')</title>
+
+    <meta name="description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta name="keywords" content="Sky Line, Marvelous, Dịch vụ, Nhà hàng, Shop, Bán hàng, Thương Mại điện tử">
+    <meta name="author" content="Sky Line" />
+    <link rel="canonical" href="http://skylinevta.click/dich-vu"/>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://skylinevta.click/dich-vu">
+    <meta property="og:title" content="Sky Line">
+    <meta property="og:description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta property="og:image" content="{{asset('template_web_service/images/icon.png')}}">
+    <meta property="og:image:alt" content="Sky Line">
+    
+    <!--Open Graph / Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:type" content="summary_large_image">
+    <meta property="twitter:url" content="http://skylinevta.click/dich-vu">
+    <meta property="twitter:title" content="Sky Line">
+    <meta property="twitter:description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta property="twitter:image" content="{{asset('template_web_service/images/icon.png')}}">
+
     <link rel="icon" href="images/icon.png" type="image/gif" sizes="16x16">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />

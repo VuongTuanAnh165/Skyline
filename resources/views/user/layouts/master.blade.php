@@ -10,7 +10,28 @@ $src_logo = asset('img/logo.png');
 <head>
     <meta charset="utf-8">
     <title>@yield('title')</title>
-    <meta name="description" content="Morden Bootstrap HTML5 Template">
+    
+    <meta name="description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta name="keywords" content="Sky Line, Marvelous, Dịch vụ, Nhà hàng, Shop, Bán hàng, Thương Mại điện tử">
+    <meta name="author" content="Sky Line" />
+    <link rel="canonical" href="http://skylinevta.click/"/>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://skylinevta.click/">
+    <meta property="og:title" content="Sky Line">
+    <meta property="og:description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta property="og:image" content="{{$src_logo}}">
+    <meta property="og:image:alt" content="Sky Line">
+    
+    <!--Open Graph / Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:type" content="summary_large_image">
+    <meta property="twitter:url" content="http://skylinevta.click/">
+    <meta property="twitter:title" content="Sky Line">
+    <meta property="twitter:description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
+    <meta property="twitter:image" content="{{$src_logo}}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{$src_logo}}">
