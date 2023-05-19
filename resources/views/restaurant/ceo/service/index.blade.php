@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/web_admin/personnel/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/rating.css') }}">
+
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/codemirror/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/codemirror/theme/monokai.css') }}">
+    
     <style>
         .error {
             color: red;
@@ -36,10 +44,12 @@
     </div>
 </div>
 @include('restaurant.ceo.service.table')
+@include('restaurant.ceo.service.rating.form')
 @stop
 @section('addjs')
     @if (session('success') || session('error'))
         @include('restaurant.ceo.partials.script.toastr')
     @endif
     @include('restaurant.ceo.service.script')
+    @include('restaurant.ceo.service.rating.script')
 @stop
