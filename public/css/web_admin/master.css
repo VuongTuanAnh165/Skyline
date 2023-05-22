@@ -43,3 +43,7 @@ body .wrapper .content-wrapper {
 .select2-container {
     width: auto !important;
 }
+
+.pe-none {
+    pointer-events: none !important;
+}

@@ -282,6 +282,7 @@ Route::prefix('ceo')->group(function () {
         Route::prefix('/service')->group(function () {
             Route::get('/', [CeoServiceController::class, 'index'])->name('ceo.service.index');
             Route::post('/rating', [CeoServiceController::class, 'rating'])->name('ceo.service.rating');
+            Route::post('/show-rating', [CeoServiceController::class, 'showRating'])->name('ceo.service.showRating');
         });
         //order
         Route::prefix('/order')->group(function () {

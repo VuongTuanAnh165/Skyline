@@ -15,6 +15,44 @@
             $('.service_name').text(service_name);
             $('.email_register').text(email_register);
             $('.product_id').val(product_id);
+            $.ajax({
+                url: `{{route('ceo.service.showRating')}}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                cache: false,
+                data: {
+                    'product_id': product_id,
+                },
+                method: 'POST',
+                success: function(response) {
+                    console.log(response);
+                    if (response.code == 200) {
+                        $('#btn-rating').addClass('d-none');
+                        $("#modalRating .modal-body").addClass("pe-none");
+                        $("#modalRating .modal-header .modal-title span").text("(Đã đánh giá)");
+                        if(response.data.comment) {
+                            $('#comment').summernote('code', response.data.comment);
+                        }
+                        if(response.data.star) {
+                            $('#star' + response.data.star).prop('checked', true);
+                        }
+                    } else {
+                        $('#btn-rating').removeClass('d-none');
+                        $("#modalRating .modal-body").removeClass("pe-none");
+                        $("#modalRating .modal-header .modal-title span").text("(Chưa đánh giá)");
+                        $('#comment').summernote('code', '');
+                        $("input[name='star']").prop('checked', false);
+                    }
+                },
+                error: function(xhr) {
+                    $('#btn-rating').removeClass('d-none');
+                    $("#modalRating .modal-body").removeClass("pe-none");
+                    $("#modalRating .modal-header .modal-title span").text("(Chưa đánh giá)");
+                    $('#comment').summernote('code', '');
+                    $('#star' + response.data.star).prop('checked', false);
+                }
+            });
         })
 
         $('#comment').summernote({
@@ -116,12 +154,8 @@
                     }
                 },
                 error: function(xhr) {
-                    if(xhr.responseJSON.errors.comment){
-                        $(".error-star").text(xhr.responseJSON.errors.comment);
-                        $('#btn-rating').addClass('disabledbutton')
-                    }
                     if(xhr.responseJSON.errors.star){
-                        $(".error-comment").text(xhr.responseJSON.errors.star);
+                        $(".error-star").text(xhr.responseJSON.errors.star);
                         $('#btn-rating').addClass('disabledbutton')
                     }
                 }

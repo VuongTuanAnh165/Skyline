@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ceo;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RatingRequest;
 use App\Models\Evaluate;
 use App\Models\Restaurant;
 use Exception;
@@ -48,7 +49,7 @@ class CeoServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function rating(Request $request)
+    public function rating(RatingRequest $request)
     {
         if ($request->ajax()) {
             DB::beginTransaction();
@@ -72,6 +73,35 @@ class CeoServiceController extends Controller
                     'code' => 400,
                 ]);
             }
+        } else {
+            return response()->json([
+                'code' => 400,
+            ]);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showRating(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Evaluate::where('product_id', $request->product_id)
+                ->where('people_id', Auth::guard('ceo')->user()->id)
+                ->where('web_type', 1)
+                ->first();
+            if ($data) {
+                return response()->json([
+                    'code' => 200,
+                    'data' => $data,
+                ]);
+            }
+            return response()->json([
+                'code' => 400,
+            ]);
         } else {
             return response()->json([
                 'code' => 400,

@@ -114,7 +114,7 @@
                             <li><a class="menu-item" href="javascript:void(0)">Chương trình khuyễn mãi</a>
                                 <ul>
                                     @foreach($promotions as $promotion)
-                                    <li><a class="menu-item" href="contact.html">{{$promotion->name}}</a></li>
+                                    <li><a class="menu-item" href="javascript:void(0)">{{$promotion->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>

@@ -3,6 +3,7 @@
 namespace App\Providers\Admin;
 
 use App\Models\Ceo;
+use App\Models\Evaluate;
 use App\Models\Policy;
 use App\Models\Promotion;
 use App\Models\Restaurant;
@@ -43,7 +44,7 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('admin.fe.layouts.header', function ($view) {
             $service_groups = ServiceGroup::all();
             $policys = Policy::all();
-            $promotions = Promotion::whereDate('ended_at', '>=', Carbon::today())->get();
+            $promotions = Promotion::whereDate('ended_at', '>=', Carbon::today())->where('')->get();
             $ceo = Auth::guard('ceo')->user();
             $skyline = Skyline::first();
             return $view->with([
@@ -64,8 +65,21 @@ class ComposerServiceProvider extends ServiceProvider
 
         View::composer('admin.fe.layouts.near_footer', function ($view) {
             $ceos = Ceo::all();
+            $evaluates = Evaluate::leftJoin('ceos', 'ceos.id', 'evaluates.people_id')
+                ->leftJoin('restaurants', 'restaurants.id', 'evaluates.product_id')
+                ->where('web_type', 1)
+                ->where('status', 1)
+                ->select(
+                    'evaluates.*',
+                    'ceos.name as ceo_name',
+                    'ceos.avatar as ceo_avatar',
+                    'restaurants.name as restaurant_name',
+                    'restaurants.email as restaurant_email',
+                )
+                ->get();
             return $view->with([
                 'ceos' => $ceos,
+                'evaluates' => $evaluates,
             ]);
         });
     }
