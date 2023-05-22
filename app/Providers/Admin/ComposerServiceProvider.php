@@ -44,7 +44,7 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('admin.fe.layouts.header', function ($view) {
             $service_groups = ServiceGroup::all();
             $policys = Policy::all();
-            $promotions = Promotion::whereDate('ended_at', '>=', Carbon::today())->where('')->get();
+            $promotions = Promotion::whereDate('ended_at', '>=', Carbon::today())->where('type', 1)->get();
             $ceo = Auth::guard('ceo')->user();
             $skyline = Skyline::first();
             return $view->with([
