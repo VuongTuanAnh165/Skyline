@@ -221,7 +221,8 @@
                                                                 name="menu_{{ $menu->id }}"
                                                                 type="{{ $multiple }}"
                                                                 data-add_price={{ $menu_item->add_price }}
-                                                                value="{{ $menu_item->id }}">
+                                                                value="{{ $menu_item->id }}"
+                                                                {{ $history_item && in_array($menu_item->id, $history_item[$menu->id]) ? 'checked' : '' }}>
                                                             <label class="variant__size--value red"
                                                                 for="menu_item_{{ $menu_item->id }}">{{ $menu_item->name }}</label>
                                                         </li>

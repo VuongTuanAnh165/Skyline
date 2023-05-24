@@ -204,11 +204,13 @@ $src_logo = asset('img/logo.png');
                     method: 'POST',
                     success: function(response) {
                         if (response.code == 200) {
+                            console.log(response.data);
                             let html = ``;
                             for (let x in response.data) {
-                                let route = `{{ route($url_product, ['id' => 'param_id', 'name_link' => 'param_name_link']) }}`;
+                                let route = `{{ route($url_product, ['id' => 'param_id', 'name_link' => 'param_name_link', 'code' => 'param_code']) }}`;
                                 route = route.replace('param_id', response.data[x].dish_id);
                                 route = route.replace('param_name_link', response.data[x].name_link);
+                                route = route.replace('param_code', response.data[x].id);
                                 let src_img = '';
                                 if (response.data[x].image.length) {
                                     src_img = `{{asset('storage/src_img')}}`;

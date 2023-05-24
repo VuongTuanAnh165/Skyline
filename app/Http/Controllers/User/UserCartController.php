@@ -172,7 +172,6 @@ class UserCartController extends Controller
                 ]);
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
-                dd($e);
                 DB::rollBack();
                 return response()->json([
                     'code' => 400,
@@ -212,7 +211,6 @@ class UserCartController extends Controller
                 }
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
-                dd($e);
                 DB::rollBack();
                 return response()->json([
                     'code' => 400,
@@ -255,7 +253,6 @@ class UserCartController extends Controller
                 ]);
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
-                dd($e);
                 DB::rollBack();
                 return response()->json([
                     'code' => 400,
@@ -297,7 +294,6 @@ class UserCartController extends Controller
                 ]);
             } catch (Exception $e) {
                 Log::error('[UserCartController][addCart] error ' . $e->getMessage());
-                dd($e);
                 DB::rollBack();
                 return response()->json([
                     'code' => 400,

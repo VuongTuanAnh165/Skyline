@@ -173,7 +173,9 @@
             if (checkbox_one.filter(":checked").is(":checked")) {
                 console.log(1);
             } else {
-                console.log(2);
+                toastr.error('Chưa chọn {{ $title_product }} thanh toán', {
+                    timeOut: 5000
+                });
             }
         });
     })

@@ -386,7 +386,7 @@ Route::prefix('food')->group(function () {
     Route::get('/tat-ca-mon-an', [UserFoodAllProductController::class, 'index'])->name('user.food.allProduct.index');
     Route::prefix('/mon-an')->group(function () {
         Route::get('/', [UserFoodProductController::class, 'index'])->name('user.food.product.index');
-        Route::get('/{id}-{name_link}', [UserFoodProductController::class, 'show'])->name('user.food.product.show');
+        Route::get('/{id}-{name_link}/{code?}', [UserFoodProductController::class, 'show'])->name('user.food.product.show');
     });
     Route::prefix('/nha-hang')->group(function () {
         Route::get('/{id}', [UserFoodRestaurantController::class, 'index'])->name('user.food.restaurant.index');
@@ -402,7 +402,7 @@ Route::get('/', [UserShopHomeController::class, 'index'])->name('user.home.index
 Route::get('/tat-ca-san-pham', [UserShopAllProductController::class, 'index'])->name('user.allProduct.index');
 Route::prefix('/san-pham')->group(function () {
     Route::get('/', [UserShopProductController::class, 'index'])->name('user.product.index');
-    Route::get('/{id}-{name_link}', [UserShopProductController::class, 'show'])->name('user.product.show');
+    Route::get('/{id}-{name_link}/{code?}', [UserShopProductController::class, 'show'])->name('user.product.show');
 });
 Route::prefix('/shop')->group(function () {
     Route::get('/{id}', [UserShopRestaurantController::class, 'index'])->name('user.restaurant.index');

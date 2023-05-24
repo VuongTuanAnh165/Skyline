@@ -26,7 +26,8 @@ class UserShopCartController extends Controller
                 'order_user_logs.*',
                 'restaurants.name as restaurant_name'
             )
-            ->where('user_id', Auth::guard('user')->user()->id)
+            ->where('order_user_logs.type', OrderUser::TYPE_SHOP_SHIP)
+            ->where('order_user_logs.user_id', Auth::guard('user')->user()->id)
             ->get();
         $url_home = route('user.home.index');
         $title_product = "Sản phẩm";
