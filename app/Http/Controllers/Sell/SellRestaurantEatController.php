@@ -585,6 +585,7 @@ class SellRestaurantEatController extends Controller
                     'status_payment' => 1,
                     'status' => $status,
                     'type' => $data->type,
+                    'restaurant_id' => $data->restaurant_id,
                     'promotion_id' => $request->promotion_id,
                     'implementation_date' => Carbon::now()->toDateTimeString(),
                     'detail' => $detail,

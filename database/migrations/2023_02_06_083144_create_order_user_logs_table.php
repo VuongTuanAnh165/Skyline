@@ -29,7 +29,7 @@ class CreateOrderUserLogsTable extends Migration
             $table->integer('type')->nullable();
             $table->longText('promotion_id')->nullable();
             $table->dateTime('implementation_date')->nullable();
-            $table->integer('personnel_ship')->nullable();
+            $table->integer('user_address_id')->nullable();
             $table->integer('restaurant_id')->nullable();
             $table->longText('detail')->nullable();
             $table->timestamps();

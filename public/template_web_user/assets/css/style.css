@@ -12391,9 +12391,9 @@ details>summary::-webkit-details-marker {
 }
 
 .checkout__contact--information2 {
-  border: 1px solid var(--border-color2);
+  border: 1px solid var(--theme-color);
   padding: 1rem 2rem;
-  box-shadow: var(--f7-elevation-3);
+  box-shadow: var(--theme-color);
   background-color: #fafafa;
 }
 
@@ -12422,7 +12422,8 @@ details>summary::-webkit-details-marker {
 }
 
 .checkout__review--label {
-  color: #737373;
+  color: #000000;
+  font-weight: bold;
   width: 6.5rem;
 }
 
@@ -12441,6 +12442,7 @@ details>summary::-webkit-details-marker {
 @media only screen and (min-width: 768px) {
   .checkout__review--content {
     margin-left: 1.5rem;
+    padding: 5px 20px;
   }
 }
 

@@ -1,7 +1,17 @@
 @extends('user.layouts.master')
 @section('title', 'Thanh toán')
 @section('addcss')
-
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+        type="text/css">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+    <style>
+        .mapboxgl-ctrl-geocoder input[type='text'] {
+            padding: 10px 10px 10px 35px;
+        }
+    </style>
 @stop
 @section('content')
     <!-- Start breadcrumb section -->
@@ -35,31 +45,37 @@
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Tên</label>
-                                        <input class="checkout__review--content" name="name" disabled value="{{ $user->name }}">
+                                        <input class="checkout__review--content" name="name" disabled
+                                            value="{{ $user->name }}">
                                     </div>
                                     <div class="checkout__review--link">
-                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button> 
-                                        <button class="checkout__review--link__text btn-save display-none" type="button">Lưu</button>
+                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button>
+                                        <button class="checkout__review--link__text btn-save display-none"
+                                            type="button">Lưu</button>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Email</label>
-                                        <input class="checkout__review--content" name="email" disabled value="{{ $user->email }}">
+                                        <input class="checkout__review--content" name="email" disabled
+                                            value="{{ $user->email }}">
                                     </div>
                                     <div class="checkout__review--link">
-                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button> 
-                                        <button class="checkout__review--link__text btn-save display-none" type="button">Lưu</button>
+                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button>
+                                        <button class="checkout__review--link__text btn-save display-none"
+                                            type="button">Lưu</button>
                                     </div>
                                 </div>
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Phone</label>
-                                        <input class="checkout__review--content" name="phone" disabled value="{{ $user->phone }}">
+                                        <input class="checkout__review--content" name="phone" disabled
+                                            value="{{ $user->phone }}">
                                     </div>
                                     <div class="checkout__review--link">
-                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button> 
-                                        <button class="checkout__review--link__text btn-save display-none" type="button">Lưu</button>
+                                        <button class="checkout__review--link__text btn-edit" type="button">Sửa</button>
+                                        <button class="checkout__review--link__text btn-save display-none"
+                                            type="button">Lưu</button>
                                     </div>
                                 </div>
                             </div>
@@ -87,12 +103,16 @@
                                                     <label class="checkout__select--label" for="country">Chọn địa
                                                         chỉ</label>
                                                     <select class="checkout__input--select__field border-radius-5">
-                                                        @foreach ($address as $item)
-                                                            <option data-address="{{ $item->address }}"
-                                                                value="{{ $item->id }}"
-                                                                {{ $item->status == 1 ? 'selected' : '' }}>
-                                                                {{ $item->name }}</option>
-                                                        @endforeach
+                                                        @if (count($address) > 0)
+                                                            @foreach ($address as $item)
+                                                                <option data-address="{{ $item->address }}"
+                                                                    value="{{ $item->id }}"
+                                                                    {{ $item->status == 1 ? 'selected' : '' }}>
+                                                                    {{ $item->name }}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option>Không có</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -119,11 +139,11 @@
                                     </div>
                                     <div class="checkout__content--input__box--wrapper radiobox2-div display-none">
                                         <div class="row">
-                                            <div class="col-lg-6 mb-12">
-                                                <div class="checkout__input--list ">
+                                            <div class="col-12 mb-12">
+                                                <div class="checkout__input--list">
                                                     <label>
                                                         <input class="checkout__input--field border-radius-5"
-                                                            placeholder="First name (optional)" type="text">
+                                                            placeholder="Tên" type="text" id="user_address_name">
                                                     </label>
                                                 </div>
                                             </div>
@@ -131,146 +151,32 @@
                                                 <div class="checkout__input--list">
                                                     <label>
                                                         <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Last name" type="text">
+                                                            placeholder="Kinh độ" id="longitude" type="text">
                                                     </label>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-12">
+                                                <div class="checkout__input--list">
+                                                    <label>
+                                                        <input class="checkout__input--field border-radius-5"
+                                                            placeholder="Vĩ độ" id="latitude" type="text">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-12">
+                                                <div wire:ignore id="map" style='width: 100%; height: 30vh;'></div>
                                             </div>
                                             <div class="col-12 mb-12">
                                                 <div class="checkout__input--list">
                                                     <label>
                                                         <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Address1" type="text">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-12">
-                                                <div class="checkout__input--list">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Apartment, suite, etc. (optional)" type="text">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-12">
-                                                <div class="checkout__input--list">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="City" type="text">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-12">
-                                                <div class="checkout__input--list checkout__input--select select">
-                                                    <label class="checkout__select--label"
-                                                        for="country">Country/region</label>
-                                                    <select class="checkout__input--select__field border-radius-5"
-                                                        id="country">
-                                                        <option value="1">India</option>
-                                                        <option value="2">United States</option>
-                                                        <option value="3">Netherlands</option>
-                                                        <option value="4">Afghanistan</option>
-                                                        <option value="5">Islands</option>
-                                                        <option value="6">Albania</option>
-                                                        <option value="7">Antigua Barbuda</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-12">
-                                                <div class="checkout__input--list">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Postal code" type="text">
+                                                            placeholder="Địa chỉ đầy đủ" id="address" type="text">
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="checkout__content--step section__shipping--address">
-                                <div class="section__header mb-25">
-                                    <h2 class="section__header--title h3">Payment</h2>
-                                    <p class="section__header--desc">All transactions are secure and encrypted.</p>
-                                </div>
-                                <div class="checkout__content--step__inner3 border-radius-5">
-                                    <div
-                                        class="checkout__address--content__header d-flex align-items-center justify-content-between bg__primary2">
-                                        <span class="checkout__address--content__title">Credit card</span>
-                                        <span class="heckout__address--content__icon"><img
-                                                src="{{ asset('template_web_user/assets/img/icon/credit-card.svg') }}"
-                                                alt="card"></span>
-                                    </div>
-                                    <div class="checkout__content--input__box--wrapper ">
-                                        <div class="row">
-                                            <div class="col-12 mb-12">
-                                                <div class="checkout__input--list position__relative">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Card number" type="text">
-                                                    </label>
-                                                    <button class="checkout__input--field__button"
-                                                        aria-label="search button" type="button">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="15.51"
-                                                            height="15.443" viewBox="0 0 512 512">
-                                                            <path d="M336 208v-95a80 80 0 00-160 0v95" fill="none"
-                                                                stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="32" />
-                                                            <rect x="96" y="208" width="320"
-                                                                height="272" rx="48" ry="48"
-                                                                fill="none" stroke="currentColor"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="32" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-12">
-                                                <div class="checkout__input--list">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Name on card" type="text">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-12">
-                                                <div class="checkout__input--list">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="piration date (MM / YY)" type="text">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-12">
-                                                <div class="checkout__input--list position__relative">
-                                                    <label>
-                                                        <input class="checkout__input--field border-radius-5"
-                                                            placeholder="Security code" type="text">
-                                                    </label>
-                                                    <button class="checkout__input--field__button" type="button">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18.51"
-                                                            height="18.443" viewBox="0 0 512 512">
-                                                            <title>Help Circle</title>
-                                                            <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z"
-                                                                fill="none" stroke="currentColor"
-                                                                stroke-miterlimit="10" stroke-width="32" />
-                                                            <path
-                                                                d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296"
-                                                                fill="none" stroke="currentColor"
-                                                                stroke-linecap="round" stroke-miterlimit="10"
-                                                                stroke-width="28" />
-                                                            <circle cx="250" cy="348" r="20" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout__content--step__footer d-flex align-items-center">
-                                <a class="continue__shipping--btn btn border-radius-5" href="checkout-3.html">Pay now</a>
-                                <a class="previous__link--content" href="cart.html">Return to shipping</a>
                             </div>
                         </form>
                     </main>
@@ -374,6 +280,91 @@
                             </tfoot>
                         </table>
                     </div>
+                    <div class="checkout__content--step section__shipping--address">
+                        <div class="section__header mb-25">
+                            <h2 class="section__header--title h3">Phương thức thanh toán</h2>
+                            <p class="section__header--desc">Thông tin thanh toán đều được bảo mật</p>
+                        </div>
+                        <div class="checkout__content--step__inner3 border-radius-5">
+                            <div
+                                class="checkout__address--content__header d-flex align-items-center justify-content-between bg__primary2">
+                                <span class="checkout__address--content__title">Credit card</span>
+                                <span class="heckout__address--content__icon"><img
+                                        src="{{ asset('template_web_user/assets/img/icon/credit-card.svg') }}"
+                                        alt="card"></span>
+                            </div>
+                            <div class="checkout__content--input__box--wrapper ">
+                                <div class="row">
+                                    <div class="col-12 mb-12">
+                                        <div class="checkout__input--list position__relative">
+                                            <label>
+                                                <input class="checkout__input--field border-radius-5"
+                                                    placeholder="Card number" type="text">
+                                            </label>
+                                            <button class="checkout__input--field__button"
+                                                aria-label="search button" type="button">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.51"
+                                                    height="15.443" viewBox="0 0 512 512">
+                                                    <path d="M336 208v-95a80 80 0 00-160 0v95" fill="none"
+                                                        stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="32" />
+                                                    <rect x="96" y="208" width="320"
+                                                        height="272" rx="48" ry="48"
+                                                        fill="none" stroke="currentColor"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="32" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-12">
+                                        <div class="checkout__input--list">
+                                            <label>
+                                                <input class="checkout__input--field border-radius-5"
+                                                    placeholder="Name on card" type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-12">
+                                        <div class="checkout__input--list">
+                                            <label>
+                                                <input class="checkout__input--field border-radius-5"
+                                                    placeholder="piration date (MM / YY)" type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-12">
+                                        <div class="checkout__input--list position__relative">
+                                            <label>
+                                                <input class="checkout__input--field border-radius-5"
+                                                    placeholder="Security code" type="text">
+                                            </label>
+                                            <button class="checkout__input--field__button" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18.51"
+                                                    height="18.443" viewBox="0 0 512 512">
+                                                    <title>Help Circle</title>
+                                                    <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z"
+                                                        fill="none" stroke="currentColor"
+                                                        stroke-miterlimit="10" stroke-width="32" />
+                                                    <path
+                                                        d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296"
+                                                        fill="none" stroke="currentColor"
+                                                        stroke-linecap="round" stroke-miterlimit="10"
+                                                        stroke-width="28" />
+                                                    <circle cx="250" cy="348" r="20" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout__content--step__footer d-flex align-items-center">
+                        <a class="continue__shipping--btn btn border-radius-5" href="checkout-3.html">Pay now</a>
+                        <a class="previous__link--content" href="cart.html">Return to shipping</a>
+                    </div>
                 </aside>
             </div>
         </div>
@@ -385,4 +376,5 @@
         @include('user.partials.script.toastr')
     @endif
     @include('user.payment.script')
+    @include('restaurant.admin.branch.script_map')
 @stop

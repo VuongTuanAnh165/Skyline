@@ -1,9 +1,12 @@
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibGtkMmsxIiwiYSI6ImNsOHlpMzNqeDAzcDAzcnFnMnhrOXhzb3IifQ.9cquSnvRH6sfARhw6PwzKQ';
-    const defaultLocation = ($('#longitude').val() != '' && $('#latitude').val() != '') ? [$('#longitude').val(), $('#latitude').val()] : [105.82711539620311, 21.027852937261514];
-    if($('#longitude').val() || $('#latitude').val()) {
+    const defaultLocation = ($('#longitude').val() != '' && $('#latitude').val() != '') ? [$('#longitude').val(), $(
+        '#latitude').val()] : [105.82711539620311, 21.027852937261514];
+    if ($('#longitude').val() || $('#latitude').val()) {
 
     }
     const map = new mapboxgl.Map({
@@ -12,6 +15,19 @@
         center: defaultLocation, // starting position [lng, lat]
         zoom: 12 // starting zoom
     });
+
+    map.resize();
+    map.on('idle', function() {
+        map.resize();
+    });
+
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        language: 'vi-VI', // Specify the language as German.
+        mapboxgl: mapboxgl
+    });
+    map.addControl(geocoder);
+    map.addControl(new mapboxgl.NavigationControl());
 
     const start = [$('#longitude').val(), $('#latitude').val()];
 

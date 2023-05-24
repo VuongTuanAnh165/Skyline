@@ -13,6 +13,7 @@
             } else {
                 $('.radiobox2-div').removeClass('display-none');
                 $('.radiobox-div').addClass('display-none');
+                map.resize();
             }
         };
         checkAdress();
