@@ -1,3 +1,4 @@
+<script src="https://www.paypal.com/sdk/js?client-id={{$skyline->client_id}}&currency=USD"></script>
 <script>
     $(document).ready(function() {
         const config = {
@@ -80,5 +81,48 @@
                 }
             });
         })
+
+        $('.pay-onl').on('click', function() {
+            $('.checkout-paypal').removeClass('d-none');
+            $(this).removeClass('bg__primary2').addClass('bg__primary');
+        })
+
+        $('.paypal-close').on('click', function() {
+            $('.checkout-paypal').addClass('d-none');
+            $('.pay-onl').addClass('bg__primary2').removeClass('bg__primary');
+        })
+
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return fetch('/api/paypal/order/createCeo', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    return orderData.id;
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return fetch('/api/paypal/order/captureCeo', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        orderId: data.orderID,
+                        'email': $("#email").val(),
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    window.location.href = $("#url-thanks").val();
+                });
+            }
+
+        }).render('#paypal-button-container');
     })
 </script>

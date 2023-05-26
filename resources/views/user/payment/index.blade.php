@@ -281,89 +281,30 @@
                         </table>
                     </div>
                     <div class="checkout__content--step section__shipping--address">
-                        <div class="section__header mb-25">
+                        <div class="section__header mb-3">
                             <h2 class="section__header--title h3">Phương thức thanh toán</h2>
                             <p class="section__header--desc">Thông tin thanh toán đều được bảo mật</p>
                         </div>
-                        <div class="checkout__content--step__inner3 border-radius-5">
+                        <div class="checkout__content--step__footer d-flex align-items-center mb-3 justify-content-between">
+                            <a class="continue__shipping--btn btn border-radius-5 pay-off" href="javascript:void(0)">Thanh toán khi nhận hàng</a>
+                            <a class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2" href="javascript:void(0)">Thanh toán online</a>
+                        </div>    
+                        <div class="checkout__content--step__inner3 border-radius-5 d-none checkout-paypal">
                             <div
-                                class="checkout__address--content__header d-flex align-items-center justify-content-between bg__primary2">
-                                <span class="checkout__address--content__title">Credit card</span>
-                                <span class="heckout__address--content__icon"><img
-                                        src="{{ asset('template_web_user/assets/img/icon/credit-card.svg') }}"
+                                class="checkout__address--content__header d-flex align-items-center justify-content-between bg__primary">
+                                <span class="checkout__address--content__title">Pay Pal</span>
+                                <span class="heckout__address--content__icon"><img width="20px"
+                                        src="{{ asset('img/paypal_icon.png') }}"
                                         alt="card"></span>
                             </div>
                             <div class="checkout__content--input__box--wrapper ">
-                                <div class="row">
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list position__relative">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5"
-                                                    placeholder="Card number" type="text">
-                                            </label>
-                                            <button class="checkout__input--field__button"
-                                                aria-label="search button" type="button">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.51"
-                                                    height="15.443" viewBox="0 0 512 512">
-                                                    <path d="M336 208v-95a80 80 0 00-160 0v95" fill="none"
-                                                        stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="32" />
-                                                    <rect x="96" y="208" width="320"
-                                                        height="272" rx="48" ry="48"
-                                                        fill="none" stroke="currentColor"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="32" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5"
-                                                    placeholder="Name on card" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5"
-                                                    placeholder="piration date (MM / YY)" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-12">
-                                        <div class="checkout__input--list position__relative">
-                                            <label>
-                                                <input class="checkout__input--field border-radius-5"
-                                                    placeholder="Security code" type="text">
-                                            </label>
-                                            <button class="checkout__input--field__button" type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18.51"
-                                                    height="18.443" viewBox="0 0 512 512">
-                                                    <title>Help Circle</title>
-                                                    <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z"
-                                                        fill="none" stroke="currentColor"
-                                                        stroke-miterlimit="10" stroke-width="32" />
-                                                    <path
-                                                        d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296"
-                                                        fill="none" stroke="currentColor"
-                                                        stroke-linecap="round" stroke-miterlimit="10"
-                                                        stroke-width="28" />
-                                                    <circle cx="250" cy="348" r="20" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="paypal-button-container"></div>
+                                <button class="btn border-radius-5 paypal-close" type="button">Đóng</button>
                             </div>
                         </div>
                     </div>
-                    <div class="checkout__content--step__footer d-flex align-items-center">
-                        <a class="continue__shipping--btn btn border-radius-5" href="checkout-3.html">Pay now</a>
-                        <a class="previous__link--content" href="cart.html">Return to shipping</a>
+                    <div class="d-flex mb-5 float-end">
+                        <a class="previous__link--content float-end" href="cart.html">Quay về giỏ hàng</a>
                     </div>
                 </aside>
             </div>

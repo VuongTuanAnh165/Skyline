@@ -2590,7 +2590,7 @@ body.overlay__active::before,
   top: 0;
   background: var(--white-color);
   left: 0;
-  z-index: 99;
+  z-index: 999;
   padding: 1rem 0.5rem;
   -webkit-box-shadow: var(--f7-elevation-3) !important;
   -webkit-transition: 0.3s;
@@ -11992,7 +11992,6 @@ input.quickview__value--number {
   .checkout__sidebar {
     width: 100%;
     padding: 3rem 0 0;
-    display: none;
   }
 }
 
