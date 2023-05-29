@@ -197,6 +197,7 @@
                                         $detail_order_logs = \App\Models\DetailOrderLog::leftJoin('dishes', 'dishes.id', 'detail_order_logs.dish_id')
                                             ->select('detail_order_logs.*', 'dishes.id as dish_id', 'dishes.name_link as name_link', 'dishes.name as dish_name', 'dishes.price as dish_price', 'dishes.image as dish_image')
                                             ->where('detail_order_logs.order_id', $order_user_log->order_id)
+                                            ->whereIn('detail_order_logs.id', $arr_detail_order_log_id)
                                             ->get();
                                     @endphp
                                     @foreach ($detail_order_logs as $detail_order_log)

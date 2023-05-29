@@ -45,7 +45,7 @@ class UserShopPaymentController extends Controller
                 $today = Carbon::now();
                 $promotion_skylines = Promotion::query()->where('type', Promotion::ADMINRESTAURANT)->get();
                 $title = 'Cửa hàng';
-                return view($this->pathView . 'index', compact('url_home', 'address', 'user', 'skyline', 'order_user_logs', 'today', 'title', 'promotion_skylines'));
+                return view($this->pathView . 'index', compact('url_home', 'address', 'user', 'skyline', 'order_user_logs', 'today', 'title', 'promotion_skylines', 'arr_detail_order_log_id'));
             }
             return redirect()->route('user.cart')->with(['error' => 'Không tồn tại sản phẩm trong giỏ hàng']);
         }
