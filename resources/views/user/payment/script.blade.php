@@ -82,6 +82,30 @@
             });
         })
 
+        function total() {
+            let cart_table_body_items = $('.cart__table--body__items');
+            cart_table_body_items.each(function() {
+                let total = 0;
+                let value_price = $(this).find('.value_price');
+                console.log(value_price);
+                value_price.each(function() {
+                    total += Number($(this).val());
+                });
+                total = total * $(this).find('.quickview__value--number').val()
+                $(this).find('.cart__price.end').text(new Intl.NumberFormat('it-IT', config).format(
+                    total));
+                let quantity = $(this).find('.quickview__value--number').val();
+                if (quantity <= 1) {
+                    $(this).find('.quickview__value--quantity.decrease').prop(
+                        'disabled', true);
+                } else {
+                    $(this).find('.quickview__value--quantity.decrease').prop(
+                        'disabled', false);
+                }
+            });
+        };
+        total();
+
         $('.pay-onl').on('click', function() {
             $('.checkout-paypal').removeClass('d-none');
             $(this).removeClass('bg__primary2').addClass('bg__primary');

@@ -185,66 +185,96 @@
                     <div class="cart__table checkout__product--table">
                         <table class="cart__table--inner">
                             <tbody class="cart__table--body">
-                                <tr class="cart__table--body__items">
-                                    <td class="cart__table--body__list">
-                                        <div class="product__image two  d-flex align-items-center">
-                                            <div class="product__thumbnail border-radius-5">
-                                                <a href="product-details.html"><img class="border-radius-5"
-                                                        src="assets/img/product/small-product7.png"
-                                                        alt="cart-product"></a>
-                                                <span class="product__thumbnail--quantity">1</span>
+                                @foreach ($detail_order_logs as $detail_order_log)
+                                    <tr class="cart__table--body__items">
+                                        <td class="cart__table--body__list">
+                                            <div class="product__image two  d-flex align-items-center">
+                                                <div class="product__thumbnail border-radius-5">
+                                                    <a href="product-details.html"><img class="border-radius-5"
+                                                            src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . $detail_order_log->dish_image) : asset('img/background_default.jpg') }}"
+                                                            alt="cart-product"></a>
+                                                    <span
+                                                        class="product__thumbnail--quantity">{{ $detail_order_log->quantity }}</span>
+                                                    <input class="quickview__value--number" type="hidden"
+                                                        value="{{ $detail_order_log->quantity }}">
+                                                </div>
+                                                <div class="product__description">
+                                                    <h3 class="product__description--name h4">
+                                                        <a
+                                                            href="product-details.html">{{ $detail_order_log->dish_name }}</a>
+                                                    </h3>
+                                                    <input type="hidden" class="value_price"
+                                                        value="{{ $detail_order_log->dish_price }}">
+                                                    @php
+                                                        $detail_item_logs = \App\Models\DetailItemLog::where('detail_order_log_id', $detail_order_log->id)
+                                                            ->groupBy('item')
+                                                            ->get();
+                                                    @endphp
+                                                    @foreach ($detail_item_logs as $detail_item_log)
+                                                        @if (!empty($detail_item_log->item))
+                                                            @foreach ($detail_item_log->item as $item)
+                                                                @php
+                                                                    $menu = App\Models\Menu::select('name')
+                                                                        ->where('id', $item[0])
+                                                                        ->first();
+                                                                @endphp
+                                                                <div class="cart__price">
+                                                                    <span class="product__description--variant">
+                                                                        {{ $menu->name }}:
+                                                                    </span>
+                                                                    @if (is_array($item[1]))
+                                                                        @foreach ($item[1] as $value)
+                                                                            @php
+                                                                                $menu_item = App\Models\MenuItem::select('name', 'add_price')
+                                                                                    ->where('id', $value)
+                                                                                    ->first();
+                                                                            @endphp
+                                                                            @if ($menu_item)
+                                                                                <span
+                                                                                    class="product__description--variant">
+                                                                                    {{ $menu_item->name }}
+                                                                                    <span>
+                                                                                        (+
+                                                                                        {{ number_format($menu_item->add_price) }}
+                                                                                        VND)
+                                                                                    </span>
+                                                                                    <input type="hidden"
+                                                                                        class="value_price"
+                                                                                        value="{{ $menu_item->add_price }}">
+                                                                                </span>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                        @php
+                                                                            $menu_item = App\Models\MenuItem::select('name', 'add_price')
+                                                                                ->where('id', $value)
+                                                                                ->first();
+                                                                        @endphp
+                                                                        @if ($menu_item)
+                                                                            <span class="product__description--variant">
+                                                                                {{ $menu_item->name }}
+                                                                                <span>
+                                                                                    (+
+                                                                                    {{ number_format($menu_item->add_price) }}
+                                                                                    VND)
+                                                                                </span>
+                                                                                <input type="hidden" class="value_price"
+                                                                                    value="{{ $menu_item->add_price }}">
+                                                                            </span>
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                            <div class="product__description">
-                                                <h3 class="product__description--name h4"><a
-                                                        href="product-details.html">Fresh-whole-fish</a></h3>
-                                                <span class="product__description--variant">COLOR: Blue</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__table--body__list">
-                                        <span class="cart__price">£65.00</span>
-                                    </td>
-                                </tr>
-                                <tr class="cart__table--body__items">
-                                    <td class="cart__table--body__list">
-                                        <div class="cart__product d-flex align-items-center">
-                                            <div class="product__thumbnail border-radius-5">
-                                                <a href="product-details.html"><img class="border-radius-5"
-                                                        src="assets/img/product/small-product2.png"
-                                                        alt="cart-product"></a>
-                                                <span class="product__thumbnail--quantity">1</span>
-                                            </div>
-                                            <div class="product__description">
-                                                <h3 class="product__description--name h4"><a
-                                                        href="product-details.html">Vegetable-healthy</a></h3>
-                                                <span class="product__description--variant">COLOR: Green</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__table--body__list">
-                                        <span class="cart__price">£82.00</span>
-                                    </td>
-                                </tr>
-                                <tr class="cart__table--body__items">
-                                    <td class="cart__table--body__list">
-                                        <div class="cart__product d-flex align-items-center">
-                                            <div class="product__thumbnail border-radius-5">
-                                                <a href="product-details.html"><img class="border-radius-5"
-                                                        src="assets/img/product/small-product4.png"
-                                                        alt="cart-product"></a>
-                                                <span class="product__thumbnail--quantity">1</span>
-                                            </div>
-                                            <div class="product__description">
-                                                <h3 class="product__description--name h4"><a
-                                                        href="product-details.html">Raw-onions-surface</a></h3>
-                                                <span class="product__description--variant">COLOR: White</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__table--body__list">
-                                        <span class="cart__price">£78.00</span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="cart__table--body__list">
+                                            <span class="cart__price end">£65.00</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -285,17 +315,19 @@
                             <h2 class="section__header--title h3">Phương thức thanh toán</h2>
                             <p class="section__header--desc">Thông tin thanh toán đều được bảo mật</p>
                         </div>
-                        <div class="checkout__content--step__footer d-flex align-items-center mb-3 justify-content-between">
-                            <a class="continue__shipping--btn btn border-radius-5 pay-off" href="javascript:void(0)">Thanh toán khi nhận hàng</a>
-                            <a class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2" href="javascript:void(0)">Thanh toán online</a>
-                        </div>    
+                        <div
+                            class="checkout__content--step__footer d-flex align-items-center mb-3 justify-content-between">
+                            <a class="continue__shipping--btn btn border-radius-5 pay-off" href="javascript:void(0)">Thanh
+                                toán khi nhận hàng</a>
+                            <a class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2"
+                                href="javascript:void(0)">Thanh toán online</a>
+                        </div>
                         <div class="checkout__content--step__inner3 border-radius-5 d-none checkout-paypal">
                             <div
                                 class="checkout__address--content__header d-flex align-items-center justify-content-between bg__primary">
                                 <span class="checkout__address--content__title">Pay Pal</span>
                                 <span class="heckout__address--content__icon"><img width="20px"
-                                        src="{{ asset('img/paypal_icon.png') }}"
-                                        alt="card"></span>
+                                        src="{{ asset('img/paypal_icon.png') }}" alt="card"></span>
                             </div>
                             <div class="checkout__content--input__box--wrapper ">
                                 <div id="paypal-button-container"></div>

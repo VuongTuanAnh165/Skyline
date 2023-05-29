@@ -171,7 +171,13 @@
         $('.continue__shopping--link').on('click', function() {
             let checkbox_one = $('.checkbox-one');
             if (checkbox_one.filter(":checked").is(":checked")) {
-                console.log(1);
+                detail_order_log_id = [];
+                checkbox_one.filter(":checked").map(function() {
+                    let cart_item = $(this).closest('.cart__table--body__items');
+                    let cart_item_id = cart_item.find('.detail_order_log_id').val();
+                    detail_order_log_id.push(cart_item_id);
+                })
+                window.location.href = `{{route('user.payment')}}?cartId=` + detail_order_log_id.join("-");
             } else {
                 toastr.error('Chưa chọn {{ $title_product }} thanh toán', {
                     timeOut: 5000

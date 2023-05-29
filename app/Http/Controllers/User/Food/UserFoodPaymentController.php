@@ -17,7 +17,7 @@ class UserFoodPaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $url_home = route('user.food.home.index');
         $user = Auth::guard('user')->user();

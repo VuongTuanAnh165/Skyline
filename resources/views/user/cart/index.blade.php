@@ -75,10 +75,11 @@
                                                                 </button>
                                                                 <div class="cart__thumbnail">
                                                                     <a
-                                                                        href="{{ route($url_show, ['id' => $detail_order_log->dish_id, 'name_link' => $detail_order_log->name_link, 'code' => $detail_order_log->id]) }}"><img
-                                                                            class="border-radius-5"
+                                                                        href="{{ route($url_show, ['id' => $detail_order_log->dish_id, 'name_link' => $detail_order_log->name_link, 'code' => $detail_order_log->id]) }}">
+                                                                        <img class="border-radius-5"
                                                                             src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . $detail_order_log->dish_image) : asset('img/background_default.jpg') }}"
-                                                                            alt="cart-product"></a>
+                                                                            alt="cart-product">
+                                                                    </a>
                                                                 </div>
                                                                 <div class="cart__content">
                                                                     <h3 class="cart__content--title h4"><a
