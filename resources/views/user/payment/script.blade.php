@@ -1,4 +1,4 @@
-<script src="https://www.paypal.com/sdk/js?client-id={{$skyline->client_id}}&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ $skyline->client_id }}&currency=USD"></script>
 <script>
     $(document).ready(function() {
         const config = {
@@ -43,7 +43,8 @@
             let btn_save = $(this);
             let btn_edit = $(this).closest('.checkout__review').find(
                 '.checkout__review--link__text.btn-edit');
-            let input_text = $(this).closest('.checkout__review').find('input.checkout__review--content');
+            let input_text = $(this).closest('.checkout__review').find(
+                'input.checkout__review--content');
             let parent = $(this).closest('.checkout__contact--information2');
             let user_name = parent.find('input[name="name"]').val();
             let user_email = parent.find('input[name="email"]').val();
@@ -87,13 +88,12 @@
             cart_table_body_items.each(function() {
                 let total = 0;
                 let value_price = $(this).find('.value_price');
-                console.log(value_price);
                 value_price.each(function() {
                     total += Number($(this).val());
                 });
-                total = total * $(this).find('.quickview__value--number').val()
+                total = total * $(this).find('.quickview__value--number').val();
                 $(this).find('.cart__price.end').text(new Intl.NumberFormat('it-IT', config).format(
-                    total));
+                    total)).attr('data-price', total);
                 let quantity = $(this).find('.quickview__value--number').val();
                 if (quantity <= 1) {
                     $(this).find('.quickview__value--quantity.decrease').prop(
@@ -103,6 +103,25 @@
                         'disabled', false);
                 }
             });
+            let cart_table_body = $(".cart__table--body");
+            cart_table_body.each(function() {
+                let sum_price_restaurant = 0;
+                $(this).find('.cart__price.end').each(function() {
+                    sum_price_restaurant += parseFloat($(this).data('price'));
+                })
+                $(this).find('.sum_total_restaurant').text(new Intl.NumberFormat('it-IT', config)
+                    .format(sum_price_restaurant)).attr('data-price', sum_price_restaurant);
+            })
+            let sum_total_restaurant = $('.sum_total_restaurant');
+            let total_money = 0;
+            sum_total_restaurant.each(function() {
+                total_money += parseFloat($(this).data('price'));
+            })
+            $('.total-money').text(new Intl.NumberFormat('it-IT', config)
+                .format(total_money)).attr('data-price', total_money);
+            let into_money = total_money + parseFloat($('.shipping').data('price'));
+            $('.into-money').text(new Intl.NumberFormat('it-IT', config)
+                .format(into_money)).attr('data-price', into_money);
         };
         total();
 
@@ -123,7 +142,7 @@
                 return fetch('/api/paypal/order/createCeo', {
                     method: 'POST',
                     body: JSON.stringify({
-                        
+
                     })
                 }).then(function(res) {
                     return res.json();

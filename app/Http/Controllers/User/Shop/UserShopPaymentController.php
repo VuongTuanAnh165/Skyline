@@ -4,8 +4,11 @@ namespace App\Http\Controllers\User\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailOrderLog;
+use App\Models\OrderUserLog;
+use App\Models\Promotion;
 use App\Models\Skyline;
 use App\Models\UserAddress;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,16 +25,27 @@ class UserShopPaymentController extends Controller
     {
         if ($request->cartId) {
             $arr_detail_order_log_id = explode('-', $request->cartId);
-            $detail_order_logs = DetailOrderLog::leftJoin('dishes', 'dishes.id', 'detail_order_logs.dish_id')
-                ->select('detail_order_logs.*', 'dishes.id as dish_id', 'dishes.name_link as name_link', 'dishes.name as dish_name', 'dishes.price as dish_price', 'dishes.image as dish_image')
+            $order_user_logs = OrderUserLog::query()
+                ->leftJoin('restaurants', 'restaurants.id', 'order_user_logs.restaurant_id')
+                ->leftJoin('detail_order_logs', 'detail_order_logs.order_id', 'order_user_logs.order_id')
+                ->select(
+                    'order_user_logs.*',
+                    'restaurants.name as restaurant_name',
+                    'restaurants.id as restaurant_id'
+                )
                 ->whereIn('detail_order_logs.id', $arr_detail_order_log_id)
+                ->groupBy('order_user_logs.order_id')
+                ->orderBy('order_user_logs.id')
                 ->get();
-            if (count($detail_order_logs) > 0) {
+            if (count($order_user_logs) > 0) {
                 $url_home = route('user.home.index');
                 $user = Auth::guard('user')->user();
                 $address = UserAddress::where('user_id', $user->id)->get();
                 $skyline = Skyline::first();
-                return view($this->pathView . 'index', compact('url_home', 'address', 'user', 'skyline', 'detail_order_logs'));
+                $today = Carbon::now();
+                $promotion_skylines = Promotion::query()->where('type', Promotion::ADMINRESTAURANT)->get();
+                $title = 'Cửa hàng';
+                return view($this->pathView . 'index', compact('url_home', 'address', 'user', 'skyline', 'order_user_logs', 'today', 'title', 'promotion_skylines'));
             }
             return redirect()->route('user.cart')->with(['error' => 'Không tồn tại sản phẩm trong giỏ hàng']);
         }

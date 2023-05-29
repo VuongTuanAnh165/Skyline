@@ -11,6 +11,10 @@
         .mapboxgl-ctrl-geocoder input[type='text'] {
             padding: 10px 10px 10px 35px;
         }
+
+        .sum_total_restaurant {
+            font-weight: bold;
+        }
     </style>
 @stop
 @section('content')
@@ -183,47 +187,78 @@
                 </div>
                 <aside class="checkout__sidebar sidebar">
                     <div class="cart__table checkout__product--table">
-                        <table class="cart__table--inner">
-                            <tbody class="cart__table--body">
-                                @foreach ($detail_order_logs as $detail_order_log)
+                        @foreach ($order_user_logs as $order_user_log)
+                            <table class="cart__table--inner">
+                                <tbody class="cart__table--body">
                                     <tr class="cart__table--body__items">
-                                        <td class="cart__table--body__list">
-                                            <div class="product__image two  d-flex align-items-center">
-                                                <div class="product__thumbnail border-radius-5">
-                                                    <a href="product-details.html"><img class="border-radius-5"
-                                                            src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . $detail_order_log->dish_image) : asset('img/background_default.jpg') }}"
-                                                            alt="cart-product"></a>
-                                                    <span
-                                                        class="product__thumbnail--quantity">{{ $detail_order_log->quantity }}</span>
-                                                    <input class="quickview__value--number" type="hidden"
-                                                        value="{{ $detail_order_log->quantity }}">
-                                                </div>
-                                                <div class="product__description">
-                                                    <h3 class="product__description--name h4">
-                                                        <a
-                                                            href="product-details.html">{{ $detail_order_log->dish_name }}</a>
-                                                    </h3>
-                                                    <input type="hidden" class="value_price"
-                                                        value="{{ $detail_order_log->dish_price }}">
-                                                    @php
-                                                        $detail_item_logs = \App\Models\DetailItemLog::where('detail_order_log_id', $detail_order_log->id)
-                                                            ->groupBy('item')
-                                                            ->get();
-                                                    @endphp
-                                                    @foreach ($detail_item_logs as $detail_item_log)
-                                                        @if (!empty($detail_item_log->item))
-                                                            @foreach ($detail_item_log->item as $item)
-                                                                @php
-                                                                    $menu = App\Models\Menu::select('name')
-                                                                        ->where('id', $item[0])
-                                                                        ->first();
-                                                                @endphp
-                                                                <div class="cart__price">
-                                                                    <span class="product__description--variant">
-                                                                        {{ $menu->name }}:
-                                                                    </span>
-                                                                    @if (is_array($item[1]))
-                                                                        @foreach ($item[1] as $value)
+                                        <td colspan="2"><b>{{ $order_user_log->restaurant_name }}</b></td>
+                                    </tr>
+                                    @php
+                                        $detail_order_logs = \App\Models\DetailOrderLog::leftJoin('dishes', 'dishes.id', 'detail_order_logs.dish_id')
+                                            ->select('detail_order_logs.*', 'dishes.id as dish_id', 'dishes.name_link as name_link', 'dishes.name as dish_name', 'dishes.price as dish_price', 'dishes.image as dish_image')
+                                            ->where('detail_order_logs.order_id', $order_user_log->order_id)
+                                            ->get();
+                                    @endphp
+                                    @foreach ($detail_order_logs as $detail_order_log)
+                                        <tr class="cart__table--body__items">
+                                            <td class="cart__table--body__list">
+                                                <div class="product__image two  d-flex align-items-center">
+                                                    <div class="product__thumbnail border-radius-5">
+                                                        <a href="product-details.html"><img class="border-radius-5"
+                                                                src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . $detail_order_log->dish_image) : asset('img/background_default.jpg') }}"
+                                                                alt="cart-product"></a>
+                                                        <span
+                                                            class="product__thumbnail--quantity">{{ $detail_order_log->quantity }}</span>
+                                                        <input class="quickview__value--number" type="hidden"
+                                                            value="{{ $detail_order_log->quantity }}">
+                                                    </div>
+                                                    <div class="product__description">
+                                                        <h3 class="product__description--name h4">
+                                                            <a
+                                                                href="product-details.html">{{ $detail_order_log->dish_name }}</a>
+                                                        </h3>
+                                                        <input type="hidden" class="value_price"
+                                                            value="{{ $detail_order_log->dish_price }}">
+                                                        @php
+                                                            $detail_item_logs = \App\Models\DetailItemLog::where('detail_order_log_id', $detail_order_log->id)
+                                                                ->groupBy('item')
+                                                                ->get();
+                                                        @endphp
+                                                        @foreach ($detail_item_logs as $detail_item_log)
+                                                            @if (!empty($detail_item_log->item))
+                                                                @foreach ($detail_item_log->item as $item)
+                                                                    @php
+                                                                        $menu = App\Models\Menu::select('name')
+                                                                            ->where('id', $item[0])
+                                                                            ->first();
+                                                                    @endphp
+                                                                    <div class="cart__price">
+                                                                        <span class="product__description--variant">
+                                                                            {{ $menu->name }}:
+                                                                        </span>
+                                                                        @if (is_array($item[1]))
+                                                                            @foreach ($item[1] as $value)
+                                                                                @php
+                                                                                    $menu_item = App\Models\MenuItem::select('name', 'add_price')
+                                                                                        ->where('id', $value)
+                                                                                        ->first();
+                                                                                @endphp
+                                                                                @if ($menu_item)
+                                                                                    <span
+                                                                                        class="product__description--variant">
+                                                                                        {{ $menu_item->name }}
+                                                                                        <span>
+                                                                                            (+
+                                                                                            {{ number_format($menu_item->add_price) }}
+                                                                                            VND)
+                                                                                        </span>
+                                                                                        <input type="hidden"
+                                                                                            class="value_price"
+                                                                                            value="{{ $menu_item->add_price }}">
+                                                                                    </span>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        @else
                                                                             @php
                                                                                 $menu_item = App\Models\MenuItem::select('name', 'add_price')
                                                                                     ->where('id', $value)
@@ -243,69 +278,95 @@
                                                                                         value="{{ $menu_item->add_price }}">
                                                                                 </span>
                                                                             @endif
-                                                                        @endforeach
-                                                                    @else
-                                                                        @php
-                                                                            $menu_item = App\Models\MenuItem::select('name', 'add_price')
-                                                                                ->where('id', $value)
-                                                                                ->first();
-                                                                        @endphp
-                                                                        @if ($menu_item)
-                                                                            <span class="product__description--variant">
-                                                                                {{ $menu_item->name }}
-                                                                                <span>
-                                                                                    (+
-                                                                                    {{ number_format($menu_item->add_price) }}
-                                                                                    VND)
-                                                                                </span>
-                                                                                <input type="hidden" class="value_price"
-                                                                                    value="{{ $menu_item->add_price }}">
-                                                                            </span>
                                                                         @endif
-                                                                    @endif
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </td>
+                                            <td class="cart__table--body__list">
+                                                <span class="cart__price end"></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @php
+                                        $promotion_restaurants = \App\Models\Promotion::where('restaurant_id', $order_user_log->restaurant_id)
+                                            ->whereDate('started_at', '<=', $today)
+                                            ->whereDate('ended_at', '>=', $today)
+                                            ->get();
+                                    @endphp
+                                    @if (count($promotion_restaurants) > 0)
+                                        <tr class="cart__table--body__items promotion-restaurant">
+                                            <td colspan="2" class="cart__table--body__list checkout__discount--code">
+                                                <form class="d-flex" action="#">
+                                                    <label style="width: 100%;">
+                                                        <select
+                                                            class="checkout__discount--code__input--field border-radius-5">
+                                                            <option value="">Khuyến mãi {{ $title }}</option>
+                                                            @foreach ($promotion_restaurants as $promotion_restaurant)
+                                                                <option value="{{ $promotion_restaurant->id }}">
+                                                                    {{ $promotion_restaurant->name }}
+                                                                    (Giảm {{ $promotion_restaurant->value }} %)
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </label>
+                                                    <button style="min-width: 110px;"
+                                                        class="checkout__discount--code__btn btn border-radius-5"
+                                                        type="button">Áp dụng</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    <tr class="cart__table--body__items">
+                                        <td class="cart__table--body__list text-center">
+                                            <p class="product__description--name h4">Tổng</p>
                                         </td>
-                                        <td class="cart__table--body__list">
-                                            <span class="cart__price end">£65.00</span>
-                                        </td>
+                                        <td class="cart__table--body__list sum_total_restaurant"><span
+                                                class="sum_total_restaurant"></span></td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        @endforeach
                     </div>
-                    <div class="checkout__discount--code">
+                    <div class="checkout__discount--code promotion-skyline">
+                        <h2 class="section__header--title h3 mb-2">Khuyến mãi từ Sky line</h2>
                         <form class="d-flex" action="#">
-                            <label>
-                                <input class="checkout__discount--code__input--field border-radius-5"
-                                    placeholder="Gift card or discount code" type="text">
+                            <label style="width: 100%;">
+                                <select class="checkout__discount--code__input--field border-radius-5">
+                                    @foreach ($promotion_skylines as $promotion_skyline)
+                                        <option value="{{ $promotion_skyline->id }}">
+                                            {{ $promotion_skyline->name }}
+                                            (Giảm {{ number_format($promotion_skyline->value) }} VND)
+                                        </option>
+                                    @endforeach
+                                </select>
                             </label>
-                            <button class="checkout__discount--code__btn btn border-radius-5"
-                                type="submit">Apply</button>
+                            <button style="min-width: 110px;" class="checkout__discount--code__btn btn border-radius-5"
+                                type="button">Áp dụng</button>
                         </form>
                     </div>
                     <div class="checkout__total">
                         <table class="checkout__total--table">
                             <tbody class="checkout__total--body">
                                 <tr class="checkout__total--items">
-                                    <td class="checkout__total--title text-left">Subtotal </td>
-                                    <td class="checkout__total--amount text-right">$860.00</td>
+                                    <td class="checkout__total--title text-left">Tổng tiền </td>
+                                    <td class="checkout__total--amount text-right total-money"></td>
                                 </tr>
                                 <tr class="checkout__total--items">
-                                    <td class="checkout__total--title text-left">Shipping</td>
-                                    <td class="checkout__total--calculated__text text-right">Calculated at next step</td>
+                                    <td class="checkout__total--title text-left">Vận chuyển</td>
+                                    <td class="checkout__total--calculated__text text-right shipping" data-price="30000">
+                                        30.000 VND</td>
                                 </tr>
                             </tbody>
                             <tfoot class="checkout__total--footer">
                                 <tr class="checkout__total--footer__items">
                                     <td class="checkout__total--footer__title checkout__total--footer__list text-left">
-                                        Total </td>
-                                    <td class="checkout__total--footer__amount checkout__total--footer__list text-right">
-                                        $860.00</td>
+                                        Thành tiền </td>
+                                    <td class="checkout__total--footer__amount checkout__total--footer__list text-right into-money">
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
