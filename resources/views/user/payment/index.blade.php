@@ -365,7 +365,7 @@
                                 <tr class="checkout__total--items">
                                     <td class="checkout__total--title text-left">Vận chuyển</td>
                                     <td class="checkout__total--calculated__text text-right shipping" data-price="30000">
-                                        30.000 VND</td>
+                                        +30.000 VND</td>
                                 </tr>
                                 <tr class="checkout__total--items tr-discount-skyline d-none">
                                     <td class="checkout__total--title text-left">Giảm </td>

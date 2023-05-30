@@ -213,34 +213,33 @@
                     '.checkout__discount--code__input--field');
                 if (promotion_restaurant.length > 0) {
                     if (promotion_restaurant.val()) {
-                    //     sum_total_restaurant = check_discount.closest('.cart__table--body').find(
-                    //         '.sum_total_restaurant');
-                    //     let price = parseFloat(sum_total_restaurant.data('price')) - parseFloat(
-                    //         promotion_restaurant.find(":selected").data('value'))
-                    //     sum_total_restaurant.text(new Intl.NumberFormat('it-IT', config)
-                    //         .format(price)).data('price', price);
-                    // } else {
+                        let discount = parseFloat(promotion_restaurant.find(":selected").data('value'))
+                        promotion_restaurant.closest('.cart__table--body').find('.tr-discount')
+                            .removeClass('d-none').find(
+                                '.current__price').text('-' + new Intl.NumberFormat('it-IT', config)
+                                .format(discount)).data('price', discount);
+                    } else {
                         sum_price_restaurant();
                     }
                     total_money();
                     into_money();
                 }
             }
-            // if (check_discount.hasClass('promotion-skyline')) {
-            //     let promotion_skyline = check_discount.find('.checkout__discount--code__input--field');
-            //     if (promotion_skyline.length > 0) {
-            //         if (promotion_skyline.val()) {
-            //             money_total = $('.total-money');
-            //             let price = parseFloat(money_total.data('price')) - parseFloat(promotion_skyline
-            //                 .find(":selected").data('value'))
-            //             money_total.text(new Intl.NumberFormat('it-IT', config)
-            //                 .format(price)).data('price', price);
-            //         } else {
-            //             total_money();
-            //         }
-            //         into_money();
-            //     }
-            // }
+            if (check_discount.hasClass('promotion-skyline')) {
+                let promotion_skyline = check_discount.find('.checkout__discount--code__input--field');
+                if (promotion_skyline.length > 0) {
+                    if (promotion_skyline.val()) {
+                        let discount = parseFloat(promotion_skyline.find(":selected").data('value'))
+                        $('.tr-discount-skyline').removeClass('d-none')
+                            .find(
+                                '.current__price').text('-' + new Intl.NumberFormat('it-IT', config)
+                                .format(discount)).data('price', discount);
+                    } else {
+                        total_money();
+                    }
+                    into_money();
+                }
+            }
         })
 
         $('.pay-onl').on('click', function() {
