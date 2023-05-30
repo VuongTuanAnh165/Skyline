@@ -299,17 +299,17 @@
                                             ->get();
                                     @endphp
                                     @if (count($promotion_restaurants) > 0)
-                                        <tr class="cart__table--body__items promotion-restaurant">
-                                            <td colspan="2" class="cart__table--body__list checkout__discount--code">
+                                        <tr class="cart__table--body__items checkout__discount--code promotion-restaurant">
+                                            <td colspan="2" class="cart__table--body__list">
                                                 <form class="d-flex" action="#">
                                                     <label style="width: 100%;">
                                                         <select
                                                             class="checkout__discount--code__input--field border-radius-5">
                                                             <option value="">Khuyến mãi {{ $title }}</option>
                                                             @foreach ($promotion_restaurants as $promotion_restaurant)
-                                                                <option value="{{ $promotion_restaurant->id }}">
+                                                                <option value="{{ $promotion_restaurant->id }}" data-condition="{{$promotion_restaurant->condition}}" data-value="{{$promotion_restaurant->value}}">
                                                                     {{ $promotion_restaurant->name }}
-                                                                    (Giảm {{ $promotion_restaurant->value }} %)
+                                                                    (Điều kiện {{number_format($promotion_restaurant->condition)}} VND - Giảm {{ $promotion_restaurant->value }} VND)
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -325,8 +325,13 @@
                                         <td class="cart__table--body__list text-center">
                                             <p class="product__description--name h4">Tổng</p>
                                         </td>
-                                        <td class="cart__table--body__list sum_total_restaurant"><span
-                                                class="sum_total_restaurant"></span></td>
+                                        <td class="cart__table--body__list sum_total_restaurant"></td>
+                                    </tr>
+                                    <tr class="cart__table--body__items tr-discount d-none">
+                                        <td class="cart__table--body__list text-center">
+                                            <p class="product__description--name h4">Giảm</p>
+                                        </td>
+                                        <td class="cart__table--body__list current__price"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -337,10 +342,11 @@
                         <form class="d-flex" action="#">
                             <label style="width: 100%;">
                                 <select class="checkout__discount--code__input--field border-radius-5">
+                                    <option value="">Chọn discount</option>
                                     @foreach ($promotion_skylines as $promotion_skyline)
-                                        <option value="{{ $promotion_skyline->id }}">
+                                        <option value="{{ $promotion_skyline->id }}" data-condition="{{$promotion_skyline->condition}}" data-value="{{$promotion_skyline->value}}">
                                             {{ $promotion_skyline->name }}
-                                            (Giảm {{ number_format($promotion_skyline->value) }} VND)
+                                            (Điều kiện {{number_format($promotion_skyline->condition)}} VND - Giảm {{ number_format($promotion_skyline->value) }} VND)
                                         </option>
                                     @endforeach
                                 </select>
@@ -361,12 +367,17 @@
                                     <td class="checkout__total--calculated__text text-right shipping" data-price="30000">
                                         30.000 VND</td>
                                 </tr>
+                                <tr class="checkout__total--items tr-discount-skyline d-none">
+                                    <td class="checkout__total--title text-left">Giảm </td>
+                                    <td class="checkout__total--amount text-right current__price"></td>
+                                </tr>
                             </tbody>
                             <tfoot class="checkout__total--footer">
                                 <tr class="checkout__total--footer__items">
                                     <td class="checkout__total--footer__title checkout__total--footer__list text-left">
                                         Thành tiền </td>
-                                    <td class="checkout__total--footer__amount checkout__total--footer__list text-right into-money">
+                                    <td
+                                        class="checkout__total--footer__amount checkout__total--footer__list text-right into-money">
                                     </td>
                                 </tr>
                             </tfoot>

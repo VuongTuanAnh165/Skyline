@@ -93,7 +93,7 @@
                 });
                 total = total * $(this).find('.quickview__value--number').val();
                 $(this).find('.cart__price.end').text(new Intl.NumberFormat('it-IT', config).format(
-                    total)).attr('data-price', total);
+                    total)).data('price', total);
                 let quantity = $(this).find('.quickview__value--number').val();
                 if (quantity <= 1) {
                     $(this).find('.quickview__value--quantity.decrease').prop(
@@ -103,27 +103,145 @@
                         'disabled', false);
                 }
             });
+        };
+        total();
+
+        function sum_price_restaurant() {
             let cart_table_body = $(".cart__table--body");
             cart_table_body.each(function() {
                 let sum_price_restaurant = 0;
                 $(this).find('.cart__price.end').each(function() {
                     sum_price_restaurant += parseFloat($(this).data('price'));
                 })
+                let promotion_restaurant = $(this).find(
+                    '.promotion-restaurant .checkout__discount--code__input--field');
+                if (promotion_restaurant.length > 0) {
+                    if (promotion_restaurant.val()) {
+                        let discount = parseFloat(promotion_restaurant.find(":selected").data('value'))
+                        promotion_restaurant.closest('.cart__table--body').find('.tr-discount')
+                            .removeClass('d-none').find(
+                                '.current__price').text('-' + new Intl.NumberFormat('it-IT', config)
+                                .format(discount)).data('price', discount);
+                    } else {
+                        promotion_restaurant.closest('.cart__table--body').find('.tr-discount')
+                            .addClass('d-none').find(
+                                '.current__price').text('').data('price', '');
+                    }
+                }
                 $(this).find('.sum_total_restaurant').text(new Intl.NumberFormat('it-IT', config)
-                    .format(sum_price_restaurant)).attr('data-price', sum_price_restaurant);
+                    .format(sum_price_restaurant)).data('price', sum_price_restaurant);
             })
+        }
+        sum_price_restaurant();
+
+        function total_money() {
             let sum_total_restaurant = $('.sum_total_restaurant');
             let total_money = 0;
             sum_total_restaurant.each(function() {
                 total_money += parseFloat($(this).data('price'));
             })
+            let discount_restaurant = $('.tr-discount .current__price');
+            discount_restaurant.each(function() {
+                if ($(this).data('price')) {
+                    total_money -= parseFloat($(this).data('price'));
+                }
+            })
+            let promotion_skyline = $('.promotion-skyline .checkout__discount--code__input--field');
+            if (promotion_skyline.length > 0) {
+                if (promotion_skyline.val()) {
+                    let discount = parseFloat(promotion_skyline.find(":selected").data('value'))
+                    $('.tr-discount-skyline').removeClass('d-none')
+                        .find(
+                            '.current__price').text('-' + new Intl.NumberFormat('it-IT', config)
+                            .format(discount)).data('price', discount);
+                } else {
+                    $('.tr-discount-skyline').addClass('d-none')
+                        .find('.current__price').text('').data('price', '');
+                }
+            }
             $('.total-money').text(new Intl.NumberFormat('it-IT', config)
-                .format(total_money)).attr('data-price', total_money);
-            let into_money = total_money + parseFloat($('.shipping').data('price'));
+                .format(total_money)).data('price', total_money);
+        }
+        total_money();
+
+        function into_money() {
+            let into_money = parseFloat($('.total-money').data('price')) + parseFloat($('.shipping').data(
+                'price'));
+            if ($('.tr-discount-skyline .current__price').data('price')) {
+                into_money -= parseFloat($('.tr-discount-skyline .current__price').data('price'))
+            }
             $('.into-money').text(new Intl.NumberFormat('it-IT', config)
-                .format(into_money)).attr('data-price', into_money);
-        };
-        total();
+                .format(into_money)).data('price', into_money);
+        }
+        into_money();
+
+        function check_promotion_restaurant() {
+            let promotion_restaurant = $('.promotion-restaurant .checkout__discount--code__input--field');
+            promotion_restaurant.each(function() {
+                let sum_total_restaurant = $(this).closest('.cart__table--body').find(
+                    '.sum_total_restaurant').data('price');
+                $(this).find('option').each(function() {
+                    if (parseFloat($(this).data('condition')) > parseFloat(
+                            sum_total_restaurant)) {
+                        $(this).prop('disabled', true);
+                    } else {
+                        $(this).prop('disabled', false);
+                    }
+                })
+            })
+        }
+        check_promotion_restaurant();
+
+        function check_promotion_skyline() {
+            let promotion_skyline = $('.promotion-skyline .checkout__discount--code__input--field');
+            let total_money = $('.total-money').data(
+                'price');
+            promotion_skyline.find('option').each(function() {
+                if (parseFloat($(this).data('condition')) > parseFloat(total_money)) {
+                    $(this).prop('disabled', true);
+                } else {
+                    $(this).prop('disabled', false);
+                }
+            })
+        }
+        check_promotion_skyline();
+
+        $(document).on('click', '.checkout__discount--code__btn', function() {
+            let check_discount = $(this).closest('.checkout__discount--code');
+            if (check_discount.hasClass('promotion-restaurant')) {
+                let promotion_restaurant = check_discount.find(
+                    '.checkout__discount--code__input--field');
+                if (promotion_restaurant.length > 0) {
+                    if (promotion_restaurant.val()) {
+                    //     sum_total_restaurant = check_discount.closest('.cart__table--body').find(
+                    //         '.sum_total_restaurant');
+                    //     let price = parseFloat(sum_total_restaurant.data('price')) - parseFloat(
+                    //         promotion_restaurant.find(":selected").data('value'))
+                    //     sum_total_restaurant.text(new Intl.NumberFormat('it-IT', config)
+                    //         .format(price)).data('price', price);
+                    // } else {
+                        sum_price_restaurant();
+                    }
+                    total_money();
+                    into_money();
+                }
+            }
+            // if (check_discount.hasClass('promotion-skyline')) {
+            //     let promotion_skyline = check_discount.find('.checkout__discount--code__input--field');
+            //     if (promotion_skyline.length > 0) {
+            //         if (promotion_skyline.val()) {
+            //             money_total = $('.total-money');
+            //             let price = parseFloat(money_total.data('price')) - parseFloat(promotion_skyline
+            //                 .find(":selected").data('value'))
+            //             money_total.text(new Intl.NumberFormat('it-IT', config)
+            //                 .format(price)).data('price', price);
+            //         } else {
+            //             total_money();
+            //         }
+            //         into_money();
+            //     }
+            // }
+        })
 
         $('.pay-onl').on('click', function() {
             $('.checkout-paypal').removeClass('d-none');
