@@ -252,6 +252,14 @@
             $('.pay-onl').addClass('bg__primary2').removeClass('bg__primary');
         })
 
+        //validate
+        function validateForm() {
+
+        }
+
+        //Thanh toán off
+    
+
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
             // Call your server to set up the transaction

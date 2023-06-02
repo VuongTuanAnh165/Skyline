@@ -49,7 +49,7 @@
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Tên</label>
-                                        <input class="checkout__review--content" name="name" disabled
+                                        <input class="checkout__review--content" id="user_name" name="name" disabled
                                             value="{{ $user->name }}">
                                     </div>
                                     <div class="checkout__review--link">
@@ -61,7 +61,7 @@
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Email</label>
-                                        <input class="checkout__review--content" name="email" disabled
+                                        <input class="checkout__review--content" id="user_email" name="email" disabled
                                             value="{{ $user->email }}">
                                     </div>
                                     <div class="checkout__review--link">
@@ -73,7 +73,7 @@
                                 <div class="checkout__review d-flex justify-content-between align-items-center">
                                     <div class="checkout__review--inner d-flex align-items-center">
                                         <label class="checkout__review--label">Phone</label>
-                                        <input class="checkout__review--content" name="phone" disabled
+                                        <input class="checkout__review--content" id="user_phone" name="phone" disabled
                                             value="{{ $user->phone }}">
                                     </div>
                                     <div class="checkout__review--link">
@@ -106,7 +106,7 @@
                                                 <div class="checkout__input--list checkout__input--select select">
                                                     <label class="checkout__select--label" for="country">Chọn địa
                                                         chỉ</label>
-                                                    <select class="checkout__input--select__field border-radius-5">
+                                                    <select id="available_address" class="checkout__input--select__field border-radius-5">
                                                         @if (count($address) > 0)
                                                             @foreach ($address as $item)
                                                                 <option data-address="{{ $item->address }}"
