@@ -212,7 +212,7 @@ $src_logo = asset('img/logo.png');
                                 route = route.replace('param_name_link', response.data[x].name_link);
                                 route = route.replace('param_code', response.data[x].id);
                                 let src_img = '';
-                                if (response.data[x].image.length) {
+                                if (!response.data[x].image && response.data[x].image.length) {
                                     src_img = `{{asset('storage/src_img')}}`;
                                     src_img = src_img.replace(src_img, response.data[x].image);
                                 } else {

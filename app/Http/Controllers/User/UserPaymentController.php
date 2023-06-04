@@ -83,6 +83,8 @@ class UserPaymentController extends Controller
                         'restaurant_id' => $data->restaurant_id,
                         'promotion_id' => $promotion_id,
                         'implementation_date' => Carbon::now()->toDateTimeString(),
+                        'user_address_id' => $user_address_id,
+                        'user_id' => $request->user_id,
                         'detail' => $detail,
                     ];
                     DetailOrderLog::whereIn('id', $detail_order_log_id)->delete();
@@ -93,12 +95,10 @@ class UserPaymentController extends Controller
                         OrderUserLog::where('order_id', $cart['order_id'])->delete();
                     }
                     $order_user = OrderUser::create($params);
-                    $url = route('user.my_account.order');
                 }
                 DB::commit();
                 return response()->json([
                     'code' => 200,
-                    'url' => $url,
                 ]);
             } catch (Exception $e) {
                 Log::error('[SellRestaurantEatController][pay] error ' . $e->getMessage());

@@ -253,6 +253,8 @@ class PaypalPaymentController extends Controller
                         'promotion_id' => $promotion_id,
                         'implementation_date' => Carbon::now()->toDateTimeString(),
                         'vendor_order_id' => $payPalLog['vendor_order_id'],
+                        'user_id' => $params['user_id'],
+                        'user_address_id' => $user_address_id,
                         'detail' => $detail,
                     ];
                     DetailOrderLog::whereIn('id', $detail_order_log_id)->delete();

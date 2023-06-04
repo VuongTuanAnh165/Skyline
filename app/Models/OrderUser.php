@@ -62,4 +62,10 @@ class OrderUser extends Model
         9 => 'Đã nhận hàng',
         10 => 'Đơn hàng đã hoàn thành',
     ];
+
+    const STATUS_PAYMENT = [
+        0 => 'Đang chờ thanh toán',
+        1 => 'Đã thanh toán',
+        2 => 'Thanh toán khi nhận hàng'
+    ];
 }

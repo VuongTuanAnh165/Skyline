@@ -41,6 +41,7 @@ class UserShopCartController extends Controller
             ->where('service_types.service_id', 2)
             ->orderBy('dishes.updated_at', 'DESC')
             ->get();
-        return view($this->pathView . 'index', compact('order_user_logs', 'url_home', 'title_product', 'url_show', 'dishes'));
+        $url_payment = 'user.payment';
+        return view($this->pathView . 'index', compact('order_user_logs', 'url_home', 'title_product', 'url_show', 'dishes', 'url_payment'));
     }
 }

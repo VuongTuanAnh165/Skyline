@@ -177,7 +177,7 @@
                     let cart_item_id = cart_item.find('.detail_order_log_id').val();
                     detail_order_log_id.push(cart_item_id);
                 })
-                window.location.href = `{{route('user.payment')}}?cartId=` + detail_order_log_id.join("-");
+                window.location.href = `{{route($url_payment)}}?cartId=` + detail_order_log_id.join("-");
             } else {
                 toastr.error('Chưa chọn {{ $title_product }} thanh toán', {
                     timeOut: 5000

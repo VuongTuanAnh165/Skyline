@@ -44,12 +44,14 @@ use App\Http\Controllers\Sell\SellRestaurantEatController;
 use App\Http\Controllers\User\Food\UserFoodAllProductController;
 use App\Http\Controllers\User\Food\UserFoodCartController;
 use App\Http\Controllers\User\Food\UserFoodHomeController;
+use App\Http\Controllers\User\Food\UserFoodMyAcountController;
 use App\Http\Controllers\User\Food\UserFoodPaymentController;
 use App\Http\Controllers\User\Food\UserFoodProductController;
 use App\Http\Controllers\User\Food\UserFoodRestaurantController;
 use App\Http\Controllers\User\Shop\UserShopCartController;
 use App\Http\Controllers\User\Shop\UserShopAllProductController;
 use App\Http\Controllers\User\Shop\UserShopHomeController;
+use App\Http\Controllers\User\Shop\UserShopMyAcountController;
 use App\Http\Controllers\User\Shop\UserShopPaymentController;
 use App\Http\Controllers\User\Shop\UserShopProductController;
 use App\Http\Controllers\User\Shop\UserShopRestaurantController;
@@ -397,6 +399,9 @@ Route::prefix('food')->group(function () {
     Route::middleware(['user'])->group(function () {
         Route::get('/gio-hang', [UserFoodCartController::class, 'index'])->name('user.food.cart');
         Route::get('/thanh-toan', [UserFoodPaymentController::class, 'index'])->name('user.food.payment');
+        Route::prefix('/tai-khoan-cua-ban')->group(function () {
+            Route::get('/', [UserFoodMyAcountController::class, 'order'])->name('user.food.my_account.order');
+        });
     });
 });
 
@@ -413,6 +418,9 @@ Route::prefix('/shop')->group(function () {
 Route::middleware(['user'])->group(function () {
     Route::get('/gio-hang', [UserShopCartController::class, 'index'])->name('user.cart');
     Route::get('/thanh-toan', [UserShopPaymentController::class, 'index'])->name('user.payment');
+    Route::prefix('/tai-khoan-cua-ban')->group(function () {
+        Route::get('/', [UserShopMyAcountController::class, 'order'])->name('user.my_account.order');
+    });
 });
 
 Route::get('/dang-nhap-dang-ky', [UserAuthController::class, 'index'])->name('user.auth');
@@ -430,9 +438,6 @@ Route::middleware(['user'])->group(function () {
     Route::post('/deleteAllCart', [UserCartController::class, 'deleteAllCart'])->name('user.deleteAllCart');
     Route::post('/updateProfile', [UserAuthController::class, 'updateProfile'])->name('user.updateProfile');
     Route::post('/payment', [UserPaymentController::class, 'payment'])->name('user.payment.post');
-    Route::prefix('/tai-khoan-cua-ban')->group(function () {
-        Route::get('/', [UserMyAcountController::class, 'order'])->name('user.my_account.order');
-    });
 });
 
 Route::get('/nguyen-hai-yen', function () {

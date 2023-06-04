@@ -43,6 +43,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.restaurant.index',
                 'user.food.restaurant.post',
                 'user.food.cart',
+                'user.food.payment',
+                'user.food.my_account.order',
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -77,6 +79,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.restaurant.index',
                 'user.food.restaurant.post',
                 'user.food.cart',
+                'user.food.payment',
+                'user.food.my_account.order',
             );
             $url = [
                 'logo' => asset('img/logo_shop.png'),
@@ -88,6 +92,7 @@ class ComposerUserProvider extends ServiceProvider
                 'service_id' => 2,
                 'order_user_type' => OrderUser::TYPE_SHOP_SHIP,
                 'cart' => route('user.cart'),
+                'myAccount' => route('user.my_account.order'),
             ];
             if (in_array($name, $arr_route_food)) {
                 $url = [
@@ -100,6 +105,7 @@ class ComposerUserProvider extends ServiceProvider
                     'service_id' => 1,
                     'order_user_type' => OrderUser::TYPE_RESTAURANT_SHIP,
                     'cart' => route('user.food.cart'),
+                    'myAccount' => route('user.food.my_account.order'),
                 ];
             }
             $user = Auth::guard('user')->user();
@@ -141,6 +147,8 @@ class ComposerUserProvider extends ServiceProvider
                 'user.food.restaurant.index',
                 'user.food.restaurant.post',
                 'user.food.cart',
+                'user.food.payment',
+                'user.food.my_account.order',
             );
             $url_product = 'user.product.show';
             if (in_array($name, $arr_route_food)) {

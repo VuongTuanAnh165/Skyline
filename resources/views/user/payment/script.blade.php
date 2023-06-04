@@ -402,7 +402,7 @@
                     success: function(response) {
                         if (response.code == 200) {
                             if (!alert('Đặt hàng thành công! Ấn OK để tiếp tục')) {
-                                window.location.href = response.url;
+                                window.location.href = $("#url-my-account").val();
                             }
                         } else {
                             toastr.error('Đặt hàng thất bại', {
@@ -443,7 +443,7 @@
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-                    window.location.href = `{{route('user.my_account.order')}}`;
+                    window.location.href = $("#url-my-account").val();
                 });
             }
 

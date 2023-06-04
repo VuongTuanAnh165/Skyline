@@ -191,7 +191,8 @@
                         @foreach ($order_user_logs as $order_user_log)
                             <table class="cart__table--inner">
                                 <tbody class="cart__table--body">
-                                    <input type="hidden" class="order_user_log_order_id" value="{{ $order_user_log->order_id }}">
+                                    <input type="hidden" class="order_user_log_order_id"
+                                        value="{{ $order_user_log->order_id }}">
                                     <tr class="cart__table--body__items">
                                         <td colspan="2" class="table-restaurant-name">
                                             <b>{{ $order_user_log->restaurant_name }}</b>
@@ -205,7 +206,8 @@
                                             ->get();
                                     @endphp
                                     @foreach ($detail_order_logs as $detail_order_log)
-                                        <input type="hidden" class="detail_order_log_id" value="{{$detail_order_log->id}}">
+                                        <input type="hidden" class="detail_order_log_id"
+                                            value="{{ $detail_order_log->id }}">
                                         <tr class="cart__table--body__items">
                                             <td class="cart__table--body__list">
                                                 <div class="product__image two  d-flex align-items-center">
@@ -407,6 +409,7 @@
                                 hàng</button>
                             <button class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2">Thanh toán
                                 online</button>
+                            <input type="hidden" id="url-my-account" value="{{ $url_account }}">
                         </div>
                         <div class="checkout__content--step__inner3 border-radius-5 d-none checkout-paypal">
                             <div

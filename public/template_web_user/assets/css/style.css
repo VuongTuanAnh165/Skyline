@@ -499,13 +499,14 @@ hr {
 }
 
 .container,
-.container-fluid {
+.container-fluid,
+.container-my-account {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
 }
 
-.container {
+.container, .container-my-account {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
@@ -567,6 +568,9 @@ hr {
 @media only screen and (min-width: 1400px) {
   .container {
     max-width: 1200px;
+  }
+  .container-my-account {
+    max-width: 80%;
   }
 }
 
