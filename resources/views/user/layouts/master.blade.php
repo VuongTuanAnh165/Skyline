@@ -204,7 +204,6 @@ $src_logo = asset('img/logo.png');
                     method: 'POST',
                     success: function(response) {
                         if (response.code == 200) {
-                            console.log(response.data);
                             let html = ``;
                             for (let x in response.data) {
                                 let route = `{{ route($url_product, ['id' => 'param_id', 'name_link' => 'param_name_link', 'code' => 'param_code']) }}`;
@@ -214,7 +213,7 @@ $src_logo = asset('img/logo.png');
                                 let src_img = '';
                                 if (response.data[x].image.length) {
                                     src_img = `{{asset('storage/src_img')}}`;
-                                    src_img = src_img.replace(src_img, response.data[x].image[0]);
+                                    src_img = src_img.replace('src_img', JSON.parse(response.data[x].image)[0]);
                                 } else {
                                     src_img = `{{ asset('img/background_default.jpg') }}`
                                 }

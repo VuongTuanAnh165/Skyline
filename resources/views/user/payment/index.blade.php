@@ -213,7 +213,7 @@
                                                 <div class="product__image two  d-flex align-items-center">
                                                     <div class="product__thumbnail border-radius-5">
                                                         <a href="product-details.html"><img class="border-radius-5"
-                                                                src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . $detail_order_log->dish_image) : asset('img/background_default.jpg') }}"
+                                                                src="{{ !empty($detail_order_log->dish_image) ? asset('storage/' . json_decode($detail_order_log->dish_image, true)[0]) : asset('img/background_default.jpg') }}"
                                                                 alt="cart-product"></a>
                                                         <span
                                                             class="product__thumbnail--quantity">{{ $detail_order_log->quantity }}</span>
