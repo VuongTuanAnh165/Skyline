@@ -55,6 +55,8 @@ use App\Http\Controllers\User\Shop\UserShopProductController;
 use App\Http\Controllers\User\Shop\UserShopRestaurantController;
 use App\Http\Controllers\User\UserAuthController;
 use App\Http\Controllers\User\UserCartController;
+use App\Http\Controllers\User\UserMyAcountController;
+use App\Http\Controllers\User\UserPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -427,6 +429,10 @@ Route::middleware(['user'])->group(function () {
     Route::post('/deleteOneCart', [UserCartController::class, 'deleteOneCart'])->name('user.deleteOneCart');
     Route::post('/deleteAllCart', [UserCartController::class, 'deleteAllCart'])->name('user.deleteAllCart');
     Route::post('/updateProfile', [UserAuthController::class, 'updateProfile'])->name('user.updateProfile');
+    Route::post('/payment', [UserPaymentController::class, 'payment'])->name('user.payment.post');
+    Route::prefix('/tai-khoan-cua-ban')->group(function () {
+        Route::get('/', [UserMyAcountController::class, 'order'])->name('user.my_account.order');
+    });
 });
 
 Route::get('/nguyen-hai-yen', function () {

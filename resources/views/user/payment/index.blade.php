@@ -106,7 +106,8 @@
                                                 <div class="checkout__input--list checkout__input--select select">
                                                     <label class="checkout__select--label" for="country">Chọn địa
                                                         chỉ</label>
-                                                    <select id="available_address" class="checkout__input--select__field border-radius-5">
+                                                    <select id="available_address"
+                                                        class="checkout__input--select__field border-radius-5">
                                                         @if (count($address) > 0)
                                                             @foreach ($address as $item)
                                                                 <option data-address="{{ $item->address }}"
@@ -115,7 +116,7 @@
                                                                     {{ $item->name }}</option>
                                                             @endforeach
                                                         @else
-                                                            <option>Không có</option>
+                                                            <option value="">Không có</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -190,8 +191,11 @@
                         @foreach ($order_user_logs as $order_user_log)
                             <table class="cart__table--inner">
                                 <tbody class="cart__table--body">
+                                    <input type="hidden" class="order_user_log_order_id" value="{{ $order_user_log->order_id }}">
                                     <tr class="cart__table--body__items">
-                                        <td colspan="2"><b>{{ $order_user_log->restaurant_name }}</b></td>
+                                        <td colspan="2" class="table-restaurant-name">
+                                            <b>{{ $order_user_log->restaurant_name }}</b>
+                                        </td>
                                     </tr>
                                     @php
                                         $detail_order_logs = \App\Models\DetailOrderLog::leftJoin('dishes', 'dishes.id', 'detail_order_logs.dish_id')
@@ -201,6 +205,7 @@
                                             ->get();
                                     @endphp
                                     @foreach ($detail_order_logs as $detail_order_log)
+                                        <input type="hidden" class="detail_order_log_id" value="{{$detail_order_log->id}}">
                                         <tr class="cart__table--body__items">
                                             <td class="cart__table--body__list">
                                                 <div class="product__image two  d-flex align-items-center">
@@ -307,9 +312,13 @@
                                                             class="checkout__discount--code__input--field border-radius-5">
                                                             <option value="">Khuyến mãi {{ $title }}</option>
                                                             @foreach ($promotion_restaurants as $promotion_restaurant)
-                                                                <option value="{{ $promotion_restaurant->id }}" data-condition="{{$promotion_restaurant->condition}}" data-value="{{$promotion_restaurant->value}}">
+                                                                <option value="{{ $promotion_restaurant->id }}"
+                                                                    data-condition="{{ $promotion_restaurant->condition }}"
+                                                                    data-value="{{ $promotion_restaurant->value }}">
                                                                     {{ $promotion_restaurant->name }}
-                                                                    (Điều kiện {{number_format($promotion_restaurant->condition)}} VND - Giảm {{ $promotion_restaurant->value }} VND)
+                                                                    (Điều kiện
+                                                                    {{ number_format($promotion_restaurant->condition) }}
+                                                                    VND - Giảm {{ $promotion_restaurant->value }} VND)
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -321,15 +330,50 @@
                                             </td>
                                         </tr>
                                     @endif
+                                    <tr class="cart__table--body__items checkout__discount--code promotion-skyline">
+                                        <td colspan="2" class="cart__table--body__list">
+                                            <form class="d-flex" action="#">
+                                                <label style="width: 100%;">
+                                                    <select class="checkout__discount--code__input--field border-radius-5">
+                                                        <option value="">Khuyến mãi từ Sky line</option>
+                                                        @foreach ($promotion_skylines as $promotion_skyline)
+                                                            <option value="{{ $promotion_skyline->id }}"
+                                                                data-condition="{{ $promotion_skyline->condition }}"
+                                                                data-value="{{ $promotion_skyline->value }}">
+                                                                {{ $promotion_skyline->name }}
+                                                                (Điều kiện
+                                                                {{ number_format($promotion_skyline->condition) }} VND -
+                                                                Giảm {{ $promotion_skyline->value }} VND)
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </label>
+                                                <button style="min-width: 110px;"
+                                                    class="checkout__discount--code__btn btn border-radius-5"
+                                                    type="button">Áp dụng</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     <tr class="cart__table--body__items">
                                         <td class="cart__table--body__list text-center">
                                             <p class="product__description--name h4">Tổng</p>
                                         </td>
                                         <td class="cart__table--body__list sum_total_restaurant"></td>
                                     </tr>
+                                    <tr class="cart__table--body__items">
+                                        <td class="cart__table--body__list text-center">Vận chuyển</td>
+                                        <td class="cart__table--body__list shipping" data-price="30000">
+                                            +30.000 VND</td>
+                                    </tr>
                                     <tr class="cart__table--body__items tr-discount d-none">
                                         <td class="cart__table--body__list text-center">
-                                            <p class="product__description--name h4">Giảm</p>
+                                            <p class="product__description--name h4">Khuyến mãi {{ $title }}</p>
+                                        </td>
+                                        <td class="cart__table--body__list current__price"></td>
+                                    </tr>
+                                    <tr class="cart__table--body__items tr-discount-skyline d-none">
+                                        <td class="cart__table--body__list text-center">
+                                            <p class="product__description--name h4">Khuyến mãi từ Sky line</p>
                                         </td>
                                         <td class="cart__table--body__list current__price"></td>
                                     </tr>
@@ -337,40 +381,9 @@
                             </table>
                         @endforeach
                     </div>
-                    <div class="checkout__discount--code promotion-skyline">
-                        <h2 class="section__header--title h3 mb-2">Khuyến mãi từ Sky line</h2>
-                        <form class="d-flex" action="#">
-                            <label style="width: 100%;">
-                                <select class="checkout__discount--code__input--field border-radius-5">
-                                    <option value="">Chọn discount</option>
-                                    @foreach ($promotion_skylines as $promotion_skyline)
-                                        <option value="{{ $promotion_skyline->id }}" data-condition="{{$promotion_skyline->condition}}" data-value="{{$promotion_skyline->value}}">
-                                            {{ $promotion_skyline->name }}
-                                            (Điều kiện {{number_format($promotion_skyline->condition)}} VND - Giảm {{ number_format($promotion_skyline->value) }} VND)
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </label>
-                            <button style="min-width: 110px;" class="checkout__discount--code__btn btn border-radius-5"
-                                type="button">Áp dụng</button>
-                        </form>
-                    </div>
                     <div class="checkout__total">
                         <table class="checkout__total--table">
                             <tbody class="checkout__total--body">
-                                <tr class="checkout__total--items">
-                                    <td class="checkout__total--title text-left">Tổng tiền </td>
-                                    <td class="checkout__total--amount text-right total-money"></td>
-                                </tr>
-                                <tr class="checkout__total--items">
-                                    <td class="checkout__total--title text-left">Vận chuyển</td>
-                                    <td class="checkout__total--calculated__text text-right shipping" data-price="30000">
-                                        +30.000 VND</td>
-                                </tr>
-                                <tr class="checkout__total--items tr-discount-skyline d-none">
-                                    <td class="checkout__total--title text-left">Giảm </td>
-                                    <td class="checkout__total--amount text-right current__price"></td>
-                                </tr>
                             </tbody>
                             <tfoot class="checkout__total--footer">
                                 <tr class="checkout__total--footer__items">
@@ -390,10 +403,10 @@
                         </div>
                         <div
                             class="checkout__content--step__footer d-flex align-items-center mb-3 justify-content-between">
-                            <a class="continue__shipping--btn btn border-radius-5 pay-off" href="javascript:void(0)">Thanh
-                                toán khi nhận hàng</a>
-                            <a class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2"
-                                href="javascript:void(0)">Thanh toán online</a>
+                            <button class="continue__shipping--btn btn border-radius-5 pay-off">Thanh toán khi nhận
+                                hàng</button>
+                            <button class="continue__shipping--btn btn border-radius-5 pay-onl bg__primary2">Thanh toán
+                                online</button>
                         </div>
                         <div class="checkout__content--step__inner3 border-radius-5 d-none checkout-paypal">
                             <div

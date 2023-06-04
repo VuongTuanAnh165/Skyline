@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'paypal'], function(){
     Route::post('/order/createCeo',[PaypalPaymentController::class,'createCeo']);
     Route::post('/order/captureCeo/',[PaypalPaymentController::class,'captureCeo']);
+    Route::post('/order/createUser',[PaypalPaymentController::class,'createUser']);
+    Route::post('/order/captureUser/',[PaypalPaymentController::class,'captureUser']);
 });
 
 // Routsadasde::middleware('auth:api')->group(function () {

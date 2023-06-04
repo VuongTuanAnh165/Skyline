@@ -82,6 +82,10 @@
   box-shadow: var(--f7-elevation-3) !important;
 }
 
+.err-text {
+  border-color: red !important;
+}
+
 .btn-read-more {
   margin-top: 50px;
   padding: 15px 30px;
