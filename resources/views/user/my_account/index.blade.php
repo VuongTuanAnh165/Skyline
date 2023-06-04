@@ -8,10 +8,10 @@
                 <div class="row row-cols-1">
                     <div class="col">
                         <div class="breadcrumb__content text-center">
-                            <h1 class="breadcrumb__content--title text-white mb-25">Tài khoản của bạn</h1>
+                            <h1 class="breadcrumb__content--title mb-25">Tài khoản của bạn</h1>
                             <ul class="breadcrumb__content--menu d-flex justify-content-center">
                                 <li class="breadcrumb__content--menu__items"><a href="{{ $url_home }}">Trang chủ</a></li>
-                                <li class="breadcrumb__content--menu__items"><span class="text-white">Tài khoản của
+                                <li class="breadcrumb__content--menu__items"><span class="">Tài khoản của
                                         bạn</span></li>
                             </ul>
                         </div>
