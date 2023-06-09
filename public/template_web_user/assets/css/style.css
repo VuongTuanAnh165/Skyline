@@ -12706,15 +12706,15 @@ details>summary::-webkit-details-marker {
   margin-bottom: 1.5rem;
 }
 
-.account__menu--list:last-child {
-  margin-bottom: 0;
-}
-
 .account__menu--list:hover {
-  color: var(--secondary-color);
+  color: var(--secondary-color2);
 }
 
 .account__menu--list.active {
+  color: var(--secondary-color2);
+}
+
+.account__menu_item .account__menu--list_item.active {
   color: var(--secondary-color);
 }
 

@@ -1,7 +1,7 @@
 @extends('user.my_account.index')
 @section('title', 'Đơn hàng của bạn')
 @section('addcss')
-
+    <link rel="stylesheet" href="{{ asset('css/web_user/account.css') }}">
 @stop
 @section('content_my_account')
     <div class="account__wrapper">
@@ -74,4 +74,5 @@
     @if (session('success') || session('error'))
         @include('user.partials.script.toastr')
     @endif
+    <script src="{{ asset('js/web_user/account.js') }}"></script>
 @stop

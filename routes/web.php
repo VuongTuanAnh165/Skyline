@@ -399,7 +399,7 @@ Route::prefix('food')->group(function () {
     Route::middleware(['user'])->group(function () {
         Route::get('/gio-hang', [UserFoodCartController::class, 'index'])->name('user.food.cart');
         Route::get('/thanh-toan', [UserFoodPaymentController::class, 'index'])->name('user.food.payment');
-        Route::prefix('/tai-khoan-cua-ban')->group(function () {
+        Route::prefix('/don-hang')->group(function () {
             Route::get('/', [UserFoodMyAcountController::class, 'order'])->name('user.food.my_account.order');
         });
     });
@@ -418,7 +418,7 @@ Route::prefix('/shop')->group(function () {
 Route::middleware(['user'])->group(function () {
     Route::get('/gio-hang', [UserShopCartController::class, 'index'])->name('user.cart');
     Route::get('/thanh-toan', [UserShopPaymentController::class, 'index'])->name('user.payment');
-    Route::prefix('/tai-khoan-cua-ban')->group(function () {
+    Route::prefix('/don-hang')->group(function () {
         Route::get('/', [UserShopMyAcountController::class, 'order'])->name('user.my_account.order');
     });
 });
