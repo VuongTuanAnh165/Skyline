@@ -5,3 +5,13 @@
 .account__menu--list {
     cursor: auto;
 }
+
+.link_detail_order {
+    color: var(--secondary-color);
+}
+
+.modal.show {
+    z-index: 1060;
+    visibility: visible;
+    opacity: 1;
+}

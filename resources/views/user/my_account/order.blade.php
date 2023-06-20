@@ -21,7 +21,7 @@
                     <tbody class="account__table--body mobile__none">
                         @foreach ($orders as $order)
                             <tr class="account__table--body__child">
-                                <td class="account__table--body__child--items">{{ $order->order_id }}</td>
+                                <td class="account__table--body__child--items"><a data-bs-toggle="modal" data-bs-target="#detailOrderModal" class="link_detail_order" href="javascript:void(0)">{{ $order->order_id }}</a></td>
                                 <td class="account__table--body__child--items">{{ $order->implementation_date }}</td>
                                 <td class="account__table--body__child--items">{{ $status_payment[$order->status_payment] }}
                                 </td>
@@ -32,7 +32,7 @@
                                         @endforeach
                                     </ul>
                                 </td>
-                                <td class="account__table--body__child--items">{{ number_format($order->total_money) }} VND
+                                <td class="account__table--body__child--items"><b>{{ number_format($order->total_money) }} VND</b>
                                 </td>
                             </tr>
                         @endforeach
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+    @include('user.my_account.modal.detail_order')
 @stop
 @section('addjs')
     @if (session('success') || session('error'))
