@@ -439,7 +439,3 @@ Route::middleware(['user'])->group(function () {
     Route::post('/updateProfile', [UserAuthController::class, 'updateProfile'])->name('user.updateProfile');
     Route::post('/payment', [UserPaymentController::class, 'payment'])->name('user.payment.post');
 });
-
-Route::get('/nguyen-hai-yen', function () {
-    return view('welcome');
-});
