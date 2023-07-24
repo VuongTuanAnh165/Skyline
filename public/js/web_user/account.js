@@ -3,7 +3,6 @@ $(document).ready(function() {
         let id = $(this).attr("id");
         console.log(id);
         $(`.menu_item_${id}`).toggle();
-        console.log($(`.menu_item_${id}`).is(':visible'));
         if($(`.menu_item_${id}`).is(':visible')) {
             $(`.account__menu--list`).not('.account__menu--list_item').removeClass('active');
             $(`#${id}`).parent().addClass('active');

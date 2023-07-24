@@ -438,6 +438,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('/deleteAllCart', [UserCartController::class, 'deleteAllCart'])->name('user.deleteAllCart');
     Route::post('/updateProfile', [UserAuthController::class, 'updateProfile'])->name('user.updateProfile');
     Route::post('/payment', [UserPaymentController::class, 'payment'])->name('user.payment.post');
+    Route::post('/get-order-detail', [UserMyAcountController::class, 'getOrderDetail'])->name('user.myAcount.getOrderDetail');
 });
 
 Route::get('/nguyen-hai-yen', function () {

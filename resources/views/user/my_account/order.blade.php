@@ -69,11 +69,13 @@
             </div>
         </div>
     </div>
-    @include('user.my_account.modal.detail_order')
+    <div id="modal-order-detail"></div>
+    {{-- @include('user.my_account.modal.detail_order') --}}
 @stop
 @section('addjs')
     @if (session('success') || session('error'))
         @include('user.partials.script.toastr')
     @endif
     <script src="{{ asset('js/web_user/account.js') }}"></script>
+    @include('user.my_account.script.script_order')
 @stop
