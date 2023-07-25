@@ -22,6 +22,7 @@ class UserFoodMyAcountController extends Controller
         $status = OrderUser::STATUS;
         $status_payment = OrderUser::STATUS_PAYMENT;
         $url_home = route('user.food.home.index');
-        return view($this->pathView.'order', compact('user', 'orders', 'status', 'status_payment', 'url_home'));
+        $url_show = 'user.food.product.show';
+        return view($this->pathView . 'order', compact('user', 'orders', 'status', 'status_payment', 'url_home', 'url_show'));
     }
 }
