@@ -17,9 +17,12 @@ class UserMyAcountController extends Controller
     public function getOrderDetail(Request $request)
     {
         $data = OrderUser::leftJoin('restaurants', 'restaurants.id', 'order_users.restaurant_id')
+            ->leftJoin('branches', 'branches.id', 'order_users.branch_id')
             ->select(
                 'order_users.*',
-                'restaurants.name as restaurant_name'
+                'restaurants.name as restaurant_name',
+                'branches.name as branch_name',
+                'branches.address as branch_address',
             )
             ->where('order_id', $request->order_id)->first();
         $url_show = $request->url_show;

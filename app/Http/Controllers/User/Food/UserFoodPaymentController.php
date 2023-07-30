@@ -26,11 +26,14 @@ class UserFoodPaymentController extends Controller
             $arr_detail_order_log_id = explode('-', $request->cartId);
             $order_user_logs = OrderUserLog::query()
                 ->leftJoin('restaurants', 'restaurants.id', 'order_user_logs.restaurant_id')
+                ->leftJoin('branches', 'branches.id', 'order_user_logs.branch_id')
                 ->leftJoin('detail_order_logs', 'detail_order_logs.order_id', 'order_user_logs.order_id')
                 ->select(
                     'order_user_logs.*',
                     'restaurants.name as restaurant_name',
-                    'restaurants.id as restaurant_id'
+                    'restaurants.id as restaurant_id',
+                    'branches.name as branch_name',
+                    'branches.address as branch_address',
                 )
                 ->whereIn('detail_order_logs.id', $arr_detail_order_log_id)
                 ->groupBy('order_user_logs.order_id')

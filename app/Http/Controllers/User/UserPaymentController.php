@@ -76,6 +76,7 @@ class UserPaymentController extends Controller
                     $promotion_id = explode('-', $cart['promotion_id']);
                     $params = [
                         'order_id' => $order_id,
+                        'branch_id' => $data->branch_id,
                         'total_money' => $cart['total_money'],
                         'status_payment' => OrderUser::UNPAID,
                         'status' => $status,

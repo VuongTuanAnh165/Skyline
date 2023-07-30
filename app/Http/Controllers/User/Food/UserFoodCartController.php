@@ -22,9 +22,12 @@ class UserFoodCartController extends Controller
     {
         $order_user_logs = OrderUserLog::query()
             ->leftJoin('restaurants', 'restaurants.id', 'order_user_logs.restaurant_id')
+            ->leftJoin('branches', 'branches.id', 'order_user_logs.branch_id')
             ->select(
                 'order_user_logs.*',
-                'restaurants.name as restaurant_name'
+                'restaurants.name as restaurant_name',
+                'branches.name as branch_name',
+                'branches.address as branch_address'
             )
             ->where('order_user_logs.type', OrderUser::TYPE_RESTAURANT_SHIP)
             ->where('order_user_logs.user_id', Auth::guard('user')->user()->id)

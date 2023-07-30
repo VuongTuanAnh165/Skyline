@@ -225,6 +225,8 @@
                                                             <a
                                                                 href="product-details.html">{{ $detail_order_log->dish_name }}</a>
                                                         </h3>
+                                                        <span class="product__description--variant">Chi nhánh số: {{ $order_user_log->branch_name }}</span>
+                                                        <span class="product__description--variant">({{ $order_user_log->branch_address }})</span>
                                                         <input type="hidden" class="value_price"
                                                             value="{{ $detail_order_log->dish_price }}">
                                                         @php

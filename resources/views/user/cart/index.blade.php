@@ -90,6 +90,8 @@
                                                                             VND</span></span>
                                                                     <input type="hidden" class="value_price"
                                                                         value="{{ $detail_order_log->dish_price }}">
+                                                                    <span class="cart__content--variant">chi nhánh số: {{ $order_user_log->branch_name }}</span>
+                                                                    <span class="cart__content--variant">địa chỉ: {{ $order_user_log->branch_address }}</span>
                                                                 </div>
                                                             </div>
                                                         </td>

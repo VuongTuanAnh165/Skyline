@@ -15,3 +15,10 @@
     visibility: visible;
     opacity: 1;
 }
+
+@media (min-width: 576px) {
+    #detailOrderModal .modal-dialog {
+        max-width: 50%;
+        min-width: 500px;
+    }
+}

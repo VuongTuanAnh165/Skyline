@@ -113,6 +113,15 @@
                     menu_menu_item.push(menu_item_id);
                     item.push(menu_menu_item);
                 });
+                let branch = $('#branch_id:checked:enabled');
+                if(branch.length <= 0) {
+                    toastr.error('Chi nhánh là bắt buộc!', {
+                        timeOut: 5000
+                    });
+                    check = false;
+                    return false;
+                }
+                let branch_id = branch.val();
                 if (check) {
                     $.ajax({
                         url: `{{ route('user.addCart') }}`,
@@ -125,6 +134,7 @@
                             quantity: quantity,
                             item: item,
                             user_id: user_id,
+                            branch_id: branch_id,
                         },
                         cache: false,
                         method: 'POST',

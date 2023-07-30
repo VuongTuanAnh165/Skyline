@@ -10,12 +10,12 @@ $src_logo = asset('img/logo.png');
 <head>
     <meta charset="utf-8">
     <title>@yield('title')</title>
-    
+
     <meta name="description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
     <meta name="keywords" content="Sky Line, Marvelous, Dịch vụ, Nhà hàng, Shop, Bán hàng, Thương Mại điện tử">
     <meta name="author" content="Sky Line" />
     <link rel="canonical" href="http://skylinevta.click/"/>
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://skylinevta.click/">
@@ -23,7 +23,7 @@ $src_logo = asset('img/logo.png');
     <meta property="og:description" content="Sky Line là nền tảng quản lý và bán hàng đa kênh được sử dụng nhiều nhất Việt Nam với hơn 190,000 khách hàng. Giúp bạn bán hàng từ online đến cửa hàng và quản lý tập trung.">
     <meta property="og:image" content="{{$src_logo}}">
     <meta property="og:image:alt" content="Sky Line">
-    
+
     <!--Open Graph / Twitter -->
     <meta name="twitter:card" content="summary">
     <meta property="twitter:type" content="summary_large_image">
@@ -43,6 +43,8 @@ $src_logo = asset('img/logo.png');
 
     <!-- Plugin css -->
     <link rel="stylesheet" href="{{asset('template_web_user/assets/css/vendor/bootstrap.min.css')}}">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template_web_admin/plugins/toastr/toastr.min.css') }}">
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{asset('template_web_user/assets/css/style.css')}}">

@@ -119,7 +119,7 @@
                             if (response.status == 200) {
                                 var image = $('<img>').attr('src',
                                     `{{ asset('storage/') }}` + "/" + response.url);
-                                $('#summernote').summernote("insertNode", image[0]);
+                                $('#comment').summernote("insertNode", image[0]);
                             }
                         }
                     });

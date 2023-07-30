@@ -56,6 +56,7 @@ class UserCartController extends Controller
                     'user_id' => $request->user_id,
                     'type' => $type,
                     'status_payment' => OrderUser::UNPAID,
+                    'branch_id' => $request->branch_id,
                 ];
                 $order_user_log = OrderUserLog::query()
                     ->where('order_user_logs.user_id', $request->user_id)
