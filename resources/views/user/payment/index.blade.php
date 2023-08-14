@@ -257,11 +257,13 @@
                                                                                     <span
                                                                                         class="product__description--variant">
                                                                                         {{ $menu_item->name }}
-                                                                                        <span>
-                                                                                            (+
-                                                                                            {{ number_format($menu_item->add_price) }}
-                                                                                            VND)
-                                                                                        </span>
+                                                                                        @if ($menu_item->add_price != 0)
+                                                                                            <span>
+                                                                                                (+
+                                                                                                {{ number_format($menu_item->add_price) }}
+                                                                                                VND)
+                                                                                            </span>
+                                                                                        @endif
                                                                                         <input type="hidden"
                                                                                             class="value_price"
                                                                                             value="{{ $menu_item->add_price }}">
@@ -278,11 +280,13 @@
                                                                                 <span
                                                                                     class="product__description--variant">
                                                                                     {{ $menu_item->name }}
-                                                                                    <span>
-                                                                                        (+
-                                                                                        {{ number_format($menu_item->add_price) }}
-                                                                                        VND)
-                                                                                    </span>
+                                                                                    @if ($menu_item->add_price !=0)
+                                                                                        <span>
+                                                                                            (+
+                                                                                            {{ number_format($menu_item->add_price) }}
+                                                                                            VND)
+                                                                                        </span>
+                                                                                    @endif
                                                                                     <input type="hidden"
                                                                                         class="value_price"
                                                                                         value="{{ $menu_item->add_price }}">

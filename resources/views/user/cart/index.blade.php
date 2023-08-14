@@ -90,8 +90,10 @@
                                                                             VND</span></span>
                                                                     <input type="hidden" class="value_price"
                                                                         value="{{ $detail_order_log->dish_price }}">
-                                                                    <span class="cart__content--variant">chi nhánh số: {{ $order_user_log->branch_name }}</span>
-                                                                    <span class="cart__content--variant">địa chỉ: {{ $order_user_log->branch_address }}</span>
+                                                                    <span class="cart__content--variant">chi nhánh số:
+                                                                        {{ $order_user_log->branch_name }}</span>
+                                                                    <span class="cart__content--variant">địa chỉ:
+                                                                        {{ $order_user_log->branch_address }}</span>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -124,12 +126,14 @@
                                                                                             class="cart__content--variant cart__content">
                                                                                             <ul>
                                                                                                 <li>
-                                                                                                    {{ $menu_item->name }}:
-                                                                                                    <span
-                                                                                                        class="cart__price">
-                                                                                                        +
-                                                                                                        {{ number_format($menu_item->add_price) }}
-                                                                                                        VND</span>
+                                                                                                    {{ $menu_item->name }}
+                                                                                                    @if ($menu_item->add_price != 0)
+                                                                                                        :<span
+                                                                                                            class="cart__price">
+                                                                                                            +
+                                                                                                            {{ number_format($menu_item->add_price) }}
+                                                                                                            VND</span>
+                                                                                                    @endif
                                                                                                     <input type="hidden"
                                                                                                         class="value_price"
                                                                                                         value="{{ $menu_item->add_price }}">
@@ -153,10 +157,12 @@
                                                                                         class="cart__content--variant cart__content">
                                                                                         <ul>
                                                                                             <li>
-                                                                                                {{ $menu_item->name }}:
-                                                                                                <span class="cart__price"> +
-                                                                                                    {{ number_format($menu_item->add_price) }}
-                                                                                                    VND</span>
+                                                                                                {{ $menu_item->name }}
+                                                                                                @if ($menu_item->add_price != 0)
+                                                                                                    :<span class="cart__price"> +
+                                                                                                        {{ number_format($menu_item->add_price) }}
+                                                                                                        VND</span>
+                                                                                                @endif
                                                                                                 <input type="hidden"
                                                                                                     class="value_price"
                                                                                                     value="{{ $menu_item->add_price }}">

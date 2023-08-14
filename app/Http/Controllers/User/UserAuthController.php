@@ -47,10 +47,10 @@ class UserAuthController extends Controller
     public function login(UserLoginRequest $request)
     {
         try {
-            $credentials = $request->only([
-                'email_login',
-                'password_login'
-            ]);
+            $credentials = [
+                'email' => $request->input('email_login'),
+                'password' => $request->input('password_login'),
+            ];
             if (!Auth::guard('user')->attempt($credentials)) {
                 $guard = null;
             } else {
