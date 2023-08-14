@@ -48,15 +48,15 @@ class UserAuthController extends Controller
     {
         try {
             $credentials = $request->only([
-                'email',
-                'password'
+                'email_login',
+                'password_login'
             ]);
             if (!Auth::guard('user')->attempt($credentials)) {
                 $guard = null;
             } else {
                 DB::beginTransaction();
                 $request->session()->regenerate();
-                $email = $request->input('email');
+                $email = $request->input('email_login');
                 $guard = User::where('email', $email)->select('*')->first();
                 if ($request->input('device')) {
                     $userDevice = UserDevice::firstOrCreate(
