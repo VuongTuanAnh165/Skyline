@@ -249,6 +249,7 @@
                                                     <input id="branch_id"
                                                            name="branch_id"
                                                            type="radio"
+                                                           data-add_price="0"
                                                            value="{{ $branch->id }}"
                                                             {{ $branch_id && $branch_id == $branch->id ? 'checked' : '' }}>
                                                     <label class="variant__size--value red variant__size_branch"
